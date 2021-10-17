@@ -26,7 +26,6 @@ export default {
   }
 
   nav .d-flex a {
-    display: block;
     position: relative;
     margin-left: 20px;
     border-bottom: 2px solid rgba(0, 0, 0, 0);
