@@ -1,10 +1,10 @@
 <template>
-  <h1>Keyboards</h1>
+  <h1>footer</h1>
 </template>
 
 <script>
 export default {
-  name: 'KeyboardsPage'
+  name: 'Footer'
 }
 </script>
 
