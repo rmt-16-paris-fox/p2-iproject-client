@@ -15,6 +15,16 @@ export default {
   created () {
     if (localStorage.getItem('access_token')) {
       this.$store.commit('SET_IS_LOGGED_IN', true)
+      this.$store.dispatch('getCredentials')
+        .then((data) => {
+          if (data.role === 'Administrator') {
+            this.$store.commit('SET_IS_ADMIN', true)
+          } else {
+            this.$store.commit('SET_IS_ADMIN', false)
+          }
+        }).catch((err) => {
+          console.log(err)
+        })
     } else {
       this.$store.commit('SET_IS_LOGGED_IN', false)
     }

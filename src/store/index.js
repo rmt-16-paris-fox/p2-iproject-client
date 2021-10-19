@@ -7,11 +7,15 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    isLoggedIn: false
+    isLoggedIn: false,
+    isAdmin: false
   },
   mutations: {
     SET_IS_LOGGED_IN (state, payload = false) {
       state.isLoggedIn = payload
+    },
+    SET_IS_ADMIN (state, payload = false) {
+      state.isAdmin = payload
     }
   },
   actions: {
@@ -40,6 +44,34 @@ export default new Vuex.Store({
             resolve(data)
           }).catch((err) => {
             reject(err.response.data)
+          })
+      })
+    },
+    getCredentials () {
+      return new Promise((resolve, reject) => {
+        axios({
+          method: 'GET',
+          url: '/public/user',
+          headers: { access_token: localStorage.getItem('access_token') }
+        })
+          .then(({ data }) => {
+            resolve(data)
+          }).catch((err) => {
+            reject(err)
+          })
+      })
+    },
+    googleLogin (context, idToken) {
+      return new Promise((resolve, reject) => {
+        axios({
+          method: 'POST',
+          url: '/public/login-google',
+          data: { google_token: idToken }
+        })
+          .then(({ data }) => {
+            resolve(data)
+          }).catch((err) => {
+            reject(err)
           })
       })
     }
