@@ -1,6 +1,5 @@
 <template>
   <section id="HomePage" class="d-flex flex-column align-items-center justify-content-center">
-    <!-- <img src="@/assets/bg1.jpg" alt="bg1" width="500px"> -->
     <h1 data-aos="fade-up" data-aos-duration="600">Hi, I'm Matthew</h1>
     <h4 class="mb-5" data-aos="fade-up" data-aos-duration="600">and I build keyboards</h4>
     <router-link to="/order" class="mt-5 px-5 py-3" data-aos="fade-up" data-aos-duration="600" data-aos-delay="300">Order Now!</router-link>
