@@ -1,45 +1,71 @@
 <template>
-<div>
+  <div>
+    <navbar></navbar>
+    <h1>Home Page</h1>
+    <div class="card">
+      <div class="card-body">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+            <th>Home Team</th>
+            <th>Away Team</th>
+            <th>League Name</th>
+            <th>Date</th>
+            <th>Action</th>
+          </tr>
+          </thead>
+          <tbody>
+            <tableRow
+            v-for="post in posts"
+            :key="post.id"
+            :post="post"
+            @handleWatchlist="handleWatchlist"
+          ></tableRow>
+          </tbody>
 
-  <h1>Home Page</h1>
-
-</div>
-
+        </table>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
-
+import tableRow from '../components/tableRow.vue'
+import navbar from '../components/navbar.vue'
 export default {
   name: 'homePage',
   data () {
-    return {
-      categoryId: '',
-      title: ''
-    }
+    return {}
   },
   methods: {
-
+    handleWatchlist (payload) {
+      this.$store
+        .dispatch('handleWatchlist', payload)
+        .then((resp) => {
+          console.log(resp, 'sukses add watchlist')
+        })
+        .catch((err) => {
+          console.log(err, 'err add watchlist')
+        })
+    }
   },
   components: {
+    tableRow,
+    navbar
   },
   created () {
     // manggil fungsi get data home dari store
     // manggil data dari state
     // baru tampilin data
-
+    this.$store.dispatch('getHomeData')
   },
   computed: {
-
+    posts: function () {
+      return this.$store.state.homeDatas
+    }
   }
 }
 </script>
 
 <style>
-.pagin {
-    height: 20vh;
-    display: flex;
-    flex-direction: row;
-    justify-content:center;
-    align-items: center;
-}
 </style>

@@ -57,14 +57,14 @@ export default {
         .then((resp) => {
           // console.log(resp.data.access_token, 'data balikan login dari server')
           localStorage.setItem('access_token', resp.data.access_token)
-          this.$router.push('/')
+          this.$router.push({ name: 'homePage' })
         })
         .catch(err => {
-          // console.log(err, 'err data balikan login dari server')
-          this.$toast.open({
-            message: err.response.data.msg,
-            type: 'error'
-          })
+          console.log(err, 'err data balikan login dari server')
+          // this.$toast.open({
+          //   message: err.response.data.msg,
+          //   type: 'error'
+          // })
         })
     },
     toRegisPage () {

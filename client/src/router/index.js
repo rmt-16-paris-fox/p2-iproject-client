@@ -4,6 +4,7 @@ import Login from '../views/login.vue'
 import Register from '../views/register.vue'
 import homePage from '../views/homePage.vue'
 import watchlistPage from '../views/watchlistPage.vue'
+import detailPage from '../views/detailPage'
 
 Vue.use(VueRouter)
 
@@ -27,6 +28,11 @@ const routes = [
     path: '/watchlistPage',
     name: 'watchlistPage',
     component: watchlistPage
+  },
+  {
+    path: '/detailPage/:id',
+    name: 'detailPage',
+    component: detailPage
   }
 ]
 
