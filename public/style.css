@@ -21,6 +21,10 @@ h3 {
 	font-family: 'Tinos', serif;
 }
 
+.swal2-title {
+	font-family: 'Poppins', sans-serif;
+}
+
 a {
 	text-decoration: none;
 	color: #fdf9f1;
