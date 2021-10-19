@@ -2,7 +2,11 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Home from '../views/Home.vue';
 import Login from '../views/Login.vue';
+import Register from '../views/Register.vue';
 import GoogleBooksList from '../views/GoogleBooksList.vue';
+import BookDetail from '../views/BookDetail.vue';
+import GoogleBookDetail from '../views/GoogleBookDetail.vue';
+import AddReview from '../views/AddReview.vue';
 
 Vue.use(VueRouter);
 
@@ -26,9 +30,36 @@ const routes = [
     component: Login,
   },
   {
+    path: '/register',
+    name: 'Register',
+    component: Register,
+  },
+  {
     path: '/google-books',
     name: 'GoogleBooks',
     component: GoogleBooksList,
+  },
+  {
+    path: '/book/:volumeId',
+    name: 'BookDetail',
+    component: BookDetail,
+  },
+  {
+    path: '/add-review/:bookId',
+    name: 'AddReview',
+    component: AddReview,
+    beforeEnter: (to, from, next) => {
+      if (localStorage.getItem('accessToken')) {
+        next();
+      } else {
+        next('/login');
+      }
+    },
+  },
+  {
+    path: '/google-book/:volumeId',
+    name: 'GoogleBookDetail',
+    component: GoogleBookDetail,
   },
 ];
 

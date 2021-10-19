@@ -9,6 +9,7 @@ export default new Vuex.Store({
   state: {
     books: [],
     googleBooks: [],
+    resultEmpty: false,
   },
   mutations: {
     SET_BOOKS(state, payload) {
@@ -17,8 +18,25 @@ export default new Vuex.Store({
     SET_GOOGLE_BOOKS(state, payload) {
       state.googleBooks = payload;
     },
+    SET_RESULT_EMPTY(state, payload) {
+      state.resultEmpty = payload;
+    },
   },
   actions: {
+    login(context, payload) {
+      return axios({
+        url: '/login',
+        method: 'POST',
+        data: payload,
+      });
+    },
+    register(context, payload) {
+      return axios({
+        url: '/register',
+        method: 'POST',
+        data: payload,
+      });
+    },
     fetchBooks(context, payload) {
       console.log(payload);
       axios({
@@ -28,6 +46,12 @@ export default new Vuex.Store({
       })
         .then((books) => {
           console.log(books.data);
+          if (books.data.totalItems === 0) {
+            context.commit('SET_RESULT_EMPTY', true);
+          } else {
+            context.commit('SET_RESULT_EMPTY', false);
+          }
+
           context.commit('SET_BOOKS', books.data);
         })
         .catch((err) => {
@@ -51,7 +75,46 @@ export default new Vuex.Store({
           console.log(err.response.data);
         });
     },
+    addNewBook(context, payload) {
+      return axios({
+        url: '/books',
+        method: 'POST',
+        data: payload,
+      });
+    },
+    fetchBookById(context, payload) {
+      return axios({
+        url: `/books/${payload.volumeId}`,
+        method: 'POST',
+        data: {
+          volumeId: payload.volumeId,
+        },
+      });
+    },
+    fetchBookByVolumeId(context, payload) {
+      return axios({
+        url: '/google-books-by-id',
+        method: 'POST',
+        data: payload,
+      });
+    },
+    addNewReview(context, payload) {
+      return axios({
+        url: '/reviews',
+        method: 'POST',
+        data: payload,
+        headers: {
+          access_token: localStorage.getItem('accessToken'),
+        },
+      });
+    },
+    generateQRCode(context, payload) {
+      console.log(payload);
+      return axios({
+        method: 'GET',
+        url: `https://api.shrtco.de/v2/shorten?url=${payload.url}`,
+      });
+    },
   },
-  modules: {
-  },
+  modules: {},
 });

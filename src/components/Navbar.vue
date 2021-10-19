@@ -1,7 +1,9 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Navbar</a>
+    <a class="navbar-brand" href="#">
+      <i class="fas fa-book-open"></i>
+    </a>
     <button
     class="navbar-toggler"
     type="button"
@@ -30,8 +32,22 @@
           </router-link>
         </li>
 
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Login</a>
+        <li class="nav-item"
+        v-if="isLoggedIn === false"
+        >
+          <router-link to="/login"
+          class="nav-link active" aria-current="page"
+          >
+            Login
+          </router-link>
+        </li>
+
+        <li class="nav-item"
+        v-if="isLoggedIn"
+        >
+          <a class="nav-link active" aria-current="page" href="#"
+          v-on:click.prevent="logout"
+          >Logout</a>
         </li>
       </ul>
     </div>
@@ -41,7 +57,25 @@
 
 <script>
 export default {
+  data() {
+    return {
+      isLoggedIn: false,
+    };
+  },
+  methods: {
+    logout() {
+      localStorage.removeItem('accessToken');
 
+      this.$router.push('/');
+    },
+  },
+  created() {
+    if (localStorage.getItem('accessToken')) {
+      this.isLoggedIn = true;
+    } else {
+      this.isLoggedIn = false;
+    }
+  },
 };
 </script>
 

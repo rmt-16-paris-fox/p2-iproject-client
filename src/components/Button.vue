@@ -2,6 +2,7 @@
   <button
     v-bind:class="buttonClass"
     v-bind:buttonType="buttonType"
+    v-on:click="handleClick"
   >
     {{ buttonLabel }}
   </button>
@@ -18,6 +19,11 @@ export default {
     },
     buttonType: {
       type: String,
+    },
+  },
+  methods: {
+    handleClick() {
+      this.$emit('handle-click');
     },
   },
 };
