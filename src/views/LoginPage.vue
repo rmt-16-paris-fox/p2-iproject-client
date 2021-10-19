@@ -4,14 +4,14 @@
       <form @submit.prevent="login">
         <h1 class="mb-4">Log In</h1>
         <label>E-mail</label>
-        <input type="email" name="email" class="form-control mt-1 mb-3" v-model="email">
+        <input type="email" class="form-control mt-1 mb-3" v-model="email">
         <label>Password</label>
         <input type="password" name="password" class="form-control mt-1 mb-5" v-model="password">
 
-        <input type="submit" name="email" class="form-control mt-3 py-2 btn-secondary" value="Log In">
+        <input type="submit" class="form-control mt-3 py-2 btn-secondary" value="Log In">
         <small class="d-block text-muted text-center my-2">or</small>
         <!-- google button -->
-        <input type="submit" name="email" class="form-control py-2 btn-secondary" value="Log In">
+        <input type="submit" class="form-control py-2 btn-secondary" value="Log In">
 
         <small class="d-block text-muted text-center mt-4">Don't have an account? Register <router-link to="/register" class="text-primary">here</router-link> </small>
       </form>
@@ -44,7 +44,6 @@ export default {
           alertSuccess('Welcome!')
           this.$router.push('/profile')
         }).catch((err) => {
-          console.log(err)
           alertError(err.message)
         })
     }

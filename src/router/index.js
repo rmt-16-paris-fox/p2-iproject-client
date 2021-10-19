@@ -32,7 +32,14 @@ const routes = [
   {
     path: '/register',
     name: 'RegisterPage',
-    component: RegisterPage
+    component: RegisterPage,
+    beforeEnter: function (to, from, next) {
+      if (localStorage.getItem('access_token')) {
+        next({ path: '/' })
+      } else {
+        next()
+      }
+    }
   },
   {
     path: '/about',
