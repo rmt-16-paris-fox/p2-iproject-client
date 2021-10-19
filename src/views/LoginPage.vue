@@ -11,7 +11,7 @@
         <input type="submit" class="form-control mt-3 py-2 btn-secondary" value="Log In">
         <small class="d-block text-muted text-center my-2">or</small>
         <!-- google button -->
-        <input type="submit" class="form-control py-2 btn-secondary" value="Log In">
+        <GoogleButton></GoogleButton>
 
         <small class="d-block text-muted text-center mt-4">Don't have an account? Register <router-link to="/register" class="text-primary">here</router-link> </small>
       </form>
@@ -20,6 +20,7 @@
 </template>
 
 <script>
+import GoogleButton from '@/components/GoogleButton.vue'
 import { alertSuccess, alertError } from '@/apis/swal.js'
 
 export default {
@@ -41,12 +42,15 @@ export default {
         .then((data) => {
           localStorage.setItem('access_token', data.access_token)
           this.$store.commit('SET_IS_LOGGED_IN', true)
-          alertSuccess('Welcome!')
           this.$router.push('/profile')
+          alertSuccess('Welcome!')
         }).catch((err) => {
           alertError(err.message)
         })
     }
+  },
+  components: {
+    GoogleButton
   }
 }
 </script>

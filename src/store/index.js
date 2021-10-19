@@ -42,6 +42,20 @@ export default new Vuex.Store({
             reject(err.response.data)
           })
       })
+    },
+    googleLogin (context, idToken) {
+      return new Promise((resolve, reject) => {
+        axios({
+          method: 'POST',
+          url: '/public/login-google',
+          data: { google_token: idToken }
+        })
+          .then(({ data }) => {
+            resolve(data)
+          }).catch((err) => {
+            reject(err)
+          })
+      })
     }
   },
   modules: {
