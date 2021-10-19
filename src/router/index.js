@@ -68,14 +68,7 @@ const routes = [
   {
     path: '/order',
     name: 'OrderPage',
-    component: OrderPage,
-    beforeEnter: function (to, from, next) {
-      if (store.state.isLoggedIn === false) {
-        next('/login')
-      } else {
-        next()
-      }
-    }
+    component: OrderPage
   },
   {
     path: '/admin',

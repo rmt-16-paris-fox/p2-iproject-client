@@ -8,7 +8,7 @@
       <router-link to="/"><h6>home</h6></router-link>
       <router-link to="/keyboards"><h6>keyboards</h6></router-link>
       <router-link to="/about"><h6>about</h6></router-link>
-      <router-link to="/order"><h6>order</h6></router-link>
+      <router-link to="/order"><h6>services</h6></router-link>
       <router-link to="/profile" v-if="isLoggedIn"><h6>profile</h6></router-link>
       <router-link to="/admin" v-if="isLoggedIn && isAdmin"><h6>admin</h6></router-link>
       <router-link to="/login" v-if="!isLoggedIn"><h6>log in</h6></router-link>

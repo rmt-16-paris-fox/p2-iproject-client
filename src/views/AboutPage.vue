@@ -11,7 +11,7 @@
           I'm 21 years old and I'm from Indonesia 🇮🇩 <br>
           I like to build stuff, and one of them is custom mechanical keyboard. <br>
           I do offer keyboard build service (for Indonesia only) <br>
-          For further information, please click <router-link to="/contact">here</router-link>.<br>
+          For further information about the keyboard build service, please click <router-link to="/order">here</router-link>.<br>
         </p>
       </div>
     </div>

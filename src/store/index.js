@@ -102,6 +102,21 @@ export default new Vuex.Store({
             reject(err.response.data)
           })
       })
+    },
+    order (context, payload) {
+      return new Promise((resolve, reject) => {
+        axios({
+          method: 'POST',
+          url: '/public/keyboards',
+          headers: { access_token: localStorage.getItem('access_token') },
+          data: payload
+        })
+          .then(({ data }) => {
+            resolve(data)
+          }).catch((err) => {
+            reject(err.response.data)
+          })
+      })
     }
   },
   modules: {
