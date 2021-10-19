@@ -89,6 +89,19 @@ export default new Vuex.Store({
             reject(err.response.data)
           })
       })
+    },
+    fetchVideos () {
+      return new Promise((resolve, reject) => {
+        axios({
+          method: 'GET',
+          url: '/public/videos'
+        })
+          .then(({ data }) => {
+            resolve(data)
+          }).catch((err) => {
+            reject(err.response.data)
+          })
+      })
     }
   },
   modules: {
