@@ -6,17 +6,36 @@
     </div>
     <div class="d-flex">
       <router-link to="/"><h6>home</h6></router-link>
-      <router-link to="/about"><h6>about</h6></router-link>
       <router-link to="/keyboards"><h6>keyboards</h6></router-link>
+      <router-link to="/about"><h6>about</h6></router-link>
       <router-link to="/contact"><h6>contact</h6></router-link>
-      <router-link to="/login"><h6>log in</h6></router-link>
+      <router-link to="/profile" v-if="isLoggedIn"><h6>profile</h6></router-link>
+      <router-link to="/login" v-if="!isLoggedIn"><h6>log in</h6></router-link>
+      <a @click.prevent="logout" v-if="isLoggedIn"><h6>log out</h6></a>
     </div>
   </nav>
 </template>
 
 <script>
+import { alertSuccess } from '@/apis/swal.js'
+
 export default {
-  name: 'NavBar'
+  name: 'NavBar',
+  methods: {
+    logout () {
+      this.$store.commit('SET_IS_LOGGED_IN', false)
+      localStorage.removeItem('access_token')
+      if (this.$router.currentRoute.path !== '/') {
+        this.$router.push('/')
+      }
+      alertSuccess('See you again!')
+    }
+  },
+  computed: {
+    isLoggedIn () {
+      return this.$store.state.isLoggedIn
+    }
+  }
 }
 </script>
 

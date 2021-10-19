@@ -20,7 +20,14 @@ const routes = [
   {
     path: '/login',
     name: 'LoginPage',
-    component: LoginPage
+    component: LoginPage,
+    beforeEnter: function (to, from, next) {
+      if (localStorage.getItem('access_token')) {
+        next({ path: '/' })
+      } else {
+        next()
+      }
+    }
   },
   {
     path: '/register',

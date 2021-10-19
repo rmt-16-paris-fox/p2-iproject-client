@@ -24,10 +24,6 @@ export default {
     color: #fdf9f1;
   }
 
-  footer div span {
-    letter-spacing: 2px;
-  }
-
   footer i {
     padding-bottom: 5px;
     margin-right: 20px;
