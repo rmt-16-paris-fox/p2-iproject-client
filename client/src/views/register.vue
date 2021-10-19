@@ -11,12 +11,6 @@
                             <label>Password</label>
                             <input type="password"  class="form-control  mb-2" v-model="passwordRegister">
 
-                            <label>Phone Number</label>
-                            <input type="number" class="form-control mb-2" v-model="phoneRegister">
-
-                            <label>Address</label>
-                            <textarea class="form-control mb-2" v-model="addressRegister" cols="20" rows="5"></textarea>
-
                             <div class="d-grid gap-2">
                                 <buttonClick label="Register" btnColor="btn btn-primary my-2 btn-block" btnType="button" @handleClick="handleRegister" ></buttonClick>
                             </div>
