@@ -8,6 +8,7 @@ import AboutPage from '@/views/AboutPage.vue'
 import KeyboardsPage from '@/views/KeyboardsPage.vue'
 import ContactPage from '@/views/ContactPage.vue'
 import AdminPage from '@/views/AdminPage.vue'
+import store from '@/store'
 
 Vue.use(VueRouter)
 
@@ -59,7 +60,14 @@ const routes = [
   {
     path: '/admin',
     name: 'AdminPage',
-    component: AdminPage
+    component: AdminPage,
+    beforeEnter: function (to, from, next) {
+      if (!store.state.isAdmin) {
+        next('/')
+      } else {
+        next()
+      }
+    }
   }
 ]
 

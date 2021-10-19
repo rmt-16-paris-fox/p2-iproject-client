@@ -27,6 +27,11 @@ export default {
         .then((data) => {
           localStorage.setItem('access_token', data.access_token)
           this.$store.commit('SET_IS_LOGGED_IN', true)
+          if (data.role === 'Administrator') {
+            this.$store.commit('SET_IS_ADMIN', true)
+          } else {
+            this.$store.commit('SET_IS_ADMIN', false)
+          }
           this.$router.push('/profile')
           alertSuccess('Welcome to Health Supply!')
         }).catch((err) => {

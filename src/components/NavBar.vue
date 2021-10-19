@@ -10,6 +10,7 @@
       <router-link to="/about"><h6>about</h6></router-link>
       <router-link to="/contact"><h6>contact</h6></router-link>
       <router-link to="/profile" v-if="isLoggedIn"><h6>profile</h6></router-link>
+      <router-link to="/admin" v-if="isLoggedIn && isAdmin"><h6>admin</h6></router-link>
       <router-link to="/login" v-if="!isLoggedIn"><h6>log in</h6></router-link>
       <a @click.prevent="logout" v-if="isLoggedIn"><h6>log out</h6></a>
     </div>
@@ -24,6 +25,7 @@ export default {
   methods: {
     logout () {
       this.$store.commit('SET_IS_LOGGED_IN', false)
+      this.$store.commit('SET_IS_ADMIN', false)
       localStorage.removeItem('access_token')
       if (this.$router.currentRoute.path !== '/') {
         this.$router.push('/')
@@ -34,6 +36,9 @@ export default {
   computed: {
     isLoggedIn () {
       return this.$store.state.isLoggedIn
+    },
+    isAdmin () {
+      return this.$store.state.isAdmin
     }
   }
 }

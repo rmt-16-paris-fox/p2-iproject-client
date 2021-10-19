@@ -41,6 +41,11 @@ export default {
       this.$store.dispatch('login', payload)
         .then((data) => {
           localStorage.setItem('access_token', data.access_token)
+          if (data.role === 'Administrator') {
+            this.$store.commit('SET_IS_ADMIN', true)
+          } else {
+            this.$store.commit('SET_IS_ADMIN', false)
+          }
           this.$store.commit('SET_IS_LOGGED_IN', true)
           this.$router.push('/profile')
           alertSuccess('Welcome!')
