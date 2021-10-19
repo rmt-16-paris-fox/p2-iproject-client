@@ -2,19 +2,21 @@
   <section id="OrderPage">
     <div class="row">
       <div class="col-6 py-5" data-aos="fade-right" data-aos-duration="600">
-        <h1 class="pt-3">details</h1>
+        <h1 class="pt-1">details</h1>
         <p>
           <ul>
-            <li>Build service are currently available for Indonesian citizens only (subject to change)</li>
-            <li>Client must provide all parts for the build Standard build requires: case, PCB, plate, switches, stabilizers, keycaps, and cable</li>
-            <li>Client must pay for shipping both ways (client to builder and vice versa)</li>
-            <li>Build service includes: assembly/disassembly, soldering, and stabilizers lubing/tuning</li>
-            <li>Desoldering service is available with additonal fee</li>
-            <li>Switch lubing service is currently not available (subject to change)</li>
-            <li>Build fee depends on the layout of the keyboard, PM for details</li>
+            <li class="mb-2">Build service are currently available for Indonesian citizens only (subject to change)</li>
+            <li class="mb-2">Client must provide all parts for the build Standard build requires: case, PCB, plate, switches, stabilizers, keycaps, and cable</li>
+            <li class="mb-2">Client must pay for shipping both ways (client to builder and vice versa)</li>
+            <li class="mb-2">Build service includes: assembly/disassembly, soldering, and stabilizers lubing/tuning</li>
+            <li class="mb-2">Desoldering service is available with additonal fee</li>
+            <li class="mb-2">Switch lubing service is currently not available (subject to change)</li>
+            <li class="mb-2">Build fee depends on the layout of the keyboard, PM for details</li>
           </ul>
 
           <span>Please contact me via e-mail (mtthwsbuild@gmail.com) or DM me on Instagram (@mtthwsbuild) if you got some questions!</span>
+          <br><br>
+          <span>Please <router-link to="/login">login</router-link> to order via this website.</span>
         </p>
       </div>
       <div class="col-6 d-flex justify-content-end" v-if="isLoggedIn">
@@ -97,5 +99,11 @@ export default {
 
   #OrderPage input[type="submit"]:hover {
     background-color: #1b3655;
+  }
+
+  #OrderPage a {
+    font-weight: 600;
+    color: black;
+    text-decoration: underline;
   }
 </style>
