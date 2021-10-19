@@ -8,6 +8,8 @@ import AboutPage from '@/views/AboutPage.vue'
 import KeyboardsPage from '@/views/KeyboardsPage.vue'
 import ContactPage from '@/views/ContactPage.vue'
 import AdminPage from '@/views/AdminPage.vue'
+import OrderPage from '@/views/OrderPage.vue'
+import ProfilePage from '@/views/ProfilePage.vue'
 import store from '@/store'
 
 Vue.use(VueRouter)
@@ -58,11 +60,35 @@ const routes = [
     component: ContactPage
   },
   {
+    path: '/profile',
+    name: 'ProfilePage',
+    component: ProfilePage,
+    beforeEnter: function (to, from, next) {
+      if (!localStorage.getItem('access_token')) {
+        next('/login')
+      } else {
+        next()
+      }
+    }
+  },
+  {
+    path: '/order',
+    name: 'OrderPage',
+    component: OrderPage,
+    beforeEnter: function (to, from, next) {
+      if (store.state.isLoggedIn === false) {
+        next('/login')
+      } else {
+        next()
+      }
+    }
+  },
+  {
     path: '/admin',
     name: 'AdminPage',
     component: AdminPage,
     beforeEnter: function (to, from, next) {
-      if (!store.state.isAdmin) {
+      if (store.state.isAdmin === false && store.state.isLoggedIn === false) {
         next('/')
       } else {
         next()

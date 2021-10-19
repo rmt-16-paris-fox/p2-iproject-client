@@ -57,7 +57,7 @@ export default new Vuex.Store({
           .then(({ data }) => {
             resolve(data)
           }).catch((err) => {
-            reject(err)
+            reject(err.response.data)
           })
       })
     },
@@ -72,6 +72,21 @@ export default new Vuex.Store({
             resolve(data)
           }).catch((err) => {
             reject(err)
+          })
+      })
+    },
+    getMyKeyboards () {
+      return new Promise((resolve, reject) => {
+        axios({
+          method: 'GET',
+          url: '/public/my-keyboards',
+          headers: { access_token: localStorage.getItem('access_token') }
+        })
+          .then(({ data }) => {
+            console.log(data)
+            resolve(data)
+          }).catch((err) => {
+            reject(err.response.data)
           })
       })
     }
