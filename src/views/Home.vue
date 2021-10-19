@@ -1,7 +1,6 @@
 <template>
   <div class="container">
     <navbar class="mx-3"></navbar>
-    <img alt="Vue logo" src="../assets/logo.png" />
   </div>
 </template>
 
