@@ -7,21 +7,22 @@
 	padding: 0;
 	box-sizing: border-box;
 	font-family: 'Poppins', sans-serif;
-	color: #fdf9f1;
+	font-weight: 400;
 	scroll-behavior: smooth;
 }
 
 body {
-	background-color: #26466a;
+	background-color: #fdf9f1;
 }
 
 h1,
 h2,
-h3,
-h4,
-h5,
-h6 {
+h3 {
 	font-family: 'Tinos', serif;
+}
+
+.swal2-title {
+	font-family: 'Poppins', sans-serif;
 }
 
 a {
@@ -29,7 +30,11 @@ a {
 	color: #fdf9f1;
 }
 
+a:hover {
+	color: #fdf9f1;
+}
+
 section {
-	min-height: calc(100vh - 243px);
+	min-height: calc(100vh - 174px);
 	padding: 30px 100px;
 }

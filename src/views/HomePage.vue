@@ -1,8 +1,8 @@
 <template>
-  <section id="homepage" class="d-flex flex-column align-items-center" data-aos="fade-up" data-aos-duration="600">
+  <section id="HomePage" class="d-flex flex-column align-items-center justify-content-center" data-aos="fade-up" data-aos-duration="600">
     <!-- <img src="@/assets/bg1.jpg" alt="bg1" width="500px"> -->
-    <h1>Hi, I build keyboards</h1>
-    <h5>Based in Jakarta, Indonesia</h5>
+    <h1>Hi, I'm Matthew</h1>
+    <h6>and I build keyboards</h6>
   </section>
 </template>
 
@@ -13,7 +13,7 @@ export default {
 </script>
 
 <style>
-  #homepage h1, #homepage h5{
+  #HomePage h1, #HomePage h5{
     font-weight: 400;
   }
 </style>

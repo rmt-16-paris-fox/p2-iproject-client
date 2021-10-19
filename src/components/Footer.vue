@@ -1,9 +1,9 @@
 <template>
-  <footer class="d-flex flex-column align-items-start">
-    <div>
+  <footer class="d-flex flex-column align-items-center">
+    <div class="mb-2">
       <span>&copy; 2021 mtthwsbuild</span>
     </div>
-    <div class="mt-3">
+    <div>
       <a href="https://instagram.com/mtthwsbuild"><i class="fab fa-instagram"></i></a>
       <a href="https://www.youtube.com/channel/UC-gKmuZfTgFrLaB2q68Dnog"><i class="fab fa-youtube"></i></a>
       <a href="https://www.twitch.tv/samuelmtthw"><i class="fab fa-twitch"></i></a>
@@ -19,12 +19,9 @@ export default {
 
 <style>
   footer {
-    padding: 30px 100px;
-  }
-
-  footer div span {
-    font-family: 'Tinos';
-    letter-spacing: 2px;
+    padding: 15px 100px;
+    background-color: #26466a;
+    color: #fdf9f1;
   }
 
   footer i {
