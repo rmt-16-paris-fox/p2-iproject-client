@@ -1,7 +1,9 @@
 <template>
   <div>
+    <!-- Navbar -->
     <Navbar></Navbar>
-
+    
+    <!-- FORM -->
     <div class="container-fluid p-lg-5">
       <div class="card p-lg-5 form-add">
         <h5>Add Todo</h5>
