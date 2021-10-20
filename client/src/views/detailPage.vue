@@ -1,5 +1,6 @@
 <template>
   <div>
+    <navbar></navbar>
     <h1>Detail Page</h1>
 <div class="card mb-3">
   <div class="flex-container">
@@ -23,10 +24,12 @@
 
 <script>
 import buttonClick from '../components/buttonClick.vue'
+import navbar from '../components/navbar.vue'
 export default {
   name: 'detailPage',
   components: {
-    buttonClick
+    buttonClick,
+    navbar
   },
   created () {
     // console.log(this.$route.params.id, 'params')

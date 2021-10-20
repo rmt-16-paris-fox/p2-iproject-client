@@ -41,7 +41,7 @@ export default new Vuex.Store({
     handleGoogleLogin (_, payload) {
       // console.log(payload, 'token di handle google')
       return axios({
-        url: '/customer/login-google',
+        url: '/login-google',
         method: 'POST',
         data: {
           token: payload

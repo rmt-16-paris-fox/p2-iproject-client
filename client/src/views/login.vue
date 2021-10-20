@@ -16,7 +16,7 @@
                             <div class="text-in-card mx-2">
                                 <p>Don't have an account yet? <a href="" @click.prevent="toRegisPage" id="toRegisPage">Sign Up</a> Or Sign in with google</p>
                             </div>
-                            <GoogleLogin :params="params" :renderParams="renderParams" :onSuccess="onSuccess" :onFailure="onFailure"></GoogleLogin>
+                            <GoogleLogin :params="params" :renderParams="renderParams" :onSuccess="onSuccess"></GoogleLogin>
                         </div>
                     </form>
                 </div>
@@ -39,7 +39,7 @@ export default {
       emailLogin: '',
       passwordLogin: '',
       params: {
-        client_id: '316179392915-dmndvrtd1hgo2rqqacm9sc9hisk5dvlu.apps.googleusercontent.com'
+        client_id: '1056707836367-rloa75prhcjuq2ga5cm6vumn7td4opop.apps.googleusercontent.com'
       },
       renderParams: {
         width: 250,
@@ -55,16 +55,22 @@ export default {
         password: this.passwordLogin
       })
         .then((resp) => {
+          this.$toast.open({
+            message: 'Login Success',
+            type: 'success',
+            position: 'top-right'
+          })
           // console.log(resp.data.access_token, 'data balikan login dari server')
           localStorage.setItem('access_token', resp.data.access_token)
           this.$router.push({ name: 'homePage' })
         })
         .catch(err => {
           console.log(err, 'err data balikan login dari server')
-          // this.$toast.open({
-          //   message: err.response.data.msg,
-          //   type: 'error'
-          // })
+          this.$toast.open({
+            message: err.response.data.msg,
+            type: 'error',
+            position: 'top-right'
+          })
         })
     },
     toRegisPage () {
@@ -74,9 +80,14 @@ export default {
       const idToken = googleUser.$b.id_token
       this.$store.dispatch('handleGoogleLogin', idToken)
         .then((resp) => {
-          // console.log(resp.data.access_token, 'data balikan login google login')
+          console.log(resp.data.access_token, 'data balikan login google login')
+          this.$toast.open({
+            message: 'Login Success',
+            type: 'success',
+            position: 'top-right'
+          })
           localStorage.setItem('access_token', resp.data.access_token)
-          this.$router.push('/')
+          this.$router.push({ name: 'homePage' })
         })
         .catch(err => {
           console.log(err, 'err data balikan login google login')

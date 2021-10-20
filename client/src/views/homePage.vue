@@ -43,6 +43,11 @@ export default {
         .dispatch('handleWatchlist', payload)
         .then((resp) => {
           console.log(resp, 'sukses add watchlist')
+          this.$toast.open({
+            message: 'Match Added To Watchlist',
+            type: 'success',
+            position: 'top-right'
+          })
         })
         .catch((err) => {
           console.log(err, 'err add watchlist')
