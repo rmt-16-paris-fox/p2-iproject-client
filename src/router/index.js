@@ -1,6 +1,9 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Home from '../views/Home.vue';
+import MatchOverview from '../components/MatchOverview.vue';
+import Heatmap from '../components/Heatmap.vue';
+import Vision from '../components/Vision.vue';
 
 Vue.use(VueRouter);
 
@@ -16,9 +19,19 @@ const routes = [
     component: () => import('../views/MatchDetail.vue'),
     children: [
       {
-        path: '/matches/:matchId',
+        path: '/matches/:matchId/overview',
         name: 'MatchOverview',
-        component: () => import('../components/MatchOverview.vue')
+        component: MatchOverview
+      },
+      {
+        path: '/matches/:matchId/heatmap',
+        name: 'Heatmap',
+        component: Heatmap
+      },
+      {
+        path: '/matches/:matchId/vision',
+        name: 'Vision',
+        component: Vision
       }
     ]
   }

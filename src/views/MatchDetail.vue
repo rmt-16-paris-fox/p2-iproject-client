@@ -1,38 +1,26 @@
 <template>
   <div id="match-detail" class="container">
-    <div id="match-header">
-      <h1>Radiant Victory</h1>
+    <div class="spinner-border mt-5" role="status" v-if="!isLoaded">
+      <span class="sr-only"></span>
     </div>
-    <div id="match-nav">
+    <div id="match-header"  v-if="isLoaded">
+      <h1>{{ winningTeam }} Victory</h1>
+    </div>
+    <div id="match-nav" v-if="isLoaded">
       <ul id="match-nav-ul">
-        <router-link :to="{ name: 'MatchOverview' }" class="match-nav-li active">
+        <router-link :to="{ name: 'MatchOverview' }" class="match-nav-li" active-class="active">
           Overview
         </router-link>
-        <li class="match-nav-li">
-          Scoreboard
-        </li>
-        <li class="match-nav-li">
-          Builds
-        </li>
-        <li class="match-nav-li">
-          Log
-        </li>
-        <li class="match-nav-li">
-          Graphs
-        </li>
-        <li class="match-nav-li">
-          Performance
-        </li>
-        <li class="match-nav-li">
-          Farm
-        </li>
-        <li class="match-nav-li">
-          Lanes
-        </li>
+        <router-link :to="{ name: 'Heatmap' }" class="match-nav-li" active-class="active">
+          Heatmap
+        </router-link>
+        <router-link :to="{ name: 'Vision' }" class="match-nav-li" active-class="active">
+          Vision
+        </router-link>
       </ul>
     </div>
-    <div>
-      <div class="box">
+    <div v-if="isLoaded">
+      <div class="box" v-if="isLoaded">
         <BoxIdentifier title="ID" :content="matchData.match_id" />
         <BoxIdentifier title="Lobby Type" :content="lobbyType" />
         <BoxIdentifier title="Game Mode" :content="gameMode" />
@@ -47,7 +35,7 @@
 
 <script>
 import BoxIdentifier from '@/components/BoxIdentifier.vue';
-import { mapState } from 'vuex';
+import { mapState, mapActions } from 'vuex';
 import { lobby_type, game_mode, region } from 'dotaconstants';
 import timestamp from 'unix-timestamp';
 import date from 'date-and-time';
@@ -57,6 +45,16 @@ export default {
   components: { BoxIdentifier },
   computed: {
     ...mapState(['matchData']),
+    isLoaded() {
+      return this.matchData.players;
+    },
+    winningTeam() {
+      let result = 'Radiant';
+
+      if (!this.matchData.radiant_win) result = 'Dire';
+
+      return result;
+    },
     lobbyType() {
       let lobby_type_name = '';
 
@@ -67,6 +65,7 @@ export default {
       }
 
       if (lobby_type_name === 'lobby_type_normal') lobby_type_name = 'Unranked';
+      else if (lobby_type_name === 'lobby_type_practice') lobby_type_name = 'Lobby';
       else if (lobby_type_name === 'lobby_type_ranked_team_mm' || lobby_type_name === 'lobby_type_ranked_solo_mm' || lobby_type_name === 'lobby_type_ranked') lobby_type_name = 'Ranked';
 
       return lobby_type_name;
@@ -120,6 +119,12 @@ export default {
       
       return dateConvert;
     }
+  },
+  methods: {
+    ...mapActions(['fetchMatchData'])
+  },
+  async created() {
+    await this.fetchMatchData(this.$route.params.matchId);
   }
 }
 </script>
