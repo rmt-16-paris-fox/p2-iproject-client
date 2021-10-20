@@ -164,6 +164,21 @@ export default new Vuex.Store({
             reject(err.response.data)
           })
       })
+    },
+    deletePost (_, payload) {
+      return new Promise((resolve, reject) => {
+        axios({
+          url: `/posts/${payload}`,
+          method: 'DELETE',
+          headers: { access_token: localStorage.getItem('access_token') }
+        })
+          .then(({ data }) => {
+            resolve(data)
+          })
+          .catch((err) => {
+            reject(err.response.data)
+          })
+      })
     }
   },
   modules: {

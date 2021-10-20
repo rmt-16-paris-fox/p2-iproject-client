@@ -17,7 +17,7 @@
               </div>
               <div class="action" v-if="userData.id == post.UserId">
                 <a href="" @click.prevent="toEdit(post.id)">Edit</a> ||
-                <a href="">Delete</a>
+                <a href="" @click.prevent="deletePost(post.id)">Delete</a>
               </div>
             </div>
           </div>
@@ -34,7 +34,7 @@
                 @fetchAllPost="fetchAllPost"
               ></Comment>
               <div class="comment-input">
-                <form action="" @submit.prevent="test(post.id)">
+                <form action="" @submit.prevent="addComment(post.id)">
                 <input type="text" v-model="comment" class="form-control" placeholder="write comment here..."/>
                 </form>
               </div>
@@ -68,7 +68,7 @@ export default {
       this.$store.commit('SET_EDIT_PAGE', true)
       this.$emit('sendId', id)
     },
-    test (id) {
+    addComment (id) {
       const payload = {
         id: id,
         comment: this.comment
@@ -86,6 +86,15 @@ export default {
       this.$store.dispatch('getUserData')
         .then((data) => {
           this.userData = data
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    },
+    deletePost (id) {
+      this.$store.dispatch('deletePost', id)
+        .then((data) => {
+          this.$emit('fetchAllPost')
         })
         .catch((err) => {
           console.log(err)

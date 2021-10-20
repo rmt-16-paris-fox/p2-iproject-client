@@ -70,7 +70,7 @@
                 alt="sing up image"
               />
             </figure>
-            <a href="#" class="signup-image-link">i have an account</a>
+           <router-link to="/login">I have an account</router-link>
           </div>
         </div>
       </div>
