@@ -5,7 +5,6 @@
       <span class="name">{{ comment.User.fakeName }}</span>
       <small class="comment-text">{{ comment.comment }}</small>
       <div class="action">
-        <a href="">Edit</a> ||
         <a href="">Delete</a>
       </div>
     </div>
