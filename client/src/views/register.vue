@@ -44,7 +44,7 @@ export default {
   },
   methods: {
     toLoginPage () {
-      this.$router.push('login')
+      this.$router.push({ name: 'Login' })
     },
     handleRegister () {
       this.$store.dispatch('handleRegister', {
@@ -55,6 +55,11 @@ export default {
       })
         .then((resp) => {
           // console.log(resp, 'data balikan register')
+          this.$toast.open({
+            message: 'Register Success',
+            type: 'success',
+            position: 'top-right'
+          })
           this.$router.push('Login')
         })
         .catch(err => {
@@ -62,13 +67,15 @@ export default {
           if (err.response.data.msg) {
             this.$toast.open({
               message: err.response.data.msg,
-              type: 'error'
+              type: 'error',
+              position: 'top-right'
             })
           } else {
             err.response.data.message.forEach(el => {
               this.$toast.open({
                 message: el,
-                type: 'error'
+                type: 'error',
+                position: 'top-right'
               })
             })
           }

@@ -34,6 +34,11 @@ export default {
     handleSignOut () {
       localStorage.removeItem('access_token')
       this.$router.push({ name: 'Login' })
+      this.$toast.open({
+        message: 'User Has Logout',
+        type: 'error',
+        position: 'top-right'
+      })
     },
     toWatchList () {
       this.$store.dispatch('getUserWishlist')
