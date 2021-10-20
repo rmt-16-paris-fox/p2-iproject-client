@@ -164,7 +164,8 @@ export default {
       };
 
       Swal.fire({
-        title: '<i class="fas fa-cookie fa-5x fa-spin" style="color: #C36A2D">',
+        title:
+          '<i class="fas fa-cookie-bite fa-5x fa-spin" style="color: #C36A2D">',
         html: "Loading",
         showConfirmButton: false,
         allowOutsideClick: false,

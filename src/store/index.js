@@ -9,7 +9,9 @@ export default new Vuex.Store({
   state: {
     loginErr: "",
     registerErr: [],
-    userdata: {}
+    userdata: {},
+    recipes: [],
+    loadMore: ""
   },
   mutations: {
     SET_LOGINERR(state, payload) {
@@ -26,6 +28,18 @@ export default new Vuex.Store({
 
     REMOVE_USERDATA(state, payload) {
       state.userdata = {};
+    },
+
+    SET_RECIPES(state, payload) {
+      state.recipes = payload.recipes;
+    },
+
+    SET_LOAD_MORE(state, payload) {
+      state.loadMore = payload.loadMore;
+    },
+
+    PUSH_NEW_RECIPE(state, payload) {
+      state.recipes.push(payload.recipe);
     }
   },
   actions: {
@@ -86,6 +100,24 @@ export default new Vuex.Store({
 
     removeUserData(context) {
       context.commit("REMOVE_USERDATA");
+    },
+
+    async submitName(context, payload) {
+      const result = await axios({
+        method: "POST",
+        url: "/recipes",
+        data: payload
+      });
+
+      return result;
+    },
+
+    async loadMoreRecipe(context, payload) {
+      const result = await axios({
+        url: payload.loadMore
+      });
+
+      return result;
     }
   },
   modules: {}

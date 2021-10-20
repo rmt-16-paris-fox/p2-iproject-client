@@ -90,9 +90,13 @@
           </span>
           <img
             class="img-profile rounded-circle"
-            :src="
-              userdata.photo ? userdata.photo : '@/assets/profile/default.png'
-            "
+            src="@/assets/profile/default.png"
+            v-if="userdata.photo === 'default.png'"
+          />
+          <img
+            class="img-profile rounded-circle"
+            :src="userdata.photo"
+            v-else
           />
         </a>
         <div
