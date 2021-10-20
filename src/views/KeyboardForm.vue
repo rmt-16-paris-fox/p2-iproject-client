@@ -68,6 +68,21 @@
         </form>
       </div>
     </div>
+    <div class="col-6"  v-if="page === 'Update'">
+      <div class="card keyboard-form p-5 my-3">
+        <h1 class="mb-3">
+          Delete images
+        </h1>
+        <form>
+          <div v-for="(image, idx) in images" :key="idx" class="d-flex flex-column">
+            <label>Image {{idx+1}}</label>
+            <img :src="image.imageUrl" alt="" class="w-100 mb-3">
+            <button @click.prevent="deleteImg(image.id)" class="btn btn-danger mb-4">Delete</button>
+          </div>
+          <router-link to="/admin" class="form-control mt-3 py-2 btn-secondary text-center">Back</router-link>
+        </form>
+      </div>
+    </div>
   </section>
 </template>
 
@@ -97,10 +112,22 @@ export default {
       file4: {},
 
       keyboardData: {},
-      currentId: ''
+      currentId: '',
+
+      images: []
     }
   },
   methods: {
+    deleteImg (id) {
+      // console.log(id)
+      this.$store.dispatch('deleteImage', id)
+        .then((data) => {
+          this.getKeyboard()
+          alertSuccess(data.message)
+        }).catch((err) => {
+          alertError(err.message)
+        })
+    },
     fileChange1 (event) {
       console.log('1')
       const imgFile = event.target.files[0]
@@ -148,7 +175,6 @@ export default {
           })
       } else if (this.page === 'Update') {
         payload.keyboardId = this.currentId
-        console.log(payload)
         this.$store.dispatch('editKeyboard', payload)
           .then((data) => {
             alertSuccess(data.message)
@@ -212,6 +238,7 @@ export default {
           this.isDone = data.isDone
           this.UserId = data.UserId
           this.currentId = data.id
+          this.images = data.Images
         }).catch((err) => {
           alertError(err.message)
         })
