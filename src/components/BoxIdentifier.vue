@@ -23,6 +23,7 @@ export default {
     height: 38px;
     padding: 9px 16px;
     font-size: 0.9rem;
+    margin-top: 8px;
   }
 
   .box-identifier {

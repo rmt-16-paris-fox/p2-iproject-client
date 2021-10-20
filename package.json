@@ -14,6 +14,7 @@
     "core-js": "^3.6.5",
     "date-and-time": "^2.0.1",
     "dotaconstants": "^7.6.0",
+    "heatmap.js": "^2.0.5",
     "unix-timestamp": "^0.2.0",
     "vue": "^2.6.14",
     "vue-router": "^3.2.0",

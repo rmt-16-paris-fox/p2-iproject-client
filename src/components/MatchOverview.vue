@@ -19,6 +19,7 @@ export default {
     ...mapActions(['fetchMatchData'])
   },
   async created() {
+    console.log(this.$route.params.matchId)
     await this.fetchMatchData(this.$route.params.matchId);
   }
 }
