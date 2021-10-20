@@ -18,7 +18,7 @@
 <script>
 export default {
   name: 'CardTodos',
-  props: ['todo', 'category']
+  props: ['todo', 'category', 'showAdd']
 }
 </script>
 

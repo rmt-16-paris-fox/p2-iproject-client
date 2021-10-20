@@ -10,13 +10,16 @@
                 <h5 class="category">{{category}}</h5>
               </div>
               <div class="col-2" v-if="category === 'To do'">
-                <h5><button class="btn btn-add">+</button></h5>
+                <h5><button class="btn" style="background-color: #9fa8da" v-on:click.prevent="addTask">+</button></h5>
               </div>
               <CardTodos v-for="todo in todos" :key="todo.id" :todo="todo" :category="category"></CardTodos>
           </div>
           <div class="col-lg-2">
             <h5 class="category">Notes & References</h5>
             <CardNotes v-for="note in notes" :key="note.id" :note="note"></CardNotes>
+            <div>
+              <h5><button class="btn mt-3" style=" background-color: #9fa8da" v-on:click.prevent="addNote">+ Add Notes</button></h5>
+            </div>
           </div>
         </div>
       </div>
@@ -56,6 +59,12 @@ export default {
         .catch((err) => {
           console.log(err)
         })
+    },
+    addTask () {
+      this.$router.push('/add')
+    },
+    addNote () {
+      this.$router.push('/note/add')
     }
   },
   components: {
@@ -73,8 +82,5 @@ export default {
 <style>
 .category {
   text-align: left;
-}
-.btn-add {
-  background-color: #9fa8da;
 }
 </style>
