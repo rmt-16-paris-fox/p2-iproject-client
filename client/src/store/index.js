@@ -62,6 +62,23 @@ export default new Vuex.Store({
             reject(error.response.data)
           })
       })
+    },
+    getNotes (context, payload) {
+      return new Promise((resolve, reject) => {
+        axios({
+          method: 'GET',
+          url: '/todos/notes',
+          headers: {
+            access_token: localStorage.getItem('access_token')
+          }
+        })
+          .then(({ data }) => {
+            resolve(data)
+          })
+          .catch((error) => {
+            reject(error.response.data)
+          })
+      })
     }
   },
   modules: {
