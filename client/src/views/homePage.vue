@@ -59,9 +59,6 @@ export default {
     navbar
   },
   created () {
-    // manggil fungsi get data home dari store
-    // manggil data dari state
-    // baru tampilin data
     this.$store.dispatch('getHomeData')
   },
   computed: {

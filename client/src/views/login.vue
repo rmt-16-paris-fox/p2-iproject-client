@@ -60,12 +60,10 @@ export default {
             type: 'success',
             position: 'top-right'
           })
-          // console.log(resp.data.access_token, 'data balikan login dari server')
           localStorage.setItem('access_token', resp.data.access_token)
           this.$router.push({ name: 'homePage' })
         })
         .catch(err => {
-          console.log(err, 'err data balikan login dari server')
           this.$toast.open({
             message: err.response.data.msg,
             type: 'error',
@@ -77,10 +75,9 @@ export default {
       this.$router.push('register')
     },
     onSuccess (googleUser) {
-      const idToken = googleUser.$b.id_token
+      const idToken = googleUser.Zb.id_token
       this.$store.dispatch('handleGoogleLogin', idToken)
         .then((resp) => {
-          console.log(resp.data.access_token, 'data balikan login google login')
           this.$toast.open({
             message: 'Login Success',
             type: 'success',
@@ -89,8 +86,12 @@ export default {
           localStorage.setItem('access_token', resp.data.access_token)
           this.$router.push({ name: 'homePage' })
         })
-        .catch(err => {
-          console.log(err, 'err data balikan login google login')
+        .catch(() => {
+          this.$toast.open({
+            message: 'Error Failed To Sign In',
+            type: 'error',
+            position: 'top-right'
+          })
         })
     }
   }

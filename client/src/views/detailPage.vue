@@ -32,7 +32,6 @@ export default {
     navbar
   },
   created () {
-    // console.log(this.$route.params.id, 'params')
     this.$store.dispatch('handleDetailData', this.$route.params.id)
   },
   methods: {
