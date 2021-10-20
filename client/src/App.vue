@@ -4,6 +4,20 @@
   </div>
 </template>
 
+<script>
+export default {
+  name: 'App',
+  created () {
+    const accessToken = localStorage.getItem('access_token')
+    if (accessToken) {
+      this.$store.commit('SET_IS_LOGIN', true)
+    } else {
+      this.$store.commit('SET_IS_LOGIN', false)
+    }
+  }
+}
+</script>
+
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
