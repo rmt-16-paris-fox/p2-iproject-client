@@ -15,7 +15,7 @@
                   <strong>{{ post.User.fakeName }}</strong></span
                 >
               </div>
-              <div class="action">
+              <div class="action" v-if="userData.id == post.UserId">
                 <a href="" @click.prevent="toEdit(post.id)">Edit</a> ||
                 <a href="">Delete</a>
               </div>
@@ -31,9 +31,12 @@
                 v-for="comment in post.Comments"
                 :key="comment.id"
                 :comment="comment"
+                @fetchAllPost="fetchAllPost"
               ></Comment>
               <div class="comment-input">
-                <input type="text" class="form-control" placeholder="write comment here..."/>
+                <form action="" @submit.prevent="test(post.id)">
+                <input type="text" v-model="comment" class="form-control" placeholder="write comment here..."/>
+                </form>
               </div>
             </div>
           </div>
@@ -48,14 +51,49 @@ import Comment from '../components/Comment.vue'
 export default {
   name: 'PostCard',
   props: ['post'],
+  data () {
+    return {
+      comment: '',
+      userData: ''
+    }
+  },
   components: {
     Comment
   },
   methods: {
+    fetchAllPost () {
+      this.$emit('fetchAllPost')
+    },
     toEdit (id) {
       this.$store.commit('SET_EDIT_PAGE', true)
       this.$emit('sendId', id)
+    },
+    test (id) {
+      const payload = {
+        id: id,
+        comment: this.comment
+      }
+      this.$store.dispatch('addComment', payload)
+        .then((data) => {
+          this.$emit('fetchAllPost')
+          this.comment = ''
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    },
+    fetchUserData () {
+      this.$store.dispatch('getUserData')
+        .then((data) => {
+          this.userData = data
+        })
+        .catch((err) => {
+          console.log(err)
+        })
     }
+  },
+  created () {
+    this.fetchUserData()
   }
 }
 </script>
