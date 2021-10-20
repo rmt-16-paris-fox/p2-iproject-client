@@ -1,5 +1,7 @@
 <template>
   <div>
+    <div></div>
+
     <section class="wrapper">
       <div class="container">
         <div class="row">
@@ -23,6 +25,12 @@ import { mapState, mapActions } from "vuex";
 export default {
   components: { Cards },
   name: "Home",
+  data() {
+    return {
+      search: "",
+      options: [1, 2],
+    };
+  },
   computed: {
     ...mapState(["estateData"]),
   },
