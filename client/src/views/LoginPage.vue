@@ -1,5 +1,6 @@
 <template>
 <section class="vh-100">
+  <Navbar />
   <div class="container-fluid h-custom">
     <div class="row d-flex justify-content-center align-items-center h-100">
       <div class="col-md-9 col-lg-6 col-xl-5">
@@ -7,13 +8,10 @@
           alt="Sample image">
       </div>
       <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-        <form @submit.prevent="loggedIn">
           <div class="d-flex flex-row align-items-center justify-content-center justify-content-lg-start">
-            <p class="lead fw-normal mb-0 me-3">Sign in with</p>
-            <button type="button" class="btn btn-primary btn-floating mx-1">
-              <i class="fab fa-facebook-f"></i>
-            </button>
+             <button v-google-signin-button="clientId" class="google-signin-button"> Continue with Google</button>
           </div>
+        <form @submit.prevent="loggedIn">
 
           <div class="divider d-flex align-items-center my-4">
             <p class="text-center fw-bold mx-3 mb-0">Or</p>
@@ -51,16 +49,39 @@
 <script>
 import HFooter from 'vue-hacktiv8-footer'
 import { swalError, swalSuccess } from '../apis/swal'
+import Navbar from '../components/Navbar.vue'
+import GoogleSignInButton from 'vue-google-signin-button-directive'
 
 export default {
   name: 'LoginPage',
+  directives: {
+    GoogleSignInButton
+  },
   data () {
     return {
       email: '',
-      password: ''
+      password: '',
+      clientId: '58233509814-fpm0lddftjh63stlt5assi1gnd5imo6a.apps.googleusercontent.com'
     }
   },
   methods: {
+    OnGoogleAuthSuccess (idToken) {
+      this.$store.dispatch('LoginGoogle', idToken)
+        .then((data) => {
+          console.log(data)
+          localStorage.setItem('access_token', data.access_token)
+          swalSuccess('Success Login')
+          this.$store.commit('SET_LOG_IN', true)
+          this.$router.push('/')
+        })
+        .catch((err) => {
+          console.log(err)
+          swalSuccess(err)
+        })
+    },
+    OnGoogleAuthFail (error) {
+      console.log(error)
+    },
     loggedIn () {
       const data = {
         email: this.email,
@@ -75,10 +96,14 @@ export default {
         .catch((err) => {
           swalError(err)
         })
+    },
+    loginFacebook () {
+      this.$store.dispatch('LoginFaceBook')
     }
   },
   components: {
-    HFooter
+    HFooter,
+    Navbar
   }
 }
 </script>
@@ -98,5 +123,14 @@ export default {
   .h-custom {
     height: 100%;
   }
+}
+.google-signin-button {
+  color: white;
+  background-color:#1126F1;
+  height: 50px;
+  font-size: 16px;
+  border-radius: 10px;
+  padding: 10px 20px 25px 20px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 </style>
