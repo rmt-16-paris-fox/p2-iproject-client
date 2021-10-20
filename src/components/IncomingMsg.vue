@@ -8,6 +8,16 @@
 export default {
   name: "IncomingMsg",
   props: ["message"],
+  data() {
+    return {
+      listUser: [],
+    };
+  },
+  sockets: {
+    sendUser(user) {
+      this.listUser = user;
+    },
+  },
 };
 </script>
 

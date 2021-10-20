@@ -38,31 +38,8 @@
               id="chat-content"
               style="overflow-y: scroll !important; height: 400px !important"
             >
-              <!-- incoming message -->
-              <div class="media media-chat">
-                <div class="media-body">
-                  <incoming-msg
-                    v-for="(msg, i) in messages"
-                    :key="i"
-                    :message="msg"
-                  />
-                </div>
-              </div>
-              <div class="media media-meta-day">Today</div>
-              <!-- end of incoming message -->
-              <!-- outgoing message -->
-              <div class="media media-chat media-chat-reverse">
-                <div class="media-body">
-                  <incoming-msg />
-                  <p>Hiii, I'm good.</p>
-                  <p>How are you doing?</p>
-                  <p>
-                    Long time no see! Tomorrow office. will be free on sunday.
-                  </p>
-                  <p class="meta"><time datetime="2018">00:06</time></p>
-                </div>
-              </div>
-              <!-- end of outgoing message -->
+              <!-- message -->
+              <chat-card v-for="(msg, i) in messages" :key="i" :message="msg" />
 
               <div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 0px">
                 <div
@@ -107,20 +84,23 @@
 </template>
 
 <script>
-import IncomingMsg from "./IncomingMsg.vue";
+import ChatCard from "./ChatCard.vue";
+
 export default {
-  components: { IncomingMsg },
+  components: { ChatCard },
   name: "Chat",
   data() {
     return {
       joined: false,
       inputMsg: "",
       name: "",
+      currentClient: localStorage.getItem("name"),
     };
   },
   methods: {
     async join() {
       await localStorage.setItem("name", this.name);
+      this.$socket.emit("loginUser", this.name);
       this.joined = true;
     },
     sendMessage() {
@@ -128,13 +108,19 @@ export default {
         name: localStorage.getItem("name"),
         message: this.inputMsg,
       };
-      this.$store.commit("PUSH_MESSAGE", data);
+      // this.$store.commit("PUSH_MESSAGE", data);
       this.inputMsg = "";
+      this.$socket.emit("newMessage", data);
     },
   },
   computed: {
     messages() {
       return this.$store.state.messages;
+    },
+  },
+  sockets: {
+    sendMessage(data) {
+      this.$store.commit("PUSH_MESSAGE", data.message);
     },
   },
   created() {
