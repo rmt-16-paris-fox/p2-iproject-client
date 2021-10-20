@@ -44,6 +44,8 @@
                 />
               </div>
             </form>
+            <br>
+         <router-link to="/register">Register</router-link>
             <div class="social-login">
               <span class="social-label">Or login with</span>
               <ul class="socials">
@@ -88,4 +90,7 @@ export default {
 </script>
 
 <style>
+.form-title{
+  color: royalblue;
+}
 </style>

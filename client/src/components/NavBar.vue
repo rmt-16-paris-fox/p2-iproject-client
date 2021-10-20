@@ -6,8 +6,7 @@
       </div>
       <ul class="nav ">
         <li><router-link class="router-link-active" to="/" style="text-decoration: none;">Home</router-link></li>
-        <li><router-link class="router-link-active" to="/Profile" style="text-decoration: none;">Profile</router-link></li>
-        <li><router-link class="router-link-active" to="/Login" style="text-decoration: none;">Logout</router-link></li>
+        <li><a href="" @click.prevent="logout">Logout</a></li>
       </ul>
     </div>
   </nav>
@@ -15,7 +14,14 @@
 
 <script>
 export default {
-  name: 'NavBar'
+  name: 'NavBar',
+  methods: {
+    logout () {
+      localStorage.clear()
+      this.$router.push('/login')
+      this.$store.commit('SET_IS_LOGGED_IN', false)
+    }
+  }
 }
 </script>
 
