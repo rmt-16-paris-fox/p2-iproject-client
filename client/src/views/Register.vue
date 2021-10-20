@@ -1,0 +1,116 @@
+<template>
+  <div class="main">
+    <section class="signup">
+      <div class="container">
+        <div class="signup-content">
+          <div class="signup-form">
+            <h2 class="form-title">Sign up</h2>
+            <form method="POST" class="register-form" id="register-form" @submit.prevent="register">
+              <div class="form-group">
+                <label for="name"
+                  ><i class="zmdi zmdi-account material-icons-name"></i
+                ></label>
+                <input
+                  type="text"
+                  name="name"
+                  placeholder="First Name"
+                  v-model="firstName"
+                />
+              </div>
+              <div class="form-group">
+                <label for="pass"><i class="zmdi zmdi-lock"></i></label>
+                <input
+                  type="text"
+                  name="last-name"
+                  placeholder="Last Name"
+                  v-model="lastName"
+                />
+              </div>
+              <div class="form-group">
+                <label for="email"><i class="zmdi zmdi-email"></i></label>
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Email"
+                  v-model="email"
+                />
+              </div>
+              <div class="form-group">
+                <label for="re-pass"
+                  ><i class="zmdi zmdi-lock-outline"></i
+                ></label>
+                <input
+                  type="password"
+                  placeholder="Password"
+                  v-model="password"
+                />
+              </div>
+              <div class="form-group">
+                <select v-model="gender" class="form-select" aria-label="Default select example">
+                  <option selected>Choose your gender</option>
+                  <option value="female">Female</option>
+                  <option value="male">Male</option>
+                </select>
+              </div>
+              <div class="form-group form-button">
+                <input
+                  type="submit"
+                  name="signup"
+                  id="signup"
+                  class="form-submit"
+                  value="Register"
+                />
+              </div>
+            </form>
+          </div>
+          <div class="signup-image">
+            <figure>
+              <img
+                src="../../public/images/signup-image.jpg"
+                alt="sing up image"
+              />
+            </figure>
+            <a href="#" class="signup-image-link">i have an account</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'RegisterPage',
+  data () {
+    return {
+      firstName: '',
+      lastName: '',
+      email: '',
+      password: '',
+      gender: ''
+    }
+  },
+  methods: {
+    register () {
+      const payload = {
+        firstName: this.firstName,
+        lastName: this.lastName,
+        email: this.email,
+        password: this.password,
+        gender: this.gender
+      }
+      this.$store.dispatch('register', payload)
+        .then((data) => {
+          console.log(data)
+          this.$router.push('/login')
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    }
+  }
+}
+</script>
+
+<style>
+</style>

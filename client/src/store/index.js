@@ -27,6 +27,21 @@ export default new Vuex.Store({
             reject(err.response.data)
           })
       })
+    },
+    register (_, payload) {
+      return new Promise((resolve, reject) => {
+        axios({
+          url: '/user/register',
+          method: 'POST',
+          data: payload
+        })
+          .then(({ data }) => {
+            resolve(data)
+          })
+          .catch((err) => {
+            reject(err.response.data)
+          })
+      })
     }
   },
   modules: {
