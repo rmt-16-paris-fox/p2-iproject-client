@@ -3,7 +3,8 @@
     <h1>details</h1>
     <div class="row my-4">
       <div class="col-6" data-aos="fade-right" data-aos-duration="600">
-        <img :src="keyboard.Images[0] ? keyboard.Images[0].imageUrl : '/assets/placeholder.jpeg'" alt="Keyboard image">
+        <img src="/assets/placeholder.jpeg" alt="" v-if="!keyboard.Images[0]">
+        <img :src="keyboard.Images[0].imageUrl" alt="Keyboard image" v-if="keyboard.Images[0]">
       </div>
       <div class="col-6" data-aos="fade-left" data-aos-duration="600" data-aos-delay="300">
         <div class="d-flex items mb-3">
@@ -105,6 +106,10 @@ export default {
     padding: 30px 100px;
   }
 
+  .footer-h8 {
+    background-color: #26466a !important;
+  }
+
   #DetailsPage img {
     width: 100%;
   }
@@ -124,7 +129,7 @@ export default {
   }
 
   #DetailsPage .imageItem {
-    width: 50%;
+    width: 33%;
     padding-bottom: 24px;
   }
 

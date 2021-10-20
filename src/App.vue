@@ -29,7 +29,9 @@ export default {
           alertError(err.message)
         })
     } else {
+      localStorage.removeItem('access_token')
       this.$store.commit('SET_IS_LOGGED_IN', false)
+      this.$router.push('/')
     }
   },
   components: {

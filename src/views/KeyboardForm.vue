@@ -68,6 +68,21 @@
         </form>
       </div>
     </div>
+    <div class="col-6"  v-if="page === 'Update'">
+      <div class="card keyboard-form p-5 my-3">
+        <h1 class="mb-3">
+          Delete images
+        </h1>
+        <form>
+          <div v-for="(image, idx) in images" :key="idx" class="d-flex flex-column">
+            <label>Image {{idx+1}}</label>
+            <img :src="image.imageUrl" alt="" class="w-100 mb-3">
+            <button @click.prevent="deleteImg(image.id)" class="btn btn-danger mb-4">Delete</button>
+          </div>
+          <router-link to="/admin" class="form-control mt-3 py-2 btn-secondary text-center">Back</router-link>
+        </form>
+      </div>
+    </div>
   </section>
 </template>
 
@@ -97,10 +112,22 @@ export default {
       file4: {},
 
       keyboardData: {},
-      currentId: ''
+      currentId: '',
+
+      images: []
     }
   },
   methods: {
+    deleteImg (id) {
+      // console.log(id)
+      this.$store.dispatch('deleteImage', id)
+        .then((data) => {
+          this.getKeyboard()
+          alertSuccess(data.message)
+        }).catch((err) => {
+          alertError(err.message)
+        })
+    },
     fileChange1 (event) {
       console.log('1')
       const imgFile = event.target.files[0]
@@ -148,7 +175,6 @@ export default {
           })
       } else if (this.page === 'Update') {
         payload.keyboardId = this.currentId
-        console.log(payload)
         this.$store.dispatch('editKeyboard', payload)
           .then((data) => {
             alertSuccess(data.message)
@@ -161,11 +187,14 @@ export default {
     },
     // ! MASIH ERROR
     submitImage () {
-      const imgArray = [
-        this.file1, this.file2, this.file3, this.file4
-      ]
+      // const imgArray = [
+      //   this.file1, this.file2, this.file3, this.file4
+      // ]
       const images = new FormData()
-      images.append('images', imgArray)
+      images.append('images', this.file1)
+      images.append('images', this.file2)
+      images.append('images', this.file3)
+      images.append('images', this.file4)
 
       const payload = {
         images,
@@ -174,13 +203,11 @@ export default {
       if (this.page === 'Add') {
         this.$store.dispatch('addImages', payload)
           .then((data) => {
-            alertSuccess(`Image with id ${data.id} uploaded!`)
+            alertSuccess(`Image for keyboard id ${this.KeyboardId} uploaded!`)
             this.$router.push('/admin')
           }).catch((err) => {
             alertError(err.message)
           })
-      } else if (this.page === 'Update') {
-        // delete image
       }
     },
     fetchUsers () {
@@ -212,6 +239,7 @@ export default {
           this.isDone = data.isDone
           this.UserId = data.UserId
           this.currentId = data.id
+          this.images = data.Images
         }).catch((err) => {
           alertError(err.message)
         })
@@ -238,6 +266,51 @@ export default {
 </script>
 
 <style>
+  @import url('https://fonts.googleapis.com/css2?family=Source+Serif+Pro:wght@200;300;400;600;700;900&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: #fdf9f1;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: 'Source Serif Pro', serif;
+  }
+
+  .swal2-title {
+    font-family: 'Poppins', sans-serif;
+  }
+
+  a {
+    text-decoration: none;
+    color: #fdf9f1;
+  }
+
+  a:hover {
+    color: #fdf9f1;
+  }
+
+  section {
+    min-height: calc(100vh - 174px);
+    padding: 30px 100px;
+  }
+
+  .footer-h8 {
+    background-color: #26466a !important;
+  }
+
   #KeyboardForm .keyboard-form {
     width: 100%;
   }

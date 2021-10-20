@@ -218,6 +218,21 @@ export default new Vuex.Store({
           })
       })
     },
+    deleteImage (context, ImageId) {
+      return new Promise((resolve, reject) => {
+        axios({
+          method: 'DELETE',
+          url: '/admin/images',
+          headers: { access_token: localStorage.getItem('access_token') },
+          data: { ImageId: Number(ImageId) }
+        })
+          .then(({ data }) => {
+            resolve(data)
+          }).catch((err) => {
+            reject(err.response.data)
+          })
+      })
+    },
     editKeyboard (context, payload) {
       return new Promise((resolve, reject) => {
         axios({
