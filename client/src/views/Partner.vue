@@ -1,0 +1,606 @@
+<template>
+  <div>
+    <header class="pt-0 pt-md-2 b-linear-orange-2">
+      <div class="rotate-group d-flex position-relative">
+        <div class="rotate-wrap-left-partner position-absolute l-0">
+          <img
+            src="../assets/background/spinner.svg"
+            alt=""
+            class="rotate rotate-left w-100 z-1 d-md-block d-none"
+          />
+        </div>
+        <div class="rotate-wrap-right-partner position-absolute r-0">
+          <img
+            src="../assets/background/spinner.svg"
+            alt=""
+            class="rotate rotate-right w-100 z-1 d-md-block d-none"
+          />
+        </div>
+      </div>
+      <Navbar></Navbar>
+      <div class="head-partner">
+        <h1 class="c-darker f-s-48 text-center font-weight-bold pt-100">
+          Content Partner
+        </h1>
+      </div>
+    </header>
+    <img
+      src="../assets/back-bottom.svg"
+      alt=""
+      class="w-100 b-white background-top-partner"
+    />
+
+    <main class="main-partner">
+      <div
+        class="
+          card-product-group
+          w-90
+          mb-5
+          text-center
+          row
+          m-auto
+          pb-150
+          justify-content-center
+        "
+      >
+        <a
+          href="./detail-partner.html"
+          class="
+            card card-product
+            c-dark
+            col-md-3 col-sm-6
+            hvr-black hvr-bob-none
+          "
+        >
+          <img
+            class="
+              card-img-top
+              m-auto
+              d-flex
+              justify-content-center
+              pt-4
+              w-50
+              hvr-bob-1
+            "
+            src="../assets/main-partner-1.png"
+            alt="image product"
+          />
+          <div
+            class="
+              card-body
+              b-pink
+              w-90
+              h-100
+              mt-1
+              br-top-90
+              position-relative
+              pb-60
+            "
+          >
+            <h3
+              class="
+                f-s-24
+                fs-700-18
+                font-weight-bold
+                text-center
+                partner-name
+                position-absolute
+              "
+            >
+              onmaplehaven
+            </h3>
+          </div>
+        </a>
+        <a
+          href="./detail-partner.html"
+          class="
+            card card-product
+            c-dark
+            hvr-bob-none
+            col-md-3 col-sm-6
+            hvr-black
+          "
+        >
+          <img
+            class="
+              card-img-top
+              d-flex
+              justify-content-center
+              m-auto
+              pt-4
+              w-50
+              hvr-bob
+            "
+            src="../assets/main-partner-2.png"
+            alt="image product"
+          />
+          <div
+            class="
+              card-body
+              b-pink
+              w-90
+              h-100
+              mt-1
+              br-top-90
+              position-relative
+              pb-60
+            "
+          >
+            <h3
+              class="
+                f-s-24
+                fs-700-18
+                font-weight-bold
+                text-center
+                partner-name
+                position-absolute
+              "
+            >
+              kemenko_pmk
+            </h3>
+          </div>
+        </a>
+        <a
+          href="./detail-partner.html"
+          class="
+            card card-product
+            c-dark
+            hvr-bob-none
+            col-md-3 col-sm-6
+            hvr-black
+          "
+        >
+          <img
+            class="
+              card-img-top
+              d-flex
+              justify-content-center
+              m-auto
+              pt-4
+              w-50
+              hvr-bob-1
+            "
+            src="../assets/main-partner-3.png"
+            alt="image product"
+          />
+          <div
+            class="
+              card-body
+              b-pink
+              w-90
+              h-100
+              mt-1
+              br-top-90
+              position-relative
+              pb-60
+            "
+          >
+            <h3
+              class="
+                f-s-24
+                fs-700-18
+                font-weight-bold
+                text-center
+                partner-name
+                position-absolute
+              "
+            >
+              gatherich
+            </h3>
+          </div>
+        </a>
+        <a
+          href="./detail-partner.html"
+          class="
+            card card-product
+            c-dark
+            hvr-bob-none
+            col-md-3 col-sm-6
+            hvr-black
+          "
+        >
+          <img
+            class="
+              card-img-top
+              d-flex
+              justify-content-center
+              m-auto
+              pt-4
+              w-50
+              hvr-bob
+            "
+            src="../assets/main-partner-5.png"
+            alt="image product"
+          />
+          <div
+            class="
+              card-body
+              b-pink
+              w-90
+              h-100
+              mt-1
+              br-top-90
+              position-relative
+              pb-60
+            "
+          >
+            <h3
+              class="
+                f-s-24
+                fs-700-18
+                font-weight-bold
+                text-center
+                partner-name
+                position-absolute
+              "
+            >
+              therapup.indonesia
+            </h3>
+          </div>
+        </a>
+        <a
+          href="./detail-partner.html"
+          class="
+            card card-product
+            c-dark
+            hvr-bob-none
+            col-md-3 col-sm-6
+            hvr-black
+          "
+        >
+          <img
+            class="
+              card-img-top
+              d-flex
+              justify-content-center
+              m-auto
+              pt-4
+              w-50
+              hvr-bob-1
+            "
+            src="../assets/main-partner-6.png"
+            alt="image product"
+          />
+          <div
+            class="
+              card-body
+              b-pink
+              w-90
+              h-100
+              mt-1
+              br-top-90
+              position-relative
+              pb-60
+            "
+          >
+            <h3
+              class="
+                f-s-24
+                fs-700-18
+                font-weight-bold
+                text-center
+                partner-name
+                position-absolute
+              "
+            >
+              vernalta
+            </h3>
+          </div>
+        </a>
+        <a
+          href="./detail-partner.html"
+          class="
+            card card-product
+            c-dark
+            hvr-bob-none
+            col-md-3 col-sm-6
+            hvr-black
+          "
+        >
+          <img
+            class="
+              card-img-top
+              d-flex
+              justify-content-center
+              m-auto
+              pt-4
+              w-50
+              hvr-bob
+            "
+            src="../assets/main-partner-7.png"
+            alt="image product"
+          />
+          <div
+            class="
+              card-body
+              b-pink
+              w-90
+              h-100
+              mt-1
+              br-top-90
+              position-relative
+              pb-60
+            "
+          >
+            <h3
+              class="
+                f-s-24
+                fs-700-18
+                font-weight-bold
+                text-center
+                partner-name
+                position-absolute
+              "
+            >
+              Willy.Winarko
+            </h3>
+          </div>
+        </a>
+        <a
+          href="./detail-partner.html"
+          class="
+            card card-product
+            c-dark
+            hvr-bob-none
+            col-md-3 col-sm-6
+            hvr-black
+          "
+        >
+          <img
+            class="
+              card-img-top
+              d-flex
+              justify-content-center
+              m-auto
+              pt-4
+              w-50
+              hvr-bob-1
+            "
+            src="../assets/main-partner-8.png"
+            alt="image product"
+          />
+          <div
+            class="
+              card-body
+              b-pink
+              w-90
+              h-100
+              mt-1
+              br-top-90
+              position-relative
+              pb-60
+            "
+          >
+            <h3
+              class="
+                f-s-24
+                fs-700-18
+                font-weight-bold
+                text-center
+                partner-name
+                position-absolute
+              "
+            >
+              volix.media
+            </h3>
+          </div>
+        </a>
+        <a
+          href="./detail-partner.html"
+          class="
+            card card-product
+            c-dark
+            hvr-bob-none
+            col-md-3 col-sm-6
+            hvr-black
+          "
+        >
+          <img
+            class="
+              card-img-top
+              d-flex
+              justify-content-center
+              m-auto
+              pt-4
+              w-50
+              hvr-bob
+            "
+            src="../assets/main-partner-10.png"
+            alt="image product"
+          />
+          <div
+            class="
+              card-body
+              b-pink
+              w-90
+              h-100
+              mt-1
+              br-top-90
+              position-relative
+              pb-60
+            "
+          >
+            <h3
+              class="
+                f-s-24
+                fs-700-18
+                font-weight-bold
+                text-center
+                partner-name
+                position-absolute
+              "
+            >
+              bapak2id
+            </h3>
+          </div>
+        </a>
+        <a
+          href="./detail-partner.html"
+          class="
+            card card-product
+            c-dark
+            hvr-bob-none
+            col-md-3 col-sm-6
+            hvr-black
+          "
+        >
+          <img
+            class="
+              card-img-top
+              d-flex
+              justify-content-center
+              m-auto
+              pt-4
+              w-50
+              hvr-bob-1
+            "
+            src="../assets/main-partner-11.png"
+            alt="image product"
+          />
+          <div
+            class="
+              card-body
+              b-pink
+              w-90
+              h-100
+              mt-1
+              br-top-90
+              position-relative
+              pb-60
+            "
+          >
+            <h3
+              class="
+                f-s-24
+                fs-700-18
+                font-weight-bold
+                text-center
+                partner-name
+                position-absolute
+              "
+            >
+              tigajeruk
+            </h3>
+          </div>
+        </a>
+        <a
+          href="./detail-partner.html"
+          class="
+            card card-product
+            c-dark
+            hvr-bob-none
+            col-md-3 col-sm-6
+            hvr-black
+          "
+        >
+          <img
+            class="
+              card-img-top
+              d-flex
+              justify-content-center
+              m-auto
+              pt-4
+              w-50
+              hvr-bob
+            "
+            src="../assets/main-partner-12.png"
+            alt="image product"
+          />
+          <div
+            class="
+              card-body
+              b-pink
+              w-90
+              mt-1
+              br-top-90
+              mb-0
+              h-100
+              position-relative
+              pb-60
+            "
+          >
+            <h3
+              class="
+                f-s-24
+                fs-700-18
+                font-weight-bold
+                text-center
+                partner-name
+                position-absolute
+              "
+            >
+              imx_magazine_124
+            </h3>
+          </div>
+        </a>
+        <a
+          href="./detail-partner.html"
+          class="
+            card card-product
+            c-dark
+            hvr-bob-none
+            col-md-3 col-sm-6
+            hvr-black
+          "
+        >
+          <img
+            class="
+              card-img-top
+              d-flex
+              justify-content-center
+              m-auto
+              pt-4
+              w-50
+              hvr-bob-1
+            "
+            src="../assets/main-partner-13.png"
+            alt="image product"
+          />
+          <div
+            class="
+              card-body
+              b-pink
+              w-90
+              mt-1
+              br-top-90
+              mb-0
+              h-100
+              position-relative
+              pb-60
+            "
+          >
+            <h3
+              class="
+                f-s-24
+                fs-700-18
+                font-weight-bold
+                text-center
+                partner-name
+                position-absolute
+              "
+            >
+              tahilalats
+            </h3>
+          </div>
+        </a>
+      </div>
+    </main>
+
+    <FooterBottom class="b-brown position-relative"></FooterBottom>
+  </div>
+</template>
+
+<script>
+import Navbar from "@/components/Navbar.vue";
+import FooterBottom from "@/components/FooterBottom.vue";
+export default {
+  name: "Partner",
+  components: {
+    Navbar,
+    FooterBottom,
+  },
+};
+</script>
+
+<style>
+</style>
