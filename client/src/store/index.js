@@ -179,6 +179,23 @@ export default new Vuex.Store({
             reject(err.response.data)
           })
       })
+
+    },
+    loginGoogle (_, payload) {
+      return new Promise((resolve, reject) => {
+        axios({
+          url: '/user/login-google',
+          method: 'POST',
+          data: { token: payload }
+        })
+          .then(({ data }) => {
+            resolve(data)
+          })
+          .catch((err) => {
+            reject(err.response.data)
+          })
+      })
+
     }
   },
   modules: {
