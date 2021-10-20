@@ -38,7 +38,11 @@
             Catat penjualan, dan stok produk. Semua dalam satu aplikasi
             <div class="row mt-4">
               <div class="col-6">
-                <img src="../img/cashier1.jpg" alt="" />
+                <img
+                  src="../img/cashier1.jpg"
+                  alt=""
+                  style="border-radius: 15px"
+                />
               </div>
               <div class="col-6">
                 <h4 style="font-weight: bold">Mengapa pilih cashier?</h4>
