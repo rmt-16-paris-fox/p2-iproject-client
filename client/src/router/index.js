@@ -4,6 +4,7 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
+import Products from '../views/Product.vue'
 
 Vue.use(VueRouter)
 
@@ -36,6 +37,18 @@ const routes = [
         next()
       }
     },
+  },
+  {
+    path: '/products',
+    name: 'Products',
+    component: Products,
+    // beforeEnter: (to, from, next) => {
+    //   if (!localStorage.getItem('access_token')) {
+    //     next('/login')
+    //   } else {
+    //     next()
+    //   }
+    // },
   },
 ]
 
