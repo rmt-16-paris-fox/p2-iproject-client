@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="media media-chat" v-if="currentClient !== message.name">
-      <div class="media-body">
+      <div>
         <incoming-msg :message="message" />
       </div>
     </div>

@@ -3,34 +3,31 @@
     <div class="padding">
       <div class="row container d-flex justify-content-center">
         <!-- before joined -->
-        <div class="col-md-6" v-if="!joined">
-          <div class="card card-bordered">
-            <form @submit.prevent="" class="mt-5">
-              <span>Name:</span><br />
-              <input
-                type="text"
-                placeholder="Insert Your Name"
-                v-model="name"
-              />
-              <div>
-                <button
-                  @click="join"
-                  class="btn btn-primary my-4"
-                  type="submit"
-                >
-                  Chat!
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
+
+        <v-form ref="form" v-model="valid" lazy-validation v-if="!joined">
+          <v-text-field
+            v-model="name"
+            :counter="10"
+            :rules="nameRules"
+            label="Name"
+            @keyup.enter="join"
+            required
+          ></v-text-field>
+          <v-btn :disabled="!valid" color="success" class="mr-4" @click="join">
+            Chat!
+          </v-btn>
+        </v-form>
         <!-- after joined -->
         <div class="col-md-6" v-if="joined">
           <div class="card card-bordered">
             <div class="card-header">
               <h4 class="card-title"><strong>Chat</strong></h4>
-              <a class="btn btn-xs btn-secondary" href="#" data-abc="true"
-                >Let's Chat App</a
+              <a
+                class="btn btn-xs btn-secondary"
+                href="#"
+                data-abc="true"
+                @click.prevent="deleteName"
+                >Quit</a
               >
             </div>
             <div
@@ -111,6 +108,10 @@ export default {
       // this.$store.commit("PUSH_MESSAGE", data);
       this.inputMsg = "";
       this.$socket.emit("newMessage", data);
+    },
+    deleteName() {
+      localStorage.removeItem("name");
+      this.joined = false;
     },
   },
   computed: {

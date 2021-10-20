@@ -8,6 +8,7 @@ export default new Vuex.Store({
   state: {
     estateData: [],
     messages: [],
+    stateData: [],
   },
   mutations: {
     ESTATE_DATA(state, payload) {
@@ -16,19 +17,36 @@ export default new Vuex.Store({
     PUSH_MESSAGE(state, payload) {
       state.messages.push(payload);
     },
+    CITY_DATA(state, payload) {
+      state.stateData = payload;
+    },
   },
   actions: {
-    async getEstate({ commit }) {
+    async getEstate({ commit }, { state_code, city }) {
       try {
         let result = await axios({
           method: "GET",
           url: "http://localhost:3000/estate",
           params: {
-            state_code: "NY",
-            city: "new york",
+            state_code,
+            city,
           },
         });
         commit("ESTATE_DATA", result.data.properties);
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    async searchCity({ commit }, payload) {
+      try {
+        let result = await axios({
+          method: "GET",
+          url: "http://localhost:3000/city",
+          params: {
+            state_code: payload,
+          },
+        });
+        commit("CITY_DATA", result.data);
       } catch (err) {
         console.log(err);
       }

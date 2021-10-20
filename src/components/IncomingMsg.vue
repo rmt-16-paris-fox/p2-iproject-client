@@ -1,6 +1,8 @@
 <template>
   <div>
-    <p>{{ message.message }}</p>
+    <div class="media-body">
+      <p>{{ message.message }}</p>
+    </div>
   </div>
 </template>
 
