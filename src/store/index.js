@@ -157,6 +157,20 @@ export default new Vuex.Store({
             reject(err.response.data)
           })
       })
+    },
+    fetchKeyboards () {
+      return new Promise((resolve, reject) => {
+        axios({
+          method: 'GET',
+          url: '/admin/keyboards',
+          headers: { access_token: localStorage.getItem('access_token') }
+        })
+          .then(({ data }) => {
+            resolve(data)
+          }).catch((err) => {
+            reject(err.response.data)
+          })
+      })
     }
   },
   modules: {
