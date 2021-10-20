@@ -18,7 +18,7 @@
             <h5 class="category">Notes & References</h5>
             <CardNotes v-for="note in notes" :key="note.id" :note="note"></CardNotes>
             <div>
-              <h5><button class="btn mt-3" style=" background-color: #9fa8da" v-on:click.prevent="addTask">+ Add Notes</button></h5>
+              <h5><button class="btn mt-3" style=" background-color: #9fa8da" v-on:click.prevent="addNote">+ Add Notes</button></h5>
             </div>
           </div>
         </div>
@@ -62,6 +62,9 @@ export default {
     },
     addTask () {
       this.$router.push('/add')
+    },
+    addNote () {
+      this.$router.push('/note/add')
     }
   },
   components: {

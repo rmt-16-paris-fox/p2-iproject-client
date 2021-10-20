@@ -6,18 +6,10 @@
     <!-- FORM -->
     <div class="container-fluid p-lg-5">
       <div class="card p-lg-5 form-add">
-        <h5>Add Todo</h5>
+        <h5>Add Note</h5>
         <hr>
-        <form v-on:submit.prevent="AddTodo">
-            <input v-model="title" class="form-control" type="text" placeholder="Title"><br>
-            <input v-model="content" class="form-control" type="text" placeholder="Content"><br>
-            <select name="tag" v-model="tag" class="form-control">
-                <option value="" disabled selected>Select Status</option>
-                <option value="Bug">Bug</option>
-                <option value="Feature">Feature</option>
-                <option value="Other">Other</option>
-            </select>
-            <br>
+        <form v-on:submit.prevent="AddNote">
+            <textarea v-model="content" class="form-control" type="text" placeholder="Content" rows="8"></textarea><br>
             <button class="btn btn-add mx-1" type="submit">Add</button>
             <a href="" class="btn btn-cancel mx-1" v-on:click.prevent="toHome">cancel</a>
         </form>
@@ -31,25 +23,21 @@ import { success, error } from '../apis/alert'
 import Navbar from '../components/Navbar.vue'
 
 export default {
-  name: 'AddTodo',
+  name: 'AddNote',
   data: function () {
     return {
-      title: '',
-      content: '',
-      tag: ''
+      content: ''
     }
   },
   methods: {
-    AddTodo () {
+    AddNote () {
       const payload = {
-        title: this.title,
-        content: this.content,
-        tag: this.tag
+        content: this.content
       }
 
-      this.$store.dispatch('addTodo', payload)
+      this.$store.dispatch('addNote', payload)
         .then((data) => {
-          success('Successfully to add todo')
+          success('Successfully to add note')
           this.$router.push('/home')
         })
         .catch((err) => {

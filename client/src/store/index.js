@@ -97,6 +97,24 @@ export default new Vuex.Store({
             reject(error.response.data)
           })
       })
+    },
+    addNote (context, payload) {
+      return new Promise((resolve, reject) => {
+        axios({
+          method: 'POST',
+          url: '/todos/notes/add',
+          data: payload,
+          headers: {
+            access_token: localStorage.getItem('access_token')
+          }
+        })
+          .then(({ data }) => {
+            resolve(data)
+          })
+          .catch((error) => {
+            reject(error.response.data)
+          })
+      })
     }
   },
   modules: {
