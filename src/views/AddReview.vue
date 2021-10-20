@@ -22,7 +22,6 @@
         </div>
 
         <br>
-        <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
         <reusable-button
           buttonClass="btn btn-dark text-white"
           buttonLabel="Submit Review"
@@ -59,11 +58,17 @@ export default {
         content: this.content,
         bookId: this.$router.currentRoute.params.bookId,
       })
-        .then((response) => {
-          console.log(response.data);
+        .then(() => {
+          this.$toasted.global.success_message({
+            message: 'successfully posted review',
+          });
+
+          this.$router.go(-1);
         })
         .catch((err) => {
-          console.log(err.response.data);
+          this.$toasted.global.error_message({
+            message: err.response.data.message,
+          });
         });
     },
   },

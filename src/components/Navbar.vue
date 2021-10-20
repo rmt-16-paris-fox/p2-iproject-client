@@ -1,9 +1,11 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">
+    <router-link
+    class="navbar-brand"
+    to="/">
       <i class="fas fa-book-open"></i>
-    </a>
+    </router-link>
     <button
     class="navbar-toggler"
     type="button"
@@ -15,7 +17,6 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <!-- <a class="nav-link active" aria-current="page" href="#">Home</a> -->
           <router-link to="/"
           class="nav-link active" aria-current="page"
           >
@@ -24,7 +25,6 @@
         </li>
 
         <li class="nav-item">
-          <!-- <a class="nav-link active" aria-current="page" href="#">Add New Book</a> -->
           <router-link to="/google-books"
           class="nav-link active" aria-current="page"
           >
@@ -66,7 +66,10 @@ export default {
     logout() {
       localStorage.removeItem('accessToken');
 
-      this.$router.push('/');
+      this.isLoggedIn = false;
+      this.$toasted.global.info_message({
+        message: 'you are logged out',
+      });
     },
   },
   created() {

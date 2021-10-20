@@ -23,7 +23,7 @@
     v-if="!isPlay"
     v-on:click="triggerVueSpeech"
     >
-    </i>
+    </i><br>
 
     <i class="fas fa-stop fa-2x"
       v-if="isPlay"
@@ -31,7 +31,7 @@
     ></i><br>
 
       <div
-      class="row row-cols-xl-3 row-cols-md-4 g-4 books-list">
+      class="row books-list">
         <book-card
           v-for="book in books"
           v-bind:key="book.id"
@@ -42,6 +42,7 @@
       <div
       class="empty-page"
       v-if="resultEmpty"
+      data-aos="fade-up" data-aos-duration="600"
       >
         <div class="card text-center shadow">
           <div class="card-body">
@@ -53,9 +54,12 @@
               Couldn't find the book you want?
             </h5>
             <p class="card-text"></p>
-            <a href="#" class="btn btn-light btn-sm ">
+            <router-link
+            class="btn btn-light btn-sm"
+            to="/google-books"
+            >
               find and add the book
-            </a>
+            </router-link>
           </div>
         </div>
       </div>
@@ -97,6 +101,9 @@ export default {
     resultEmpty() {
       return this.$store.state.resultEmpty;
     },
+    isLoading() {
+      return this.$store.state.isLoading;
+    },
   },
   methods: {
     fetchBooks() {
@@ -114,19 +121,30 @@ export default {
       this.fetchBooks();
     },
   },
-  beforeCreate() {
+  created() {
     this.$store.dispatch('fetchBooks', {
       title: this.searchTitle,
     });
-  },
-  created() {
+
     this.fetchBooks = debounce(this.fetchBooks, 1000);
+
+    if (this.isLoading === true) {
+      this.$toasted.global.info_message({
+        message: 'fetching data, please wait',
+      });
+    }
+
+    if (this.isLoading === false) {
+      this.$toasted.global.success_message({
+        message: 'books data fetched',
+      });
+    }
   },
 };
 </script>
 
 <style>
-.body {
+  .body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -134,5 +152,24 @@ export default {
 
   .footer {
     margin-top: auto;
+  }
+
+  .fa-microphone {
+    animation: jiggle 2s infinite ease-in;
+  }
+
+  @keyframes jiggle {
+    45%, 65% {
+      transform: scale(1.0, 1.0)
+    }
+    50% {
+      transform: scale(1.1, 0.9)
+    }
+    55% {
+      transform: scale(0.9, 1.1) translate(0, -5px)
+    }
+    60% {
+      transform: scale(1.0, 1.0) translate(0, -5px)
+    }
   }
 </style>
