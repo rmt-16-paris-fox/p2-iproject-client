@@ -1,5 +1,5 @@
 <template>
-  <div class="card keyboard-card" data-aos="fade-up" data-aos-duration="600">
+  <router-link class="card keyboard-card" data-aos="fade-up" data-aos-duration="600" :to="'/keyboards/' + keyboard.id">
     <img :src="keyboard.Images[0] ? keyboard.Images[0].imageUrl : '/assets/placeholder.jpeg'" alt="Keyboard Picture" v-if="from !== 'profile'">
 
     <div class="card-body">
@@ -13,13 +13,18 @@
       <small :class="keyboard.isDone ? 'status bg-success p-1 d-block w-50 text-center mb-2' : 'status bg-warning p-1 d-block w-50 text-center mb-2'" v-if="from === 'profile'">{{workStatus}}</small>
       <small :class="keyboard.isPaid ? 'status bg-success p-1 d-block w-50 text-center' : 'status bg-warning p-1 d-block w-50 text-center'" v-if="from === 'profile'">{{paidStatus}}</small>
     </div>
-  </div>
+  </router-link>
 </template>
 
 <script>
 export default {
   name: 'KeyboardCard',
   props: ['keyboard', 'from'],
+  methods: {
+    toDetails () {
+      // this.$router.push(`/keyboards/${this.keyboard.id}`)
+    }
+  },
   computed: {
     workStatus () {
       if (this.keyboard.isDone === true) {
@@ -43,11 +48,13 @@ export default {
   .keyboard-card{
     width: 385px;
     margin: 0 25px 25px 0;
+    color: black;
   }
 
   .keyboard-card:hover{
     border: 1px solid #6c757d;
     cursor: pointer;
+    color: black;
   }
 
   .keyboard-card strong{

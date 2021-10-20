@@ -141,7 +141,20 @@ export default new Vuex.Store({
           .then(({ data }) => {
             resolve(data)
           }).catch((err) => {
-            reject(err)
+            reject(err.response.data)
+          })
+      })
+    },
+    getKeyboard (context, keyboardId) {
+      return new Promise((resolve, reject) => {
+        axios({
+          method: 'GET',
+          url: `/public/keyboards/${keyboardId}`
+        })
+          .then(({ data }) => {
+            resolve(data)
+          }).catch((err) => {
+            reject(err.response.data)
           })
       })
     }
