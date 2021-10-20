@@ -10,7 +10,7 @@
                         <div class="text-center">
                             <h1 class="h4 mb-4">Welcome Back!</h1>
                         </div>
-                        <form>
+                        <form v-on:submit.prevent="LoginForm">
                             <div class="form-group">
                                 <input type="email" class="form-control" placeholder="Email" v-model="email">
                             </div><br>
@@ -37,7 +37,7 @@
 </template>
 
 <script>
-
+import { success, error } from '../apis/alert'
 export default {
   name: 'Login',
   data () {
@@ -49,6 +49,20 @@ export default {
   methods: {
     toRegister () {
       this.$router.push('/register')
+    },
+    LoginForm () {
+      const Payload = {
+        email: this.email,
+        password: this.password
+      }
+      this.$store.dispatch('login', Payload)
+        .then(() => {
+          success('Login Success')
+          this.$router.push('/home')
+        })
+        .catch((err) => {
+          error(err.messages.join(','))
+        })
     }
   }
 }

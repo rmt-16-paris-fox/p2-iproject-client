@@ -6,8 +6,12 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    isLogin: false
   },
   mutations: {
+    SET_IS_LOGIN (state, paylod = false) {
+      state.isLogin = paylod
+    }
   },
   actions: {
     regis (context, payload) {
@@ -19,6 +23,23 @@ export default new Vuex.Store({
         })
           .then(({ data }) => {
             resolve(data)
+          })
+          .catch((error) => {
+            reject(error.response.data)
+          })
+      })
+    },
+    login (context, payload) {
+      return new Promise((resolve, reject) => {
+        axios({
+          method: 'POST',
+          url: '/users/login',
+          data: payload
+        })
+          .then(({ data }) => {
+            localStorage.setItem('access_token', data.accessToken)
+            context.commit('SET_IS_LOGIN', true)
+            resolve()
           })
           .catch((error) => {
             reject(error.response.data)
