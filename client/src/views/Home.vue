@@ -1,9 +1,9 @@
 /* eslint-disable */ // eslint-disable-next-line //
 <template>
   <div class="home">
-    <Navbar></Navbar>
+    <!-- <Navbar></Navbar> -->
     <!-- Start Jumbotron -->
-    <div class="jumbotron mt-5 pt-5">
+    <div class="jumbotron">
       <div
         class="row d-flex justify-content-center align-items-center"
         style="height: 90vh"
@@ -79,16 +79,19 @@
       </div>
     </div>
     <!-- Start Content -->
+    <HFooter></HFooter>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import Navbar from '../components/Navbar.vue'
+// import Navbar from '../components/Navbar.vue'
+import HFooter from 'vue-hacktiv8-footer'
 export default {
   name: 'Home',
   components: {
-    Navbar,
+    // Navbar,
+    HFooter,
   },
   methods: {
     toLogin() {

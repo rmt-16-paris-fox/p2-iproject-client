@@ -32,10 +32,18 @@
             />
           </div>
           <p style="color: #b4a5a5">Or login with google</p>
+          <button
+            v-google-signin-button="clientId"
+            class="google-signin-button"
+          >
+            Continue with Google
+          </button>
+          <br />
+          <br />
           <div class="d-grid gap-2">
             <button
               class="btn text-light"
-              type="button"
+              type="submit"
               style="background-color: #151515"
             >
               Submit
@@ -48,12 +56,19 @@
 </template>
 
 <script>
+import Swal from 'sweetalert2'
+import GoogleSignInButton from 'vue-google-signin-button-directive'
 export default {
   name: 'Login',
+  directives: {
+    GoogleSignInButton,
+  },
   data() {
     return {
       email: '',
       password: '',
+      clientId: `674965215344 -
+        mqa5huf2en9sd1uv4lsg7nelq2fvqcfp.apps.googleusercontent.com`,
     }
   },
   methods: {
@@ -62,19 +77,36 @@ export default {
         email: this.email,
         password: this.password,
       }
+      this.$store
+        .dispatch('login', payload)
         .then(() => {
-          this.$store
-            .dispatch('login', payload)
-            .then(() => {
-              this.$router.push('')
-            })
-            .catch((err) => {
-              console.log(err.message)
-            })
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Hi! Welcome to Cashier App',
+            showConfirmButton: false,
+            timer: 1500,
+          })
+          this.$router.push('/products')
         })
         .catch((err) => {
-          console.log(err)
+          console.log(err.data.data.name)
         })
+    },
+    OnGoogleAuthSuccess(idToken) {
+      // Receive the idToken and make your magic with the backend
+      this.$store
+        .dispatch('loginGoogle', idToken)
+        .then((data) => {
+          localStorage.setItem('access_token', data.access_token)
+          this.$router.push('/products')
+        })
+        .catch((err) => {
+          console.log(err.message)
+        })
+    },
+    OnGoogleAuthFail(error) {
+      console.log(error)
     },
   },
 }
