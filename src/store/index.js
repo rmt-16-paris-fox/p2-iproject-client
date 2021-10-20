@@ -200,6 +200,48 @@ export default new Vuex.Store({
             reject(err.response.data)
           })
       })
+    },
+    // !ERROR
+    addImages (context, { images, keyboardId }) {
+      return new Promise((resolve, reject) => {
+        axios({
+          method: 'POST',
+          url: `/admin/keyboards/${keyboardId}/images`,
+          headers: { access_token: localStorage.getItem('access_token') },
+          data: images
+        })
+          .then(({ data }) => {
+            console.log(data)
+            resolve(data)
+          }).catch((err) => {
+            reject(err.response.data)
+          })
+      })
+    },
+    editKeyboard (context, payload) {
+      return new Promise((resolve, reject) => {
+        axios({
+          method: 'PUT',
+          url: `/admin/keyboards/${payload.keyboardId}`,
+          headers: { access_token: localStorage.getItem('access_token') },
+          data: {
+            name: payload.name,
+            mountingStyle: payload.mountingStyle,
+            palteMaterial: payload.palteMaterial,
+            keycaps: payload.keycaps,
+            switches: payload.switches,
+            miscellaneous: payload.miscellaneous,
+            isDone: payload.isDone,
+            isPaid: payload.isPaid,
+            UserId: payload.UserId
+          }
+        })
+          .then(({ data }) => {
+            resolve(data)
+          }).catch((err) => {
+            reject(err.response.data)
+          })
+      })
     }
   },
   modules: {
