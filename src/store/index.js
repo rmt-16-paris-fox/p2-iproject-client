@@ -13,7 +13,10 @@ export default new Vuex.Store({
     recipes: [],
     loadMore: "",
     myRecipes: [],
-    recipeById: {}
+    recipeById: {},
+    recipeByIdRate: "",
+    recipeByIdCount: "",
+    recipeMyRate: ""
   },
   mutations: {
     SET_LOGINERR(state, payload) {
@@ -58,6 +61,15 @@ export default new Vuex.Store({
 
     SET_RECIPE(state, payload) {
       state.recipeById = payload.recipeById;
+    },
+
+    SET_RECIPE_AVG_RATE(state, payload) {
+      state.recipeByIdRate = payload.avgRate;
+      state.recipeByIdCount = payload.count;
+    },
+
+    SET_RECIPE_MY_RATE(state, payload) {
+      state.recipeMyRate = payload.rate;
     }
   },
   actions: {
@@ -138,6 +150,30 @@ export default new Vuex.Store({
       return result;
     },
 
+    async getRecipeAvgRate(context, payload) {
+      const result = await axios({
+        url: `/recipes/recipeAvgRate/${payload.recipeId}`
+      });
+
+      const avgRate = result.data.avg;
+      const count = result.data.count;
+      context.commit("SET_RECIPE_AVG_RATE", { avgRate, count });
+    },
+
+    async getRecipeMyRate(context, payload) {
+      const access_token = localStorage.getItem("access_token");
+      const result = await axios({
+        url: `/recipes/recipeMyRate/${payload.recipeId}`,
+        headers: {
+          access_token
+        }
+      });
+
+      console.log(result);
+      const rate = result.data.rate;
+      context.commit("SET_RECIPE_MY_RATE", { rate });
+    },
+
     async getMyRecipes(context, payload) {
       const access_token = localStorage.getItem("access_token");
       const result = await axios({
@@ -186,6 +222,22 @@ export default new Vuex.Store({
         url: payload.loadMore
       });
 
+      return result;
+    },
+
+    async rateRecipe(context, payload) {
+      console.log(payload);
+      const access_token = localStorage.getItem("access_token");
+      const result = await axios({
+        method: "POST",
+        url: `/recipes/rateRecipe`,
+        headers: {
+          access_token
+        },
+        data: payload
+      });
+
+      // console.log(result);
       return result;
     },
 

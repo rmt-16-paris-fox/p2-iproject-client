@@ -1,5 +1,5 @@
 <template>
-  <div class="text-left" style=" min-height: 100vh">
+  <div class="text-left" style="min-height: 100vh;">
     <navbar class="mx-3"></navbar>
     <div class="row mx-1" style="padding-top: 110px">
       <div class="col-6 offset-1">
@@ -20,8 +20,30 @@
               >
               <br />
             </span>
-            <i class="fas fa-star text-warning" v-for="idx in 5" :key="idx"></i>
-            5.0 / 5.0 from 10 users <br />
+            <span v-if="recipeCountRate > 0">
+              <star-rating
+                :rating="recipeAvgRate"
+                :read-only="true"
+                :increment="0.01"
+                :star-size="20"
+                :inline="true"
+                :rounded-corners="true"
+                :show-rating="false"
+              ></star-rating>
+              {{ recipeAvgRate }} / 5.0 from {{ recipeCountRate }} users <br />
+            </span>
+            <span v-else>
+              <star-rating
+                :rating="0"
+                :read-only="true"
+                :increment="0.01"
+                :star-size="20"
+                :inline="true"
+                :rounded-corners="true"
+                :show-rating="false"
+              ></star-rating>
+              not rated yet
+            </span>
           </div>
         </div>
         <div class="card shadow mt-3" style="min-height: 100vh">
@@ -47,13 +69,22 @@
               </div>
             </div>
             <div class="text-center mt-4">
-              <i
-                class="fas fa-star fa-2x text-warning mx-2"
-                v-for="idx in 5"
-                :key="idx"
-              ></i
-              ><br /><br />
-              Rate this Recipe
+              <star-rating
+                :star-size="40"
+                :inline="true"
+                :rounded-corners="true"
+                :animate="true"
+                :show-rating="false"
+                :rating="recipeMyRate"
+                @rating-selected="setRating"
+              ></star-rating>
+              <br />
+              <span class="mt-3" v-if="recipeMyRate === 0">
+                Rate This Recipe
+              </span>
+              <span class="mt-3" v-else>
+                You already rate this recipe
+              </span>
             </div>
             <div class="row mt-4">
               <div class="col-3 border-right">
@@ -88,7 +119,7 @@
           </div>
         </div>
       </div>
-      <div class="col-4" style="padding-top: 128px;">
+      <div class="col-4" style="padding-top: 97px;">
         <div class="card shadow" style="min-height:70vh">
           <div class="card-header">
             <h4>Comments</h4>
@@ -122,8 +153,9 @@
 
 <script>
 /* eslint-disable */
-import Navbar from "../components/Navbar.vue";
 import HFooter from "vue-hacktiv8-footer";
+import StarRating from "vue-star-rating";
+import Navbar from "../components/Navbar.vue";
 import Swal from "sweetalert2";
 import { swalSuccess, swalError, swalLoading } from "../apis/sweetAlert";
 
@@ -131,7 +163,8 @@ export default {
   name: "RecipeDetail",
   components: {
     Navbar,
-    HFooter
+    HFooter,
+    StarRating
   },
   methods: {
     getCal(calories, serving) {
@@ -139,13 +172,33 @@ export default {
       return kcal.toFixed(0);
     },
 
-    getRecipeById(recipeId) {
+    setRating(rating) {
+      // this.rating = "You have Selected: " + rating + " stars";
+      // alert(this.recipeById.uri);
+      const recipeId = this.recipeById.uri.split("#")[1];
       const loading = this.$store
-        .dispatch("getDetailRecipe", { recipeId })
+        .dispatch("rateRecipe", {
+          recipeId,
+          rating,
+          recipeName: this.recipeById.label
+        })
         .then(response => {
           Swal.close();
-          console.log(response.data);
-          this.$store.commit("SET_RECIPE", { recipeById: response.data });
+          // console.log(response.data);
+          if (response.data.message === "updated") {
+            swalSuccess(
+              "",
+              `Your rating to ${response.data.recipe} recipe successfully updated`
+            );
+          } else {
+            swalSuccess(
+              "",
+              `Your rating to ${response.data.recipe} recipe successfully added`
+            );
+          }
+
+          this.getRecipeAvgRate(recipeId);
+          this.getRecipeMyRate(recipeId);
         })
         .catch(err => {
           Swal.close();
@@ -153,11 +206,52 @@ export default {
         });
 
       swalLoading(loading);
+    },
+
+    getRecipeById(recipeId) {
+      const loading = this.$store
+        .dispatch("getDetailRecipe", { recipeId })
+        .then(response => {
+          Swal.close();
+          // console.log(response.data);
+          this.$store.commit("SET_RECIPE", { recipeById: response.data });
+          this.getRecipeAvgRate(recipeId);
+          this.getRecipeMyRate(recipeId);
+        })
+        .catch(err => {
+          Swal.close();
+          swalError("", err.response.data.message);
+        });
+
+      swalLoading(loading);
+    },
+
+    getRecipeAvgRate(recipeId) {
+      this.$store.dispatch("getRecipeAvgRate", { recipeId });
+    },
+
+    getRecipeMyRate(recipeId) {
+      this.$store.dispatch("getRecipeMyRate", { recipeId });
     }
   },
   computed: {
     recipeById() {
       return this.$store.state.recipeById;
+    },
+
+    recipeAvgRate() {
+      const avgRate = Number(this.$store.state.recipeByIdRate).toFixed(1);
+      return avgRate;
+    },
+
+    recipeCountRate() {
+      const count = Number(this.$store.state.recipeByIdCount);
+      return count;
+    },
+
+    recipeMyRate() {
+      const myRate = Number(this.$store.state.recipeMyRate);
+      return myRate;
     }
   },
   created() {

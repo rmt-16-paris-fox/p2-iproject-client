@@ -254,7 +254,7 @@
                 class="btn btn-success btn-block"
                 v-on:click.prevent="sendMail()"
               >
-                Send Me
+                Send Me Email
               </button>
             </div>
           </form>
@@ -270,12 +270,14 @@
             :key="idx"
           >
             <div class="text-center">
-              <img
-                :src="recipe.recipe.image"
-                class="card-img-top"
-                alt="unable to load image"
-                style="height:200px; width:100%"
-              />
+              <a href="#" v-on:click.prevent="seeDetail(recipe.recipe.uri)">
+                <img
+                  :src="recipe.recipe.image"
+                  class="card-img-top"
+                  alt="unable to load image"
+                  style="height:200px; width:100%"
+                />
+              </a>
             </div>
             <div class="card-body text-left">
               <h5 class="card-title">
@@ -345,12 +347,6 @@
               </div> -->
             </div>
             <div class="card-footer bg-white border-0">
-              <button
-                class="btn btn-success btn-block"
-                v-on:click.prevent="seeDetail(recipe.recipe.uri)"
-              >
-                See Detail
-              </button>
               <button
                 class="btn btn-danger btn-block"
                 v-on:click.prevent="addMyRecipe(recipe.recipe.uri)"
