@@ -5,7 +5,7 @@
         <img src="/assets/profpic.png" alt="">
       </div>
       <div class="col-6 d-flex flex-column justify-content-center">
-        <h2>hello.</h2>
+        <h1>hello.</h1>
         <p>
           My name is <strong>Samuel Matthew</strong>. <br>
           I'm 21 years old and I'm from Indonesia 🇮🇩 <br>

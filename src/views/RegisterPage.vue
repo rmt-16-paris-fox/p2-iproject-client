@@ -2,7 +2,7 @@
   <section id="RegisterPage" class="d-flex align-items-center justify-content-center">
     <div class="card p-5" data-aos="fade-up" data-aos-duration="600">
       <form @submit.prevent="register">
-        <h1 class="mb-4">Register</h1>
+        <h1 class="mb-4">register</h1>
         <label>Full Name</label>
         <input type="text" class="form-control mt-1 mb-3" v-model="fullName">
         <label>E-mail</label>

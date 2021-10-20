@@ -131,6 +131,19 @@ export default new Vuex.Store({
             reject(err.response.data)
           })
       })
+    },
+    fetchGallery () {
+      return new Promise((resolve, reject) => {
+        axios({
+          method: 'GET',
+          url: '/public/keyboards'
+        })
+          .then(({ data }) => {
+            resolve(data)
+          }).catch((err) => {
+            reject(err)
+          })
+      })
     }
   },
   modules: {

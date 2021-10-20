@@ -14,9 +14,9 @@
             <li class="mb-2">Build fee depends on the layout of the keyboard, PM for details</li>
           </ul>
 
-          <span>Please contact me via e-mail (mtthwsbuild@gmail.com) or DM me on Instagram (@mtthwsbuild) if you got some questions!</span>
+          <span>Please contact me via e-mail (<strong>mtthwsbuild@gmail.com</strong>) or DM me on Instagram (<strong>@mtthwsbuild</strong>) if you got some questions!</span>
           <br><br>
-          <span>Please <router-link to="/login">login</router-link> to order via this website.</span>
+          <span>Please <router-link to="/login">log in</router-link> to order via this website.</span>
         </p>
       </div>
       <div class="col-6 d-flex justify-content-end" v-if="isLoggedIn">

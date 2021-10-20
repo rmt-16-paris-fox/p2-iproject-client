@@ -1,8 +1,15 @@
 <template>
   <div class="card keyboard-card" data-aos="fade-up" data-aos-duration="600">
-    <img :src="keyboard.Images[0] ? keyboard.Images[0].imageUrl : ''" alt="Keyboard Picture" v-if="from !== 'profile'">
+    <img :src="keyboard.Images[0] ? keyboard.Images[0].imageUrl : '/assets/placeholder.jpeg'" alt="Keyboard Picture" v-if="from !== 'profile'">
+
     <div class="card-body">
-      <strong class="d-inline-block mb-3">{{keyboard.name}}</strong> <br>
+      <strong class="d-inline-block">{{keyboard.name}}</strong>
+
+      <div class="specs" v-if="from === 'keyboards'">
+        {{keyboard.switches}} <br>
+        {{keyboard.keycaps}}
+      </div>
+
       <small :class="keyboard.isDone ? 'status bg-success p-1 d-block w-50 text-center mb-2' : 'status bg-warning p-1 d-block w-50 text-center mb-2'" v-if="from === 'profile'">{{workStatus}}</small>
       <small :class="keyboard.isPaid ? 'status bg-success p-1 d-block w-50 text-center' : 'status bg-warning p-1 d-block w-50 text-center'" v-if="from === 'profile'">{{paidStatus}}</small>
     </div>
@@ -44,13 +51,15 @@ export default {
   }
 
   .keyboard-card strong{
-    font-weight: 600;
+    font-family: 'Source Serif Pro';
+    font-size: 1.3em;
+    font-weight: 400;
     padding-bottom: 3px;
   }
 
   .keyboard-card img {
     width: 100%;
-    height: 200px;
+    height: 255px;
   }
 
   .keyboard-card .status {
