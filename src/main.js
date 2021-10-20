@@ -3,14 +3,19 @@ import vueDebounce from 'vue-debounce';
 import VueSpeech from 'vue-speech';
 import AOS from 'aos';
 import Toasted from 'vue-toasted';
+import { BootstrapVue } from 'bootstrap-vue';
 import App from './App.vue';
 import router from './router';
 import store from './store';
+
 import 'aos/dist/aos.css';
+import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap-vue/dist/bootstrap-vue.css';
 
 Vue.config.productionTip = false;
 
 Vue.use(VueSpeech);
+Vue.use(BootstrapVue);
 Vue.use(vueDebounce, {
   listenTo: ['input', 'keyup'],
 });

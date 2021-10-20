@@ -15,6 +15,8 @@ export default new Vuex.Store({
     bookData: '',
     reviewsEmpty: false,
     isLoading: true,
+    count: 0,
+    page: 0,
   },
   mutations: {
     SET_BOOKS(state, payload) {
@@ -40,6 +42,12 @@ export default new Vuex.Store({
     },
     SET_ISLOADING(state, payload) {
       state.isLoading = payload;
+    },
+    SET_COUNT(state, payload) {
+      state.count = payload;
+    },
+    SET_PAGE(state, payload) {
+      state.page = payload - 1;
     },
   },
   actions: {
@@ -81,6 +89,7 @@ export default new Vuex.Store({
       })
         .then((books) => {
           console.log(books.data);
+          const { totalItems } = books.data;
           if (books.data.totalItems === 0) {
             context.commit('SET_RESULT_EMPTY', true);
           } else {
@@ -88,6 +97,7 @@ export default new Vuex.Store({
           }
 
           context.commit('SET_BOOKS', books.data);
+          context.commit('SET_COUNT', totalItems);
           context.commit('SET_ISLOADING', false);
         })
         .catch((err) => {
@@ -129,18 +139,17 @@ export default new Vuex.Store({
         data: {
           volumeId: payload.volumeId,
         },
-      })
-        .then((response) => {
-          console.log(response.data);
-          if (response.data.foundBook.Reviews.length === 0) {
-            context.commit('SET_REVIEWS_EMPTY', true);
-          } else {
-            context.commit('SET_REVIEWS_EMPTY', false);
-          }
+      }).then((response) => {
+        console.log(response.data);
+        if (response.data.foundBook.Reviews.length === 0) {
+          context.commit('SET_REVIEWS_EMPTY', true);
+        } else {
+          context.commit('SET_REVIEWS_EMPTY', false);
+        }
 
-          context.commit('SET_BOOOK_DATA', response.data);
-          context.commit('SET_ISLOADING', false);
-        });
+        context.commit('SET_BOOOK_DATA', response.data);
+        context.commit('SET_ISLOADING', false);
+      });
     },
     fetchBookByVolumeId(context, payload) {
       return axios({
