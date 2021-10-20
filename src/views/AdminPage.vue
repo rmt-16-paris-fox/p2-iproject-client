@@ -3,7 +3,7 @@
     <h1>admin</h1>
     <router-link to='/add' class="btn btn-secondary my-3">
       <i class="fas fa-plus-square mx-2"></i>
-      <div class="d-inline-block">Add Keyboard</div>
+      <div class="d-inline-block">Add Keyboard / Images</div>
     </router-link>
     <table>
       <thead>
@@ -28,7 +28,7 @@
           <td>{{keyboard.isPaid}}</td>
           <td>{{keyboard.UserId}}</td>
           <td>
-            <router-link to='/update' class="btn">update</router-link>
+            <router-link :to="'/update/' + keyboard.id" class="btn">update</router-link>
           </td>
         </tr>
       </tbody>

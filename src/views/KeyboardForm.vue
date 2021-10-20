@@ -19,19 +19,19 @@
           <label>Miscellaneous *</label>
           <input type="text" class="form-control mt-1 mb-3" v-model="miscellaneous">
           <label>Payment Status</label>
-          <select class="form-control mt-1 mb-3" v-model="isPaid">
-            <option value='true'>Done</option>
-            <option value='false'>Not Yet</option>
+          <select class="form-select mt-1 mb-3" v-model="isPaid">
+            <option value="true">Done</option>
+            <option value="false">Not Yet</option>
           </select>
           <label>Work Status</label>
-          <select class="form-control mt-1 mb-3" v-model="isDone">
-            <option value='true'>Done</option>
-            <option value='false'>Not Yet</option>
+          <select class="form-select mt-1 mb-3" v-model="isDone">
+            <option value="true">Done</option>
+            <option value="false">Not Yet</option>
           </select>
 
           <label>User Id</label>
-          <select class="form-control mt-1 mb-3" v-model="UserId">
-            <option  v-for="user in users" :key="user.id" :value="user.id">{{user.email}} || {{user.id}}</option>
+          <select class="form-select mt-1 mb-3" v-model="UserId">
+            <option  v-for="user in users" :key="user.id" :value="user.id" :selected="(UserId === user.id)">{{user.email}} || {{user.id}}</option>
           </select>
 
           <small>* leave empty for default configuration</small>
@@ -40,8 +40,33 @@
         </form>
       </div>
     </div>
-    <div class="col-6" v-if="page === 'update'">
-      <h1>hellos</h1>
+    <div class="col-6"  v-if="page === 'Add'">
+      <div class="card keyboard-form p-5 my-3">
+        <h1 class="mb-3">
+          {{page}} images
+        </h1>
+        <form @submit.prevent="submitImage" enctype="multipart/form-data">
+          <label>Image 1</label>
+          <input type="file" class="form-control mt-1 mb-3" @change="fileChange1">
+
+          <label>Image 2</label>
+          <input type="file" class="form-control mt-1 mb-3" @change="fileChange2">
+
+          <label>Image 3</label>
+          <input type="file" class="form-control mt-1 mb-3" @change="fileChange3">
+
+          <label>Image 4</label>
+          <input type="file" class="form-control mt-1 mb-3" @change="fileChange4">
+
+          <label>Keyboard Id</label>
+          <select class="form-select mt-1 mb-3" v-model="KeyboardId">
+            <option  v-for="keyboard in keyboards" :key="keyboard.id" :value="keyboard.id">{{keyboard.name}} || {{keyboard.User.email}} || {{keyboard.id}}</option>
+          </select>
+
+          <input type="submit" value="Submit" class="form-control mt-4 py-2 btn-secondary">
+          <router-link to="/admin" class="form-control mt-3 py-2 btn-secondary text-center">Back</router-link>
+        </form>
+      </div>
     </div>
   </section>
 </template>
@@ -61,10 +86,45 @@ export default {
       isDone: false,
       isPaid: false,
       UserId: '',
-      users: []
+
+      users: [],
+      keyboards: [],
+
+      KeyboardId: '',
+      file1: {},
+      file2: {},
+      file3: {},
+      file4: {},
+
+      keyboardData: {},
+      currentId: ''
     }
   },
   methods: {
+    fileChange1 (event) {
+      console.log('1')
+      const imgFile = event.target.files[0]
+      console.log(imgFile)
+      this.file1 = imgFile
+    },
+    fileChange2 (event) {
+      console.log('2')
+      const imgFile = event.target.files[0]
+      console.log(imgFile)
+      this.file2 = imgFile
+    },
+    fileChange3 (event) {
+      console.log('3')
+      const imgFile = event.target.files[0]
+      console.log(imgFile)
+      this.file3 = imgFile
+    },
+    fileChange4 (event) {
+      console.log('4')
+      const imgFile = event.target.files[0]
+      console.log(imgFile)
+      this.file4 = imgFile
+    },
     submit () {
       const payload = {
         name: this.name,
@@ -87,8 +147,40 @@ export default {
             alertError(message)
           })
       } else if (this.page === 'Update') {
-        // this.$store.dispatch('addKeyboard', payload)
-        console.log('updateKeyboard', payload)
+        payload.keyboardId = this.currentId
+        console.log(payload)
+        this.$store.dispatch('editKeyboard', payload)
+          .then((data) => {
+            alertSuccess(data.message)
+            this.$router.push('/admin')
+          }).catch((err) => {
+            console.log(err)
+            alertError(err.message)
+          })
+      }
+    },
+    // ! MASIH ERROR
+    submitImage () {
+      const imgArray = [
+        this.file1, this.file2, this.file3, this.file4
+      ]
+      const images = new FormData()
+      images.append('images', imgArray)
+
+      const payload = {
+        images,
+        keyboardId: this.KeyboardId
+      }
+      if (this.page === 'Add') {
+        this.$store.dispatch('addImages', payload)
+          .then((data) => {
+            alertSuccess(`Image with id ${data.id} uploaded!`)
+            this.$router.push('/admin')
+          }).catch((err) => {
+            alertError(err.message)
+          })
+      } else if (this.page === 'Update') {
+        // delete image
       }
     },
     fetchUsers () {
@@ -97,7 +189,31 @@ export default {
           this.users = data
         }).catch((err) => {
           alertError(err.message)
-          console.log(err)
+        })
+    },
+    fetchKeyboards () {
+      this.$store.dispatch('fetchKeyboards')
+        .then((data) => {
+          this.keyboards = data
+        }).catch((err) => {
+          console.log(err.message)
+        })
+    },
+    getKeyboard () {
+      this.$store.dispatch('getKeyboard', Number(this.$route.params.keyboardId))
+        .then((data) => {
+          this.name = data.name
+          this.mountingStyle = data.mountingStyle
+          this.plateMaterial = data.plateMaterial
+          this.keycaps = data.keycaps
+          this.switches = data.switches
+          this.miscellaneous = data.miscellaneous
+          this.isPaid = data.isPaid
+          this.isDone = data.isDone
+          this.UserId = data.UserId
+          this.currentId = data.id
+        }).catch((err) => {
+          alertError(err.message)
         })
     }
   },
@@ -112,6 +228,11 @@ export default {
   },
   created () {
     this.fetchUsers()
+    if (this.page === 'Add') {
+      this.fetchKeyboards()
+    } else if (this.page === 'Update') {
+      this.getKeyboard()
+    }
   }
 }
 </script>

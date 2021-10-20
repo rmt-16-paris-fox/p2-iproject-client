@@ -119,7 +119,7 @@ const routes = [
     }
   },
   {
-    path: '/update',
+    path: '/update/:keyboardId',
     name: 'UpdateForm',
     component: KeyboardForm,
     beforeEnter: function (to, from, next) {
