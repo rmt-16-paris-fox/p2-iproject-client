@@ -12,7 +12,6 @@ export default new Vuex.Store({
   },
   mutations: {
     SET_HOMEDATA (state, payload) {
-      // console.log(payload, 'di mutation')
       state.homeDatas = payload
     },
     SET_WISHLISTDATA (state, payload) {
@@ -24,7 +23,6 @@ export default new Vuex.Store({
   },
   actions: {
     handleLogin (_, payload) {
-      // console.log(payload, 'dari soter index.js')
       return axios({
         url: '/login',
         method: 'POST',
@@ -39,7 +37,6 @@ export default new Vuex.Store({
       })
     },
     handleGoogleLogin (_, payload) {
-      // console.log(payload, 'token di handle google')
       return axios({
         url: '/login-google',
         method: 'POST',

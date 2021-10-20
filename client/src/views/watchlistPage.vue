@@ -39,14 +39,10 @@ export default {
   },
   methods: {
     toDetail (id) {
-      console.log(id, 'post ke')
       this.$router.push('/detailPage/' + id)
     }
   },
   created () {
-    // manggil fungsi get data home dari store
-    // manggil data dari state
-    // baru tampilin data
     this.$store.dispatch('getUserWishlist')
   },
   computed: {

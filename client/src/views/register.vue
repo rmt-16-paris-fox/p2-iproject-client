@@ -54,7 +54,6 @@ export default {
         address: this.addressRegister
       })
         .then((resp) => {
-          // console.log(resp, 'data balikan register')
           this.$toast.open({
             message: 'Register Success',
             type: 'success',
@@ -63,7 +62,6 @@ export default {
           this.$router.push('Login')
         })
         .catch(err => {
-          // console.log(err, 'err data balikan register')
           if (err.response.data.msg) {
             this.$toast.open({
               message: err.response.data.msg,
