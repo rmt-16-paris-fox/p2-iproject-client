@@ -119,7 +119,6 @@ export default {
   },
   methods: {
     deleteImg (id) {
-      // console.log(id)
       this.$store.dispatch('deleteImage', id)
         .then((data) => {
           this.getKeyboard()
@@ -185,11 +184,7 @@ export default {
           })
       }
     },
-    // ! MASIH ERROR
     submitImage () {
-      // const imgArray = [
-      //   this.file1, this.file2, this.file3, this.file4
-      // ]
       const images = new FormData()
       images.append('images', this.file1)
       images.append('images', this.file2)
