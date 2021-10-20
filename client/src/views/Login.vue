@@ -4,7 +4,10 @@
     class="container d-flex justify-content-center align-items-center"
     style="height: 90vh"
   >
-    <div class="card w-50" style="background-color: #3c415c">
+    <div
+      class="card w-50"
+      style="background-color: #3c415c; border-radius: 10px"
+    >
       <div class="row justify-content-center align-items-center mx-5 my-5">
         <form @submit.prevent="login">
           <h2 class="mb-4" style="color: #b4a5a5">Sign In</h2>

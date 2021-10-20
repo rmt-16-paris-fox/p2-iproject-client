@@ -37,9 +37,10 @@ export default new Vuex.Store({
     },
     register(_, payload) {
       const { username, email, password } = payload
+      console.log(payload)
       return new Promise((resolve, reject) => {
         axios({
-          url: '/register',
+          url: '/users/register',
           method: 'POST',
           data: {
             username,
@@ -53,6 +54,25 @@ export default new Vuex.Store({
           })
           .catch((err) => {
             console.log(err)
+            reject(err.response.data)
+          })
+      })
+    },
+    fetchProduct(_, payload) {
+      console.log(payload)
+      return new Promise((resolve, reject) => {
+        axios({
+          url: '/products',
+          method: 'GET',
+          headers: {
+            access_token: localStorage.getItem('access_token'),
+          },
+        })
+          .then(({ data }) => {
+            console.log(data)
+            resolve()
+          })
+          .catch((err) => {
             reject(err.response.data)
           })
       })
