@@ -4,6 +4,19 @@
   </div>
 </template>
 
+<script>
+export default {
+  name: 'App',
+  created () {
+    if (!localStorage.access_token) {
+      this.$store.commit('SET_LOG_IN', false)
+    } else {
+      this.$store.commit('SET_LOG_IN', true)
+    }
+  }
+}
+</script>
+
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;

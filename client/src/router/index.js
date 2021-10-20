@@ -2,6 +2,9 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import LoginPage from '../views/LoginPage.vue'
 import RegisterPage from '../views/RegisterPage.vue'
+import HomePage from '../views/HomePage.vue'
+import DetailPage from '../views/DetailPage.vue'
+import MyClass from '../views/MyClass.vue'
 
 Vue.use(VueRouter)
 
@@ -25,6 +28,28 @@ const routes = [
     beforeEnter: (to, from, next) => {
       if (localStorage.getItem('access_token')) {
         next('/')
+      } else {
+        next()
+      }
+    }
+  },
+  {
+    path: '/',
+    name: 'HomePage',
+    component: HomePage
+  },
+  {
+    path: '/detail/:id',
+    name: 'DetailPage',
+    component: DetailPage
+  },
+  {
+    path: '/myclass',
+    name: 'MyClass',
+    component: MyClass,
+    beforeEnter: (to, from, next) => {
+      if (!localStorage.getItem('access_token')) {
+        next('/login')
       } else {
         next()
       }

@@ -1,5 +1,6 @@
 <template>
   <section class="vh-100" style="background-color: #fafafa;">
+    <Navbar />
   <div class="container h-100">
     <div class="row d-flex justify-content-center align-items-center h-100">
       <div class="col-lg-12 col-xl-11">
@@ -61,6 +62,7 @@
 <script>
 import HFooter from 'vue-hacktiv8-footer'
 import { swalSuccess, swalError } from '../apis/swal'
+import Navbar from '../components/Navbar.vue'
 
 export default {
   name: 'RegisterPage',
@@ -72,7 +74,8 @@ export default {
     }
   },
   components: {
-    HFooter
+    HFooter,
+    Navbar
   },
   methods: {
     register () {
