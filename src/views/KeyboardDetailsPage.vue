@@ -2,10 +2,10 @@
   <section id="DetailsPage">
     <h1>details</h1>
     <div class="row my-4">
-      <div class="col-6">
+      <div class="col-6" data-aos="fade-right" data-aos-duration="600">
         <img :src="keyboard.Images[0] ? keyboard.Images[0].imageUrl : '/assets/placeholder.jpeg'" alt="Keyboard image">
       </div>
-      <div class="col-6">
+      <div class="col-6" data-aos="fade-left" data-aos-duration="600" data-aos-delay="300">
         <div class="d-flex items mb-3">
           <strong class="d-block itemTitle">case: </strong>
           <span class="d-block">{{keyboard.name}}</span>
@@ -32,7 +32,7 @@
         </div>
       </div>
     </div>
-    <div class="row py-5">
+    <div class="row py-5" data-aos="fade-up" data-aos-duration="600" data-aos-delay="600">
       <img v-for="(image, idx) in keyboard.Images" :key="idx" :src="image.imageUrl" alt="" class="imageItem">
     </div>
   </section>
@@ -124,7 +124,7 @@ export default {
   }
 
   #DetailsPage .imageItem {
-    width: 33%;
+    width: 50%;
     padding-bottom: 24px;
   }
 

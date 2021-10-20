@@ -20,11 +20,6 @@
 export default {
   name: 'KeyboardCard',
   props: ['keyboard', 'from'],
-  methods: {
-    toDetails () {
-      // this.$router.push(`/keyboards/${this.keyboard.id}`)
-    }
-  },
   computed: {
     workStatus () {
       if (this.keyboard.isDone === true) {
