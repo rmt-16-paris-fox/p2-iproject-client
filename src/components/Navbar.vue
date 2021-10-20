@@ -4,10 +4,10 @@
     <router-link
     class="navbar-brand"
     to="/">
-      <i class="fas fa-book-open"></i>
+      <i class="fas fa-book-open"></i> Bookish
     </router-link>
     <button
-    class="navbar-toggler"
+    class="navbar-toggler text-white"
     type="button"
     data-bs-toggle="collapse"
     data-bs-target="#navbarSupportedContent"
@@ -32,11 +32,11 @@
           </router-link>
         </li>
 
-        <li class="nav-item"
+        <li class="nav-item btn btn-dark text-white"
         v-if="isLoggedIn === false"
         >
           <router-link to="/login"
-          class="nav-link active" aria-current="page"
+          class="nav-link active btn-sm btn-light text-dark login-button" aria-current="page"
           >
             Login
           </router-link>
@@ -45,7 +45,8 @@
         <li class="nav-item"
         v-if="isLoggedIn"
         >
-          <a class="nav-link active" aria-current="page" href="#"
+          <a class="nav-link active btn-sm btn-light text-dark logout-button"
+          aria-current="page" href="#"
           v-on:click.prevent="logout"
           >Logout</a>
         </li>
@@ -83,5 +84,11 @@ export default {
 </script>
 
 <style>
+  .logout-button {
+    font-family: monospace;
+  }
 
+  .login-button {
+    font-family: monospace;
+  }
 </style>
