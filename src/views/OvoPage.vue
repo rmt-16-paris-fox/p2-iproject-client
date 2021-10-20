@@ -84,6 +84,11 @@ export default {
     padding: 30px 100px;
   }
 
+
+  .footer-h8 {
+    background-color: #26466a !important;
+  }
+
   #OvoPage .card {
     min-width: 500px;
   }

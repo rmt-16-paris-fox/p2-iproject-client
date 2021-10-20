@@ -265,6 +265,51 @@ export default {
 </script>
 
 <style>
+  @import url('https://fonts.googleapis.com/css2?family=Source+Serif+Pro:wght@200;300;400;600;700;900&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: #fdf9f1;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: 'Source Serif Pro', serif;
+  }
+
+  .swal2-title {
+    font-family: 'Poppins', sans-serif;
+  }
+
+  a {
+    text-decoration: none;
+    color: #fdf9f1;
+  }
+
+  a:hover {
+    color: #fdf9f1;
+  }
+
+  section {
+    min-height: calc(100vh - 174px);
+    padding: 30px 100px;
+  }
+
+  .footer-h8 {
+    background-color: #26466a !important;
+  }
+
   #KeyboardForm .keyboard-form {
     width: 100%;
   }
