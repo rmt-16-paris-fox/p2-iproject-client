@@ -10,15 +10,48 @@
         <!-- TAG -->
         <p>By: {{todo.User.name}}</p>
         <hr>
-        <button class="btn btn-edit mx-1">Edit</button>
-        <button class="btn btn-delete mx-1">Delete</button>
+        <button class="btn mx-1" style="background-color: #ffb74d; color: #ffff;" v-if="todo.status == 'To do'" v-on:click.prevent="updateStatus('In Progress')">In Progress</button>
+        <button class="btn mx-1" style="background-color: #ffb74d; color: #ffff;" v-if="todo.status === 'In Progress'" v-on:click.prevent="updateStatus('Done')">Done</button>
+
+        <button class="btn btn-edit mx-1" v-on:click.prevent="editForm">Edit</button>
+        <button class="btn btn-delete mx-1" v-on:click.prevent="deleteTodo">Delete</button>
     </div>
 </template>
 
 <script>
+import { success, error } from '../apis/alert'
 export default {
   name: 'CardTodos',
-  props: ['todo', 'category', 'showAdd']
+  props: ['todo', 'category'],
+  methods: {
+    editForm () {
+      this.$router.push(`/edit/${this.todo.id}`)
+    },
+    deleteTodo () {
+      this.$store.dispatch('delete', this.todo.id)
+        .then((data) => {
+          success(data[0])
+          this.$emit('fetchTodo')
+        })
+        .catch((err) => {
+          error(err.message.join(','))
+        })
+    },
+    updateStatus (params) {
+      const payload = {
+        id: this.todo.id,
+        status: params
+      }
+      this.$store.dispatch('updateStatus', payload)
+        .then((data) => {
+          success(data[0])
+          this.$emit('fetchTodo')
+        })
+        .catch((err) => {
+          error(err.message.join(','))
+        })
+    }
+  }
 }
 </script>
 
@@ -50,4 +83,5 @@ p {
     background-color: #4db6ac;
     color: #ffff;
 }
+
 </style>

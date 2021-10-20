@@ -1,5 +1,5 @@
 <template>
-    <div class="task bg-light shadow p-3 mt-2">
+    <div class="task bg-light shadow p-3 mt-2" >
         <textarea disabled class="form-control" cols="20" rows="5" :value="note.content"></textarea><br>
         <p>By: {{note.User.name}}</p>
     </div>

@@ -6,9 +6,9 @@
     <!-- FORM -->
     <div class="container-fluid p-lg-5">
       <div class="card p-lg-5 form-add">
-        <h5>Add Todo</h5>
+        <h5>Edit Todo</h5>
         <hr>
-        <form v-on:submit.prevent="AddTodo">
+        <form v-on:submit.prevent="EditTodo">
             <input v-model="title" class="form-control" type="text" placeholder="Title"><br>
             <input v-model="content" class="form-control" type="text" placeholder="Content"><br>
             <select name="tag" v-model="tag" class="form-control">
@@ -18,7 +18,7 @@
                 <option value="Other">Other</option>
             </select>
             <br>
-            <button class="btn btn-add mx-1" type="submit">Add</button>
+            <button class="btn btn-add mx-1" type="submit">Edit</button>
             <a href="" class="btn btn-cancel mx-1" v-on:click.prevent="toHome">cancel</a>
         </form>
       </div>
@@ -31,7 +31,7 @@ import { success, error } from '../apis/alert'
 import Navbar from '../components/Navbar.vue'
 
 export default {
-  name: 'AddTodo',
+  name: 'EditTodo',
   data: function () {
     return {
       title: '',
@@ -40,16 +40,28 @@ export default {
     }
   },
   methods: {
-    AddTodo () {
+    getData () {
+      this.$store.dispatch('getData', this.$route.params.id)
+        .then((data) => {
+          this.title = data.title
+          this.content = data.content
+          this.tag = data.tag
+        })
+        .catch((err) => {
+          error(err.messages.join(','))
+        })
+    },
+    EditTodo () {
       const payload = {
+        id: this.$route.params.id,
         title: this.title,
         content: this.content,
         tag: this.tag
       }
 
-      this.$store.dispatch('addTodo', payload)
+      this.$store.dispatch('editTodo', payload)
         .then((data) => {
-          success('Successfully to add todo')
+          success('Successfully to edit todo')
           this.$router.push('/home')
         })
         .catch((err) => {
@@ -62,6 +74,9 @@ export default {
   },
   components: {
     Navbar
+  },
+  created () {
+    this.getData()
   }
 }
 </script>

@@ -115,6 +115,82 @@ export default new Vuex.Store({
             reject(error.response.data)
           })
       })
+    },
+    getData (context, payload) {
+      return new Promise((resolve, reject) => {
+        axios({
+          method: 'GET',
+          url: `/todos/${payload}`,
+          headers: {
+            access_token: localStorage.getItem('access_token')
+          }
+        })
+          .then(({ data }) => {
+            resolve(data)
+          })
+          .catch((error) => {
+            reject(error.response.data)
+          })
+      })
+    },
+    editTodo (context, payload) {
+      return new Promise((resolve, reject) => {
+        axios({
+          method: 'PUT',
+          url: `/todos/${payload.id}`,
+          data: {
+            title: payload.title,
+            content: payload.content,
+            tag: payload.tag
+          },
+          headers: {
+            access_token: localStorage.getItem('access_token')
+          }
+        })
+          .then(({ data }) => {
+            resolve(data)
+          })
+          .catch((error) => {
+            reject(error.response.data)
+          })
+      })
+    },
+    delete (context, payload) {
+      return new Promise((resolve, reject) => {
+        axios({
+          method: 'DELETE',
+          url: `/todos/${payload}`,
+          headers: {
+            access_token: localStorage.getItem('access_token')
+          }
+        })
+          .then(({ data }) => {
+            resolve(data)
+          })
+          .catch((error) => {
+            reject(error.response.data)
+          })
+      })
+    },
+    updateStatus (context, payload) {
+      return new Promise((resolve, reject) => {
+        axios({
+          method: 'PATCH',
+          url: `/todos/status/${payload.id}`,
+          data: {
+            status: payload.status
+          },
+          headers: {
+            access_token: localStorage.getItem('access_token')
+          }
+        })
+          .then(({ data }) => {
+            resolve(data)
+          })
+          .catch((error) => {
+            reject(error.response.data)
+          })
+      })
     }
   },
   modules: {

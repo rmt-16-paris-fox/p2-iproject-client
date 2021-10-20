@@ -61,7 +61,7 @@ export default {
           this.$router.push('/home')
         })
         .catch((err) => {
-          error(err.messages.join(','))
+          error(err.message.join(','))
         })
     }
   }
