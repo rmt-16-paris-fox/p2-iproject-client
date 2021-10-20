@@ -63,6 +63,21 @@
           </div>
         </div>
       </div>
+
+      <br>
+
+      <b-pagination
+        size="sm"
+        pills
+        align="center"
+        v-model="page"
+        v-bind:total-rows="count"
+        v-bind:per-page="pageSize"
+        prev-text="Prev"
+        next-text="Next"
+        v-on:change="handlePageChange"
+      >
+      </b-pagination>
   </div>
 
   <HFooter
@@ -85,6 +100,8 @@ export default {
       searchTitle: '',
       startTranscription: false,
       isPlay: false,
+      page: 1,
+      pageSize: 6,
     };
   },
   name: 'Home',
@@ -104,11 +121,21 @@ export default {
     isLoading() {
       return this.$store.state.isLoading;
     },
+    count() {
+      return this.$store.state.count;
+    },
   },
   methods: {
+    handlePageChange(value) {
+      this.$store.commit('SET_PAGE', value);
+      // this.$store.dispatch('fetchPosts');
+      this.fetchBooks();
+    },
     fetchBooks() {
       this.$store.dispatch('fetchBooks', {
         title: this.searchTitle,
+        size: 6,
+        page: this.$store.state.page,
       });
     },
     triggerVueSpeech() {
