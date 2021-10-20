@@ -13,6 +13,7 @@
             Website Cashier untuk Mencatat Transaksi Penjualan
           </h1>
           <button
+            @click.prevent="toLogin"
             type="button"
             class="btn btn-lg mx-2 text-light"
             style="background-color: #301b3f"
@@ -20,6 +21,7 @@
             Sign In
           </button>
           <button
+            @click.prevent="toRegister"
             type="button"
             class="btn btn-lg mx-2 text-light"
             style="background-color: #301b3f"
@@ -48,24 +50,24 @@
                 <h4 style="font-weight: bold">Mengapa pilih cashier?</h4>
                 <div class="row mt-3">
                   <div class="col-6">
-                    <div class="card" style="width: 15rem">
+                    <div class="card" style="width: 15rem; border-radius: 15px">
                       <div class="card-body">
-                        <h6 class="card-title" style="font-weight: bold">
+                        <h5 class="card-title" style="font-weight: bold">
                           Apapun Bisa, 1 aplikasi untuk kelola semua
-                        </h6>
-                        <h5>
-                          Fitur lengkap untuk outlet dan karyawan tak terbatas
                         </h5>
+                        <h6>
+                          Fitur lengkap untuk outlet dan karyawan tak terbatas
+                        </h6>
                       </div>
                     </div>
                   </div>
                   <div class="col-6">
-                    <div class="card" style="width: 15rem">
+                    <div class="card" style="width: 15rem; border-radius: 15px">
                       <div class="card-body">
-                        <h6 class="card-title" style="font-weight: bold">
+                        <h5 class="card-title" style="font-weight: bold">
                           Anti Ribet, Cocok untuk Semua
-                        </h6>
-                        <h5>Rasakan kemudahan cara pakainya</h5>
+                        </h5>
+                        <h6>Rasakan kemudahan cara pakainya</h6>
                       </div>
                     </div>
                   </div>
@@ -87,6 +89,14 @@ export default {
   name: 'Home',
   components: {
     Navbar,
+  },
+  methods: {
+    toLogin() {
+      this.$router.push('/login')
+    },
+    toRegister() {
+      this.$router.push('/register')
+    },
   },
 }
 </script>
