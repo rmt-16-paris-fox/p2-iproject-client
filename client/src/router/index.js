@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import LoginPage from '../views/Login.vue'
+import RegisterPage from '../views/Register.vue'
 Vue.use(VueRouter)
 
 const routes = [
@@ -21,6 +22,18 @@ const routes = [
     path: '/login',
     name: 'LoginPage',
     component: LoginPage,
+    beforeEnter: (to, from, next) => {
+      if (localStorage.getItem('access_token')) {
+        next('/')
+      } else {
+        next()
+      }
+    }
+  },
+  {
+    path: '/register',
+    name: 'RegisterPage',
+    component: RegisterPage,
     beforeEnter: (to, from, next) => {
       if (localStorage.getItem('access_token')) {
         next('/')

@@ -5,11 +5,19 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    isLoggedIn: false
+    isLoggedIn: false,
+    editPage: false,
+    postToEdit: ''
   },
   mutations: {
     SET_IS_LOGGED_IN (state, payload) {
       state.isLoggedIn = payload
+    },
+    SET_EDIT_PAGE (state, payload) {
+      state.editPage = payload
+    },
+    SET_POST_DATA (state, payload) {
+      state.postToEdit = payload
     }
   },
   actions: {
@@ -171,6 +179,7 @@ export default new Vuex.Store({
             reject(err.response.data)
           })
       })
+
     },
     loginGoogle (_, payload) {
       return new Promise((resolve, reject) => {
@@ -186,6 +195,7 @@ export default new Vuex.Store({
             reject(err.response.data)
           })
       })
+
     }
   },
   modules: {
