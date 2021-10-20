@@ -42,6 +42,21 @@ export default new Vuex.Store({
             reject(err.response.data)
           })
       })
+    },
+    fetchAllPost (_, payload) {
+      return new Promise((resolve, reject) => {
+        axios({
+          url: '/posts',
+          method: 'GET',
+          headers: { access_token: localStorage.getItem('access_token') }
+        })
+          .then(({ data }) => {
+            resolve(data)
+          })
+          .catch((err) => {
+            reject(err.response.data)
+          })
+      })
     }
   },
   modules: {
