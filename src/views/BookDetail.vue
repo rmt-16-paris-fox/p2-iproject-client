@@ -60,7 +60,13 @@
               {{ bookData.foundBook.author }}
             </h3><br>
 
-            <h5><i class="fas fa-star"></i> {{ avgRating }} / 5</h5>
+            <h5
+            v-if="haveRating === true"
+            ><i class="fas fa-star"></i> {{ avgRating }} / 5</h5>
+
+            <h5
+            v-if="haveRating === false"
+            ><i class="fas fa-star"></i> no rating yet</h5>
 
             <hr>
 
@@ -120,6 +126,7 @@ export default {
       shortenedLink: '',
       showReview: false,
       avgRating: '',
+      haveRating: false,
     };
   },
   components: {
@@ -155,6 +162,13 @@ export default {
       }
 
       this.avgRating = (total / count).toFixed(1);
+
+      // eslint-disable-next-line no-restricted-globals
+      if (isNaN(this.avgRating)) {
+        this.haveRating = false;
+      } else {
+        this.haveRating = true;
+      }
     },
   },
   computed: {
