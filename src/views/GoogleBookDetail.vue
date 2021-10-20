@@ -2,20 +2,19 @@
   <div class="body">
     <nav-bar></nav-bar><br>
 
-    <div class="container book-detail-grid">
+    <div class="container book-detail-grid"
+    data-aos="fade-up" data-aos-duration="600"
+    >
 
       <div class="cover-and-button">
         <div class="book-cover">
-          <!-- <img v-bind:src="googleBookData.volumeInfo.imageLinks.thumbnail" alt="book-cover"
-          class="book-cover"
-          > -->
 
           <div class="card shadow"
           style="width: 12rem;">
-            <img v-bind:src="googleBookData.volumeInfo.imageLinks.thumbnail"
+            <img
+            v-if="googleBookData.volumeInfo"
+            v-bind:src="googleBookData.volumeInfo.imageLinks.thumbnail"
             class="card-img-top rounded-lg" alt="book-cover">
-            <!-- <div class="card-body">
-            </div> -->
           </div>
 
           <br>
@@ -31,15 +30,20 @@
       </div>
 
       <div class="book-detail">
-        <h1 class="font-weight-bold">{{ googleBookData.volumeInfo.title }}</h1>
+        <h1 class="font-weight-bold"
+        v-if="googleBookData.volumeInfo"
+        >{{ googleBookData.volumeInfo.title }}</h1>
 
         <hr>
 
-        <h3 class="lead">
+        <h3 class="lead"
+        v-if="googleBookData.volumeInfo"
+        >
           {{googleBookData.volumeInfo.authors.join('') }}
         </h3>
 
         <p class="book-description"
+        v-if="googleBookData.volumeInfo"
         v-html="googleBookData.volumeInfo.description"
         >
         </p>
@@ -75,9 +79,12 @@ export default {
       this.$store.dispatch('addNewBook', {
         volumeId: this.googleBookData.id,
       })
-        .then((response) => {
-          console.log(response.data);
+        .then(() => {
           this.$router.push('/');
+
+          this.$toasted.global.success_message({
+            message: 'successfully added book',
+          });
         })
         .catch((err) => {
           console.log(err.response.data);

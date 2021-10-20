@@ -1,10 +1,11 @@
 <template>
-  <div>
+  <div class="body">
+    <nav-bar></nav-bar>
     <section
       class="register-section"
     >
         <div id="container" class="container">
-          <div class="row">
+          <div class="row login-register-container">
             <div class="col-xl-5 col-lg-6 col-md-8 col-sm-10 mx-auto text-center form p-4">
               <form action=""
               class="register-form card shadow form-control form-inline justify-content-center"
@@ -51,11 +52,16 @@
         </div>
 
       </section>
+      <HFooter
+      class="footer"
+      ></HFooter>
   </div>
 </template>
 
 <script>
+import HFooter from 'vue-hacktiv8-footer';
 import Button from '../components/Button.vue';
+import Navbar from '../components/Navbar.vue';
 
 export default {
   data() {
@@ -72,12 +78,17 @@ export default {
         email: this.registerEmail,
         password: this.registerPassword,
       })
-        .then((response) => {
-          console.log(response.data);
+        .then(() => {
+          this.$toasted.global.success_message({
+            message: 'register success, you can now log in',
+          });
+
           this.$router.push('/login');
         })
         .catch((err) => {
-          console.log(err.response.data);
+          this.$toasted.global.error_message({
+            message: err.response.data.message,
+          });
         });
     },
     toLoginPage() {
@@ -86,10 +97,27 @@ export default {
   },
   components: {
     'reusable-button': Button,
+    'nav-bar': Navbar,
+    HFooter,
   },
 };
 </script>
 
 <style>
+  .login-register-container {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
+  .body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .footer {
+    margin-top: auto;
+  }
 </style>

@@ -1,11 +1,13 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">
-      <i class="fas fa-book-open"></i>
-    </a>
+    <router-link
+    class="navbar-brand"
+    to="/">
+      <i class="fas fa-book-open"></i> Bookish
+    </router-link>
     <button
-    class="navbar-toggler"
+    class="navbar-toggler text-white"
     type="button"
     data-bs-toggle="collapse"
     data-bs-target="#navbarSupportedContent"
@@ -15,7 +17,6 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <!-- <a class="nav-link active" aria-current="page" href="#">Home</a> -->
           <router-link to="/"
           class="nav-link active" aria-current="page"
           >
@@ -24,32 +25,31 @@
         </li>
 
         <li class="nav-item">
-          <!-- <a class="nav-link active" aria-current="page" href="#">Add New Book</a> -->
           <router-link to="/google-books"
           class="nav-link active" aria-current="page"
           >
             Add New Book
           </router-link>
         </li>
+      </ul>
 
-        <li class="nav-item"
+        <li class="nav-item btn btn-dark text-white"
         v-if="isLoggedIn === false"
         >
           <router-link to="/login"
-          class="nav-link active" aria-current="page"
+          class="nav-link active btn-sm btn-light text-dark login-button" aria-current="page"
           >
             Login
           </router-link>
         </li>
-
-        <li class="nav-item"
+        <li class="nav-item btn"
         v-if="isLoggedIn"
         >
-          <a class="nav-link active" aria-current="page" href="#"
+          <a class="nav-link active btn-sm btn-light text-dark logout-button"
+          aria-current="page" href="#"
           v-on:click.prevent="logout"
           >Logout</a>
         </li>
-      </ul>
     </div>
   </div>
 </nav>
@@ -66,7 +66,10 @@ export default {
     logout() {
       localStorage.removeItem('accessToken');
 
-      this.$router.push('/');
+      this.isLoggedIn = false;
+      this.$toasted.global.info_message({
+        message: 'you are logged out',
+      });
     },
   },
   created() {
@@ -80,5 +83,11 @@ export default {
 </script>
 
 <style>
+  .logout-button {
+    font-family: monospace;
+  }
 
+  .login-button {
+    font-family: monospace;
+  }
 </style>

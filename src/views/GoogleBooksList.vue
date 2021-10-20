@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="body">
     <nav-bar></nav-bar>
     <br>
 
@@ -27,17 +27,17 @@
       v-if="!isPlay"
       v-on:click="triggerVueSpeech"
       >
-      </i>
+      </i><br>
 
       <i class="fas fa-stop fa-2x"
         v-if="isPlay"
         v-on:click="triggerVueSpeech"
-      ></i>
+      ></i><br>
 
       <br><br>
 
       <div class="container">
-        <div class="row row-cols-1 row-cols-md-3 g-4">
+        <div class="row g-4">
           <google-book-card
             v-for="(googleBook, index) in googleBooks"
             v-bind:key="index"
@@ -45,17 +45,40 @@
           ></google-book-card>
         </div>
 
+        <div
+      class="empty-page"
+      v-if="googleBooksEmpty"
+      data-aos="fade-up" data-aos-duration="600"
+      >
+        <div class="card text-center shadow">
+            <div class="card-body">
+              <h3>
+                <i class="fas fa-search"></i>
+              </h3>
+
+              <h5 class="card-title">
+                Search for the book title you want
+              </h5>
+              <p class="card-text">
+                feel free to try our speech recognition feature <i class="far fa-grin-beam"></i>
+              </p>
+            </div>
+          </div>
+        </div>
+
       </div>
   </div>
-
+  <HFooter
+  class="footer"
+  ></HFooter>
   </div>
 </template>
 
 <script>
 import { debounce } from 'vue-debounce';
+import HFooter from 'vue-hacktiv8-footer';
 import CardGoogleBook from '../components/CardGoogleBook.vue';
 import Navbar from '../components/Navbar.vue';
-// import Button from '../components/Button.vue';
 import VueSpeech from '../components/VueSpeech.vue';
 
 export default {
@@ -71,22 +94,27 @@ export default {
   components: {
     'google-book-card': CardGoogleBook,
     'nav-bar': Navbar,
-    // 'reusable-button': Button,
+    HFooter,
     'custom-vue-speech': VueSpeech,
-  },
-  beforeCreate() {
-    this.$store.dispatch('fetchGoogleBooks');
   },
   computed: {
     googleBooks() {
       return this.$store.state.googleBooks.items;
     },
+    isLoading() {
+      return this.$store.state.isLoading;
+    },
+    googleBooksEmpty() {
+      return this.$store.state.googleBooksEmpty;
+    },
   },
   methods: {
     fetchGoogleBooks() {
-      this.$store.dispatch('fetchGoogleBooks', {
-        inTitle: this.searchTitle,
-      });
+      if (this.searchTitle) {
+        this.$store.dispatch('fetchGoogleBooks', {
+          inTitle: this.searchTitle,
+        });
+      }
     },
     triggerVueSpeech() {
       this.isPlay = !this.isPlay;
@@ -113,5 +141,15 @@ export default {
   .fa-microphone {
     color: black;
     cursor: pointer;
+  }
+
+  .body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .footer {
+    margin-top: auto;
   }
 </style>

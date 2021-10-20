@@ -1,13 +1,11 @@
 <template>
-  <div class="col">
-    <div class="card w-50 rounded shadow">
-      <img v-bind:src="googleBook.volumeInfo.imageLinks.thumbnail" class="card-img-top " alt="">
-      <!-- <div class="card-body">
-        <h5 class="card-title stretched-link"
-        v-on:click="showGoogleBookDetail"
-        >{{ googleBook.volumeInfo.title }}</h5>
-        <p class="card-text"></p>
-      </div> -->
+  <div class="col-md-4 col-sm-6 col-lg-3">
+    <div class="card w-50 mx-auto rounded shadow"
+    data-aos="fade-up" data-aos-duration="600"
+    >
+      <img v-bind:src="googleBook.volumeInfo.imageLinks.thumbnail" class="card-img-top " alt=""
+      v-if="googleBook.volumeInfo.imageLinks.thumbnail"
+      >
       <a href="" class="stretched-link"
         v-on:click="showGoogleBookDetail"
         ></a>
