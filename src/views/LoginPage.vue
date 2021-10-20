@@ -2,7 +2,7 @@
   <section id="LoginPage" class="d-flex align-items-center justify-content-center">
     <div class="card p-5" data-aos="fade-up" data-aos-duration="600">
       <form @submit.prevent="login">
-        <h1 class="mb-4">Log In</h1>
+        <h1 class="mb-4">log in</h1>
         <label>E-mail</label>
         <input type="email" class="form-control mt-1 mb-3" v-model="email">
         <label>Password</label>

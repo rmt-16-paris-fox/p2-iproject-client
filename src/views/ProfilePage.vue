@@ -2,7 +2,7 @@
   <section id="ProfilePage">
     <div class="row mb-5">
       <div id="MyKeyboards" class="col-6">
-        <h1>my profile</h1>
+        <h1>my orders</h1>
       </div>
       <div id="MyProfile" class="col-6">
         <h6 class="text-muted">{{credentials.name}}</h6>
