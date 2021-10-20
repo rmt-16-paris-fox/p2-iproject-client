@@ -187,11 +187,14 @@ export default {
     },
     // ! MASIH ERROR
     submitImage () {
-      const imgArray = [
-        this.file1, this.file2, this.file3, this.file4
-      ]
+      // const imgArray = [
+      //   this.file1, this.file2, this.file3, this.file4
+      // ]
       const images = new FormData()
-      images.append('images', imgArray)
+      images.append('images', this.file1)
+      images.append('images', this.file2)
+      images.append('images', this.file3)
+      images.append('images', this.file4)
 
       const payload = {
         images,
@@ -200,13 +203,11 @@ export default {
       if (this.page === 'Add') {
         this.$store.dispatch('addImages', payload)
           .then((data) => {
-            alertSuccess(`Image with id ${data.id} uploaded!`)
+            alertSuccess(`Image for keyboard id ${this.KeyboardId} uploaded!`)
             this.$router.push('/admin')
           }).catch((err) => {
             alertError(err.message)
           })
-      } else if (this.page === 'Update') {
-        // delete image
       }
     },
     fetchUsers () {

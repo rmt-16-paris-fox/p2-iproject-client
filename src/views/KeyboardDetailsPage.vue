@@ -105,9 +105,9 @@ export default {
     min-height: calc(100vh - 174px);
     padding: 30px 100px;
   }
-  
+
   .footer-h8 {
-	background-color: #26466a !important;
+    background-color: #26466a !important;
   }
 
   #DetailsPage img {
