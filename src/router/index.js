@@ -6,6 +6,7 @@ import LoginPage from '@/views/LoginPage.vue'
 import RegisterPage from '@/views/RegisterPage.vue'
 import AboutPage from '@/views/AboutPage.vue'
 import KeyboardsPage from '@/views/KeyboardsPage.vue'
+import KeyboardDetailsPage from '@/views/KeyboardDetailsPage.vue'
 import AdminPage from '@/views/AdminPage.vue'
 import OrderPage from '@/views/OrderPage.vue'
 import OvoPage from '@/views/OvoPage.vue'
@@ -53,6 +54,11 @@ const routes = [
     path: '/keyboards',
     name: 'KeyboardsPage',
     component: KeyboardsPage
+  },
+  {
+    path: '/keyboards/:keyboardId',
+    name: 'KeyboardDetailsPage',
+    component: KeyboardDetailsPage
   },
   {
     path: '/profile',
