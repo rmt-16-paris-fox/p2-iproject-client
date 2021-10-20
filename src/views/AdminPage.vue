@@ -1,7 +1,7 @@
 <template>
   <section id="AdminPage">
     <h1>admin</h1>
-    <router-link to='/form' class="btn btn-secondary my-3">
+    <router-link to='/add' class="btn btn-secondary my-3">
       <i class="fas fa-plus-square mx-2"></i>
       <div class="d-inline-block">Add Keyboard</div>
     </router-link>
@@ -28,7 +28,7 @@
           <td>{{keyboard.isPaid}}</td>
           <td>{{keyboard.UserId}}</td>
           <td>
-            <router-link to='/form' class="btn">update</router-link>
+            <router-link to='/update' class="btn">update</router-link>
           </td>
         </tr>
       </tbody>

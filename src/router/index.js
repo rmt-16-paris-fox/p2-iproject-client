@@ -107,8 +107,20 @@ const routes = [
     }
   },
   {
-    path: '/form',
-    name: 'KeyboardForm',
+    path: '/add',
+    name: 'AddForm',
+    component: KeyboardForm,
+    beforeEnter: function (to, from, next) {
+      if (store.state.isAdmin === false && store.state.isLoggedIn === false) {
+        next('/')
+      } else {
+        next()
+      }
+    }
+  },
+  {
+    path: '/update',
+    name: 'UpdateForm',
     component: KeyboardForm,
     beforeEnter: function (to, from, next) {
       if (store.state.isAdmin === false && store.state.isLoggedIn === false) {

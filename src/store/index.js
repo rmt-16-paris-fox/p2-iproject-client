@@ -171,6 +171,35 @@ export default new Vuex.Store({
             reject(err.response.data)
           })
       })
+    },
+    fetchUsers () {
+      return new Promise((resolve, reject) => {
+        axios({
+          method: 'GET',
+          url: '/admin/users',
+          headers: { access_token: localStorage.getItem('access_token') }
+        })
+          .then(({ data }) => {
+            resolve(data)
+          }).catch((err) => {
+            reject(err.response.data)
+          })
+      })
+    },
+    addKeyboard (context, payload) {
+      return new Promise((resolve, reject) => {
+        axios({
+          method: 'POST',
+          url: '/admin/keyboards',
+          headers: { access_token: localStorage.getItem('access_token') },
+          data: payload
+        })
+          .then(({ data }) => {
+            resolve(data)
+          }).catch((err) => {
+            reject(err.response.data)
+          })
+      })
     }
   },
   modules: {
