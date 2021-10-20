@@ -16,7 +16,7 @@
                 >
               </div>
               <div class="action">
-                <a href="">Edit</a> ||
+                <a href="" @click.prevent="toEdit(post.id)">Edit</a> ||
                 <a href="">Delete</a>
               </div>
             </div>
@@ -34,7 +34,6 @@
               ></Comment>
               <div class="comment-input">
                 <input type="text" class="form-control" placeholder="write comment here..."/>
-                <div class="fonts"><i class="fa fa-camera"></i></div>
               </div>
             </div>
           </div>
@@ -51,10 +50,15 @@ export default {
   props: ['post'],
   components: {
     Comment
+  },
+  methods: {
+    toEdit (id) {
+      this.$store.commit('SET_EDIT_PAGE', true)
+      this.$emit('sendId', id)
+    }
   }
 }
 </script>
-
 <style scoped>
 .container{
   width: 600px;

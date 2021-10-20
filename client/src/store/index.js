@@ -5,11 +5,19 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    isLoggedIn: false
+    isLoggedIn: false,
+    editPage: false,
+    postToEdit: ''
   },
   mutations: {
     SET_IS_LOGGED_IN (state, payload) {
       state.isLoggedIn = payload
+    },
+    SET_EDIT_PAGE (state, payload) {
+      state.editPage = payload
+    },
+    SET_POST_DATA (state, payload) {
+      state.postToEdit = payload
     }
   },
   actions: {
@@ -52,6 +60,59 @@ export default new Vuex.Store({
         })
           .then(({ data }) => {
             resolve(data)
+          })
+          .catch((err) => {
+            reject(err.response.data)
+          })
+      })
+    },
+    createPost (_, payload) {
+      return new Promise((resolve, reject) => {
+        const form = new FormData()
+        form.append('content', payload.content)
+        form.append('imageUrl', payload.imageUrl)
+        axios({
+          url: '/posts',
+          method: 'POST',
+          headers: { access_token: localStorage.getItem('access_token') },
+          data: form
+        })
+          .then(({ data }) => {
+            resolve(data)
+          })
+          .catch((err) => {
+            reject(err.response.data)
+          })
+      })
+    },
+    getOnePost (_, payload) {
+      return new Promise((resolve, reject) => {
+        axios({
+          url: `/posts/${payload}`,
+          method: 'GET',
+          headers: { access_token: localStorage.getItem('access_token') }
+        })
+          .then(({ data }) => {
+            resolve(data)
+          })
+          .catch((err) => {
+            reject(err.response.data)
+          })
+      })
+    },
+    editPost (_, payload) {
+      return new Promise((resolve, reject) => {
+        const form = new FormData()
+        form.append('content', payload.content)
+        form.append('imageUrl', payload.imageUrl)
+        axios({
+          url: `/posts/${payload.id}`,
+          method: 'PUT',
+          headers: { access_token: localStorage.getItem('access_token') },
+          data: form
+        })
+          .then(({ data }) => {
+            resolve()
           })
           .catch((err) => {
             reject(err.response.data)
