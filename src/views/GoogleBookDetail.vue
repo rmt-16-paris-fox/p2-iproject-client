@@ -86,8 +86,10 @@ export default {
             message: 'successfully added book',
           });
         })
-        .catch((err) => {
-          console.log(err.response.data);
+        .catch(() => {
+          this.$toasted.global.error_message({
+            message: 'this book is already added to the forum, please check again',
+          });
         });
     },
   },
