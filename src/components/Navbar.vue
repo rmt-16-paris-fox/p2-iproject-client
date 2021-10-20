@@ -31,6 +31,7 @@
             Add New Book
           </router-link>
         </li>
+      </ul>
 
         <li class="nav-item btn btn-dark text-white"
         v-if="isLoggedIn === false"
@@ -41,8 +42,7 @@
             Login
           </router-link>
         </li>
-
-        <li class="nav-item"
+        <li class="nav-item btn"
         v-if="isLoggedIn"
         >
           <a class="nav-link active btn-sm btn-light text-dark logout-button"
@@ -50,7 +50,6 @@
           v-on:click.prevent="logout"
           >Logout</a>
         </li>
-      </ul>
     </div>
   </div>
 </nav>
