@@ -8,6 +8,7 @@
       :post="post"
       class=""
       @sendId="toEdit"
+      @fetchAllPost="fetchAllPost"
     ></PostCard>
     <EditPost v-if="editPage" :postEdit="postEdit" @fetchAllPost="fetchAllPost"></EditPost>
   </div>
@@ -38,7 +39,6 @@ export default {
         .dispatch('fetchAllPost')
         .then((data) => {
           this.posts = data
-          console.log(data[0].Comments[0].comment)
         })
         .catch((err) => {
           console.log(err)
@@ -58,3 +58,8 @@ export default {
   }
 }
 </script>
+<style>
+a{
+  text-decoration: none;
+}
+</style>

@@ -118,6 +118,52 @@ export default new Vuex.Store({
             reject(err.response.data)
           })
       })
+    },
+    addComment (_, payload) {
+      return new Promise((resolve, reject) => {
+        axios({
+          url: `comments/${payload.id}`,
+          method: 'POST',
+          headers: { access_token: localStorage.getItem('access_token') },
+          data: { comment: payload.comment }
+        })
+          .then(({ data }) => {
+            resolve()
+          })
+          .catch((err) => {
+            reject(err.response.data)
+          })
+      })
+    },
+    getUserData (_, payload) {
+      return new Promise((resolve, reject) => {
+        axios({
+          url: '/user',
+          method: 'GET',
+          headers: { access_token: localStorage.getItem('access_token') }
+        })
+          .then(({ data }) => {
+            resolve(data)
+          })
+          .catch((err) => {
+            reject(err.response.data)
+          })
+      })
+    },
+    deleteComment (_, payload) {
+      return new Promise((resolve, reject) => {
+        axios({
+          url: `/comments/${payload}`,
+          method: 'DELETE',
+          headers: { access_token: localStorage.getItem('access_token') }
+        })
+          .then(({ data }) => {
+            resolve(data)
+          })
+          .catch((err) => {
+            reject(err.response.data)
+          })
+      })
     }
   },
   modules: {

@@ -4,8 +4,8 @@
     <div class="d-flex flex-column ml-2 profile-comment">
       <span class="name">{{ comment.User.fakeName }}</span>
       <small class="comment-text">{{ comment.comment }}</small>
-      <div class="action">
-        <a href="">Delete</a>
+      <div class="delete" v-if="userData.id == comment.UserId">
+      <a class="deleteComment" href="" @click.prevent="deleteComment(comment.id)">Delete</a>
       </div>
     </div>
   </div>
@@ -14,7 +14,36 @@
 <script>
 export default {
   name: 'Comment',
-  props: ['comment']
+  props: ['comment'],
+  data () {
+    return {
+      userData: ''
+    }
+  },
+  methods: {
+    deleteComment (id) {
+      this.$store.dispatch('deleteComment', id)
+        .then((data) => {
+          this.$emit('fetchAllPost')
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    },
+    fetchUserData () {
+      this.$store.dispatch('getUserData')
+        .then((data) => {
+          this.userData = data
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    }
+  },
+  created () {
+    this.fetchUserData()
+    // console.log(this.comment.UserId)
+  }
 }
 </script>
 
@@ -28,9 +57,11 @@ export default {
   font-size: 15px;
 }
 
-.action{
-  position: absolute;
-  right: 10px;
-  bottom: 65px;
+a{
+  text-decoration: none;
 }
+.delete{
+  display: relative;
+}
+
 </style>
