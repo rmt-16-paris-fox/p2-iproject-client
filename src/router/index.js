@@ -11,6 +11,7 @@ import AdminPage from '@/views/AdminPage.vue'
 import OrderPage from '@/views/OrderPage.vue'
 import OvoPage from '@/views/OvoPage.vue'
 import ProfilePage from '@/views/ProfilePage.vue'
+import KeyboardForm from '@/views/KeyboardForm.vue'
 import store from '@/store'
 
 Vue.use(VueRouter)
@@ -97,6 +98,30 @@ const routes = [
     path: '/admin',
     name: 'AdminPage',
     component: AdminPage,
+    beforeEnter: function (to, from, next) {
+      if (store.state.isAdmin === false && store.state.isLoggedIn === false) {
+        next('/')
+      } else {
+        next()
+      }
+    }
+  },
+  {
+    path: '/add',
+    name: 'AddForm',
+    component: KeyboardForm,
+    beforeEnter: function (to, from, next) {
+      if (store.state.isAdmin === false && store.state.isLoggedIn === false) {
+        next('/')
+      } else {
+        next()
+      }
+    }
+  },
+  {
+    path: '/update',
+    name: 'UpdateForm',
+    component: KeyboardForm,
     beforeEnter: function (to, from, next) {
       if (store.state.isAdmin === false && store.state.isLoggedIn === false) {
         next('/')
