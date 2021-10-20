@@ -83,7 +83,6 @@ export default new Vuex.Store({
           headers: { access_token: localStorage.getItem('access_token') }
         })
           .then(({ data }) => {
-            console.log(data)
             resolve(data)
           }).catch((err) => {
             reject(err.response.data)
@@ -110,6 +109,21 @@ export default new Vuex.Store({
           url: '/public/keyboards',
           headers: { access_token: localStorage.getItem('access_token') },
           data: payload
+        })
+          .then(({ data }) => {
+            resolve(data)
+          }).catch((err) => {
+            reject(err.response.data)
+          })
+      })
+    },
+    charge (context, { keyboardId, phoneNumber }) {
+      return new Promise((resolve, reject) => {
+        axios({
+          method: 'POST',
+          url: '/public/ovo/charge',
+          headers: { access_token: localStorage.getItem('access_token') },
+          data: { keyboardId, phoneNumber }
         })
           .then(({ data }) => {
             resolve(data)

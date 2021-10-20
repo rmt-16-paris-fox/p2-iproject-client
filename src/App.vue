@@ -9,6 +9,7 @@
 <script>
 import NavBar from '@/components/NavBar.vue'
 import Footer from '@/components/Footer.vue'
+import { alertError } from './apis/swal'
 
 export default {
   name: 'App',
@@ -23,7 +24,7 @@ export default {
             this.$store.commit('SET_IS_ADMIN', false)
           }
         }).catch((err) => {
-          console.log(err)
+          alertError(err.message)
         })
     } else {
       this.$store.commit('SET_IS_LOGGED_IN', false)

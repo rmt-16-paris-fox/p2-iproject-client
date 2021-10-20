@@ -8,6 +8,7 @@ import AboutPage from '@/views/AboutPage.vue'
 import KeyboardsPage from '@/views/KeyboardsPage.vue'
 import AdminPage from '@/views/AdminPage.vue'
 import OrderPage from '@/views/OrderPage.vue'
+import OvoPage from '@/views/OvoPage.vue'
 import ProfilePage from '@/views/ProfilePage.vue'
 import store from '@/store'
 
@@ -69,6 +70,22 @@ const routes = [
     path: '/order',
     name: 'OrderPage',
     component: OrderPage
+  },
+  {
+    path: '/ovo/:keyboardId',
+    name: 'OvoPage',
+    component: OvoPage,
+    beforeEnter: function (to, from, next) {
+      if (!localStorage.getItem('access_token')) {
+        next('/login')
+      } else {
+        if (from.name !== 'OrderPage') {
+          next('/')
+        } else {
+          next()
+        }
+      }
+    }
   },
   {
     path: '/admin',

@@ -33,7 +33,7 @@
             <input type="text" class="form-control mt-1 mb-3" v-model="keycaps">
             <label>Switches</label>
             <input type="text" class="form-control mt-1 mb-3" v-model="switches">
-            <label>Miscellaneous</label>
+            <label>Miscellaneous *</label>
             <textarea type="text" class="form-control mt-1 mb-3" v-model="miscellaneous"></textarea>
             <small>* leave empty for default configuration</small>
             <input type="submit" value="Order" class="form-control mt-4 py-2 btn-secondary">
@@ -71,8 +71,7 @@ export default {
 
       this.$store.dispatch('order', payload)
         .then((data) => {
-          console.log(data)
-          // redirect ke ovo
+          this.$router.push(`/ovo/${data.id}`)
         }).catch((err) => {
           const message = err.message.join(', ')
           alertError(message)
