@@ -1,6 +1,10 @@
 <template>
   <section id="AdminPage">
     <h1>admin</h1>
+    <router-link to='/form' class="btn btn-secondary my-3">
+      <i class="fas fa-plus-square mx-2"></i>
+      <div class="d-inline-block">Add Keyboard</div>
+    </router-link>
     <table>
       <thead>
         <tr>
@@ -24,7 +28,7 @@
           <td>{{keyboard.isPaid}}</td>
           <td>{{keyboard.UserId}}</td>
           <td>
-            <button class="btn">update</button>
+            <router-link to='/form' class="btn">update</router-link>
           </td>
         </tr>
       </tbody>
@@ -71,12 +75,12 @@ export default {
     padding: 10px 30px 10px 0;
   }
 
-  #AdminPage button {
+  #AdminPage a {
     background-color: #26466a;
     color: #fdf9f1;
   }
 
-  #AdminPage button:hover {
+  #AdminPage a:hover {
     background-color: #1b3655;
   }
 </style>
