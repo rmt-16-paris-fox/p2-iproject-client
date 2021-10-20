@@ -129,6 +129,9 @@ export default {
     loginErr() {
       return this.$store.state.loginErr;
     }
+  },
+  created() {
+    this.$store.commit("REMOVE_LOGINERR");
   }
 };
 </script>

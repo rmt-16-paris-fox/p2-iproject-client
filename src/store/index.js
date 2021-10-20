@@ -11,15 +11,25 @@ export default new Vuex.Store({
     registerErr: [],
     userdata: {},
     recipes: [],
-    loadMore: ""
+    loadMore: "",
+    myRecipes: [],
+    recipeById: {}
   },
   mutations: {
     SET_LOGINERR(state, payload) {
       state.loginErr = payload.err;
     },
 
+    REMOVE_LOGINERR(state, payload) {
+      state.loginErr = "";
+    },
+
     SET_REGISTERERR(state, payload) {
       state.registerErr = payload.err;
+    },
+
+    REMOVE_REGISTERERR(state, payload) {
+      state.registerErr = [];
     },
 
     SET_USERDATA(state, payload) {
@@ -40,6 +50,14 @@ export default new Vuex.Store({
 
     PUSH_NEW_RECIPE(state, payload) {
       state.recipes.push(payload.recipe);
+    },
+
+    SET_MY_RECIPES(state, payload) {
+      state.myRecipes = payload.myRecipes;
+    },
+
+    SET_RECIPE(state, payload) {
+      state.recipeById = payload.recipeById;
     }
   },
   actions: {
@@ -113,9 +131,51 @@ export default new Vuex.Store({
     },
 
     async getDetailRecipe(context, payload) {
-      console.log(payload.recipeId);
       const result = await axios({
         url: `/recipes/recipeDetail/${payload.recipeId}`
+      });
+
+      return result;
+    },
+
+    async getMyRecipes(context, payload) {
+      const access_token = localStorage.getItem("access_token");
+      const result = await axios({
+        url: "/recipes/myRecipes",
+        headers: {
+          access_token
+        }
+      });
+
+      // console.log(result.data, ">>>>>>>>>>>>myrecipes in store");
+      return result;
+    },
+
+    setMyRecipes(context, payload) {
+      context.commit("SET_MY_RECIPES", { myRecipes: payload });
+    },
+
+    async addMyRecipe(context, payload) {
+      const access_token = localStorage.getItem("access_token");
+      const result = await axios({
+        method: "POST",
+        url: `/recipes/myRecipes/${payload.recipeId}`,
+        headers: {
+          access_token
+        }
+      });
+
+      return result;
+    },
+
+    async deleteMyRecipe(context, payload) {
+      const access_token = localStorage.getItem("access_token");
+      const result = await axios({
+        method: "DELETE",
+        url: `/recipes/myRecipes/${payload.recipeId}`,
+        headers: {
+          access_token
+        }
       });
 
       return result;

@@ -185,6 +185,9 @@ export default {
     registerErr() {
       return this.$store.state.registerErr;
     }
+  },
+  created() {
+    this.$store.commit("REMOVE_REGISTERERR");
   }
 };
 </script>

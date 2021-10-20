@@ -7,7 +7,7 @@
           class="col-8 text-center"
           style="position:absolute; padding-top:39vh; z-index:99"
         >
-          <form v-on:submit.prevent="submitFilter">
+          <form class="user" v-on:submit.prevent="submitFilter">
             <div class="form-group">
               <label
                 for="menu"
@@ -18,7 +18,7 @@
               <input
                 type="text"
                 id="menu"
-                class="form-control"
+                class="form-control form-control-user"
                 placeholder="Type the recipe menu here"
                 autocomplete="off"
                 style="color: #000000"
@@ -40,7 +40,7 @@
         id="carouselFade"
         class="carousel slide"
         data-ride="carousel"
-        data-interval="2000"
+        data-interval="3000"
       >
         <div class="carousel-inner">
           <div class="carousel-item active">
@@ -92,14 +92,14 @@
       </div>
     </div>
 
-    <div class="row mx-1" id="cardRecipe" style="padding-top:100px" v-else>
+    <div class="row mx-1" style="padding-top:100px" v-else>
       <!-- Start Filter -->
       <div class="col-3 text-left fixed-top" style="padding-top:100px">
-        <div class="card shadow">
+        <div class="card shadow" style="border-radius:20px">
           <form v-on:submit.prevent="submitFilter">
             <div class="card-body overflow-auto" style="height:60vh">
               <div class="form-group">
-                <h6><strong>NAME</strong></h6>
+                <h6><strong>Name</strong></h6>
                 <input
                   class="form-control form-control-sm mt-0"
                   type="text"
@@ -111,10 +111,10 @@
                 />
               </div>
               <hr />
-              <h6><strong>Calories</strong></h6>
+              <h6><strong>Calories (in Kcal)</strong></h6>
               <div class="input-group input-group-sm mb-2">
                 <div class="input-group-prepend">
-                  <div class="input-group-text">Kcal</div>
+                  <div class="input-group-text">Min</div>
                 </div>
                 <input
                   type="number"
@@ -126,7 +126,7 @@
               </div>
               <div class="input-group input-group-sm mb-2">
                 <div class="input-group-prepend">
-                  <div class="input-group-text">Kcal</div>
+                  <div class="input-group-text">Max</div>
                 </div>
                 <input
                   type="number"
@@ -239,12 +239,12 @@
                 </div>
               </div>
               <hr />
-              <h6><strong>TIME (in minutes)</strong></h6>
+              <h6><strong>Time (in minutes)</strong></h6>
               <input
                 class="form-control form-control-sm mt-0"
                 type="number"
                 autocomplete="off"
-                placeholder="product name"
+                placeholder="cook time"
                 v-model="time"
               />
             </div>
@@ -259,7 +259,7 @@
         <div class="d-flex flex-row flex-wrap justify-content-center">
           <div
             class="card shadow mr-3 mb-3"
-            style="border-radius:20px; width:18rem"
+            style="border-radius: 20px; width:18rem"
             v-for="(recipe, idx) in recipes"
             :key="idx"
           >
@@ -345,12 +345,18 @@
               >
                 See Detail
               </button>
+              <button
+                class="btn btn-danger btn-block"
+                v-on:click.prevent="addMyRecipe(recipe.recipe.uri)"
+              >
+                Add My Recipes
+              </button>
             </div>
           </div>
         </div>
         <div class="text-center">
           <button class="btn btn-outline-primary" v-on:click="loadMoreRecipe()">
-            Load more recipe
+            Load More Recipe
           </button>
         </div>
       </div>
@@ -423,10 +429,19 @@ export default {
 
     seeDetail(recipeId) {
       recipeId = recipeId.split("#")[1];
+      this.$router.push(`/recipe/${recipeId}`);
+    },
+
+    addMyRecipe(recipeId) {
+      recipeId = recipeId.split("#")[1];
       const loading = this.$store
-        .dispatch("getDetailRecipe", { recipeId })
+        .dispatch("addMyRecipe", { recipeId })
         .then(response => {
           Swal.close();
+          swalSuccess(
+            "",
+            `${response.data.recipe} successfully added to your recipes list`
+          );
           console.log(response.data);
         })
         .catch(err => {
