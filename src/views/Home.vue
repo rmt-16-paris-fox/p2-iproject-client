@@ -423,7 +423,7 @@ export default {
         })
         .catch(err => {
           Swal.close();
-          swalError("", err.response.data.message);
+          swalError("Opps", err.response.data.message);
         });
 
       swalLoading(loading);
@@ -448,7 +448,7 @@ export default {
         })
         .catch(err => {
           Swal.close();
-          swalError("", err.response.data.message);
+          swalError("Opps", err.response.data.message);
         });
 
       swalLoading(loading);
@@ -469,7 +469,7 @@ export default {
         })
         .catch(err => {
           Swal.close();
-          swalError("", err.response.data.message);
+          swalError("Opps", err.response.data.message);
         });
 
       swalLoading(loading);
@@ -480,6 +480,12 @@ export default {
         title: "How many recipes do you want us to send?",
         icon: "question",
         input: "range",
+        inputLabel: "Make sure your email is valid and active",
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: "Send",
+        denyButtonText: `Dont Send`,
+        showCancelButton: false,
         inputAttributes: {
           min: 1,
           max: 10,
@@ -487,9 +493,34 @@ export default {
         },
         inputValue: 3
       }).then(response => {
-        console.log(response.value);
+        if (response.isConfirmed) {
+          const amount = response.value;
+          const data = {
+            name: this.name,
+            minCal: this.minCal,
+            maxCal: this.maxCal,
+            diet: this.checkedDietTypes,
+            mealType: this.checkedMealTypes,
+            time: this.time,
+            amount: Number(amount)
+          };
+
+          const loading = this.$store
+            .dispatch("sendMail", data)
+            .then(response => {
+              Swal.close();
+              swalSuccess("", `${response.data.message}`);
+            })
+            .catch(err => {
+              Swal.close();
+              swalError("Opps", `${err.response.data.message}`);
+            });
+
+          swalLoading(loading);
+        } else if (response.isDenied) {
+          Swal.close();
+        }
       });
-      // this.$store.dispatch("sendMail");
     }
   },
   computed: {

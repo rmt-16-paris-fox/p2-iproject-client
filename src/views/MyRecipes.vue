@@ -14,12 +14,14 @@
             :key="idx"
           >
             <div class="text-center">
-              <img
-                :src="recipe.image"
-                class="card-img-top"
-                alt="unable to load image"
-                style="height:200px; width:100%"
-              />
+              <a href="#" v-on:click.prevent="seeDetail(recipe.uri)">
+                <img
+                  :src="recipe.image"
+                  class="card-img-top"
+                  alt="unable to load image"
+                  style="height:200px; width:100%"
+                />
+              </a>
             </div>
             <div class="card-body text-left">
               <h5 class="card-title">
@@ -90,13 +92,6 @@
             </div>
             <div class="card-footer bg-white border-0">
               <button
-                class="btn btn-success btn-block"
-                v-on:click.prevent="seeDetail(recipe.uri)"
-              >
-                See Detail
-              </button>
-              {{ recipe.label }}
-              <button
                 class="btn btn-danger btn-block"
                 v-on:click.prevent="removeRecipe(recipe.id, recipe.label)"
               >
@@ -128,6 +123,11 @@ export default {
     getCal(calories, serving) {
       const kcal = calories / serving;
       return kcal.toFixed(0);
+    },
+
+    seeDetail(recipeId) {
+      recipeId = recipeId.split("#")[1];
+      this.$router.push(`/recipe/${recipeId}`);
     },
 
     getMyRecipes() {

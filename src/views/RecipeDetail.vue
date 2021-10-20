@@ -119,7 +119,7 @@
           </div>
         </div>
       </div>
-      <div class="col-4" style="padding-top: 97px;">
+      <div class="col-4 offset-7 fixed-top" style="padding-top: 100px;">
         <div class="card shadow" style="min-height:70vh">
           <div class="card-header">
             <h4>Comments</h4>
