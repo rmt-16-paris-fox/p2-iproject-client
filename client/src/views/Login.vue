@@ -48,9 +48,7 @@
               <span class="social-label">Or login with</span>
               <ul class="socials">
                 <li>
-                  <a href="#"
-                    ><i class="display-flex-center zmdi zmdi-google">Google</i
-                  ></a>
+                  <div v-google-signin-button="clientId" class="g-signin2" data-onsuccess="onSignIn"></div>
                 </li>
               </ul>
             </div>
@@ -62,12 +60,18 @@
 </template>
 
 <script>
+import GoogleSignInButton from 'vue-google-signin-button-directive'
+
 export default {
   name: 'LoginPage',
+  directives: {
+    GoogleSignInButton
+  },
   data () {
     return {
       email: '',
-      password: ''
+      password: '',
+      clientId: '983652955158-1ftmfltj2h8fhi7hfdqic5jdk6uj468o.apps.googleusercontent.com'
     }
   },
   methods: {
@@ -82,10 +86,30 @@ export default {
           this.$store.commit('SET_IS_LOGGED_IN', true)
           this.$router.push('/')
         })
+        .catch((err) => {
+          console.log(err)
+        })
+    },
+    OnGoogleAuthSuccess (idToken) {
+      this.$store.dispatch('loginGoogle', idToken)
+        .then((data) => {
+          localStorage.setItem('access_token', data.access_token)
+          this.$store.commit('SET_IS_LOGGED_IN', true)
+          this.$router.push('/')
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    },
+    OnGoogleAuthFail (error) {
+      console.log(error)
     }
   }
 }
 </script>
 
 <style>
+.form-title{
+  color: royalblue;
+}
 </style>
