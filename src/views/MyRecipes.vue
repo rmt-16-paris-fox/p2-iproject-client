@@ -107,7 +107,7 @@
         </div>
       </div>
     </div>
-    <h-footer class="bottombar"></h-footer>
+    <h-footer class="bottombar mt-3"></h-footer>
   </div>
 </template>
 

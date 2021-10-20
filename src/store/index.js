@@ -187,6 +187,22 @@ export default new Vuex.Store({
       });
 
       return result;
+    },
+
+    sendMail(context, payload) {
+      const access_token = localStorage.getItem("access_token");
+      axios({
+        method: "POST",
+        url: "/recipes/sendRecipes",
+        headers: {
+          access_token
+        },
+        data: {
+          message: "Hello"
+        }
+      })
+        .then(Response => {})
+        .catch(err => {});
     }
   },
   modules: {}

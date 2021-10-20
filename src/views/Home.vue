@@ -95,9 +95,9 @@
     <div class="row mx-1" style="padding-top:100px" v-else>
       <!-- Start Filter -->
       <div class="col-3 text-left fixed-top" style="padding-top:100px">
-        <div class="card shadow" style="border-radius:20px">
+        <div class="card shadow">
           <form v-on:submit.prevent="submitFilter">
-            <div class="card-body overflow-auto" style="height:60vh">
+            <div class="card-body overflow-auto" style="height:50vh">
               <div class="form-group">
                 <h6><strong>Name</strong></h6>
                 <input
@@ -250,6 +250,12 @@
             </div>
             <div class="card-footer bg-white">
               <button class="btn btn-primary btn-block">Filter</button>
+              <button
+                class="btn btn-success btn-block"
+                v-on:click.prevent="sendMail()"
+              >
+                Send Me
+              </button>
             </div>
           </form>
         </div>
@@ -355,7 +361,7 @@
           </div>
         </div>
         <div class="text-center">
-          <button class="btn btn-outline-primary" v-on:click="loadMoreRecipe()">
+          <button class="btn btn-primary" v-on:click="loadMoreRecipe()">
             Load More Recipe
           </button>
         </div>
@@ -471,9 +477,30 @@ export default {
         });
 
       swalLoading(loading);
+    },
+
+    sendMail() {
+      Swal.fire({
+        title: "How many recipes do you want us to send?",
+        icon: "question",
+        input: "range",
+        inputAttributes: {
+          min: 1,
+          max: 10,
+          step: 1
+        },
+        inputValue: 3
+      }).then(response => {
+        console.log(response.value);
+      });
+      // this.$store.dispatch("sendMail");
     }
   },
   computed: {
+    userdata() {
+      return this.$store.state.userdata;
+    },
+
     recipes() {
       return this.$store.state.recipes;
     },
