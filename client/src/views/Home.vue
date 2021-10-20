@@ -7,10 +7,7 @@
         <div class="row">
           <div class="row col-sm-3 mx-3" v-for="(category, index) in categories" :key="index">
               <h5 class="category">{{category}}</h5>
-              <div class="task bg-light shadow p-3 mt-2">
-                <h5>hahahaha</h5>
-              </div>
-              <h5 class="mt-2" v-if="category === 'Todo'">+ Add Task</h5>
+              <CardTodos v-for="todo in todos" :key="todo.id" :todo="todo" :category="category"></CardTodos>
           </div>
           <div class="col-lg-2">
             <h5 class="category">Notes & References</h5>
@@ -23,25 +20,38 @@
 <script>
 // @ is an alias to /src
 import Navbar from '../components/Navbar.vue'
+import CardTodos from '../components/CardTodos.vue'
 
 export default {
   name: 'Home',
   data: function () {
     return {
-      categories: ['Todo', 'Doing', 'Done']
+      categories: ['todo', 'doing', 'Done'],
+      todos: []
+    }
+  },
+  methods: {
+    getTodos () {
+      this.$store.dispatch('getTodos')
+        .then((data) => {
+          this.todos = data
+        })
+        .catch((err) => {
+          console.log(err)
+        })
     }
   },
   components: {
-    Navbar
+    Navbar,
+    CardTodos
+  },
+  created () {
+    this.getTodos()
   }
 }
 </script>
 
 <style>
-.task {
-    border-radius: 10px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
 .category {
   text-align: left;
 }
