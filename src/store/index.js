@@ -102,11 +102,20 @@ export default new Vuex.Store({
       context.commit("REMOVE_USERDATA");
     },
 
-    async submitName(context, payload) {
+    async submitFilter(context, payload) {
       const result = await axios({
         method: "POST",
         url: "/recipes",
         data: payload
+      });
+
+      return result;
+    },
+
+    async getDetailRecipe(context, payload) {
+      console.log(payload.recipeId);
+      const result = await axios({
+        url: `/recipes/recipeDetail/${payload.recipeId}`
       });
 
       return result;

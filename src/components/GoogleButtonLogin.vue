@@ -11,6 +11,7 @@
 <script>
 /* eslint-disable */
 import Swal from "sweetalert2";
+import { swalLoading } from "../apis/sweetAlert";
 
 export default {
   data() {
@@ -24,27 +25,20 @@ export default {
   methods: {
     onSignInSuccess(googleUser) {
       const idToken = googleUser.getAuthResponse().id_token;
+      const loading = this.$store
+        .dispatch("loginGoogle", idToken)
+        .then(response => {
+          Swal.close();
+          const access_token = response.data.access_token;
+          localStorage.setItem("access_token", access_token);
+          this.$router.push("/");
+        })
+        .catch(err => {
+          Swal.close();
+          this.$store.dispatch("loginErr", err.response.data.message);
+        });
 
-      Swal.fire({
-        title: '<i class="fas fa-cookie fa-5x fa-spin" style="color: #C36A2D">',
-        html: "Loading",
-        showConfirmButton: false,
-        allowOutsideClick: false,
-        didOpen: () => {
-          this.$store
-            .dispatch("loginGoogle", idToken)
-            .then(response => {
-              Swal.close();
-              const access_token = response.data.access_token;
-              localStorage.setItem("access_token", access_token);
-              this.$router.push("/");
-            })
-            .catch(err => {
-              Swal.close();
-              this.$store.dispatch("loginErr", err.response.data.message);
-            });
-        }
-      });
+      swalLoading(loading);
     },
 
     onSignInError(error) {

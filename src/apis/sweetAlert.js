@@ -21,4 +21,17 @@ function swalError(title, text) {
   Swal.fire(data);
 }
 
-export { swalSuccess, swalError };
+function swalLoading(data) {
+  Swal.fire({
+    title:
+      '<i class="fas fa-cookie-bite fa-5x fa-spin" style="color: #C36A2D">',
+    html: "Loading, please wait ...",
+    showConfirmButton: false,
+    allowOutsideClick: false,
+    didOpen: () => {
+      data;
+    }
+  });
+}
+
+export { swalSuccess, swalError, swalLoading };

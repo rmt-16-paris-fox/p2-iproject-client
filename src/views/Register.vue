@@ -138,7 +138,7 @@
 <script>
 /* eslint-disable */
 import Swal from "sweetalert2";
-import { swalSuccess, swalError } from "../apis/sweetAlert";
+import { swalSuccess, swalError, swalLoading } from "../apis/sweetAlert";
 
 export default {
   name: "Register",
@@ -163,29 +163,22 @@ export default {
         password: this.password
       };
 
-      Swal.fire({
-        title:
-          '<i class="fas fa-cookie-bite fa-5x fa-spin" style="color: #C36A2D">',
-        html: "Loading",
-        showConfirmButton: false,
-        allowOutsideClick: false,
-        didOpen: () => {
-          this.$store
-            .dispatch("register", data)
-            .then(response => {
-              Swal.close();
-              swalSuccess(
-                "",
-                "Account successfully registered. You can login now!"
-              );
-              this.$router.push("/login");
-            })
-            .catch(err => {
-              Swal.close();
-              this.$store.dispatch("registerErr", err.response.data.message);
-            });
-        }
-      });
+      const loading = this.$store
+        .dispatch("register", data)
+        .then(response => {
+          Swal.close();
+          swalSuccess(
+            "",
+            "Account successfully registered. You can login now!"
+          );
+          this.$router.push("/login");
+        })
+        .catch(err => {
+          Swal.close();
+          this.$store.dispatch("registerErr", err.response.data.message);
+        });
+
+      swalLoading(loading);
     }
   },
   computed: {

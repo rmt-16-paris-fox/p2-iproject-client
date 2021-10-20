@@ -89,6 +89,7 @@
 /* eslint-disable */
 import googleButtonLogin from "@/components/GoogleButtonLogin.vue";
 import Swal from "sweetalert2";
+import { swalLoading } from "../apis/sweetAlert";
 
 export default {
   name: "Login",
@@ -108,27 +109,20 @@ export default {
         password: this.password
       };
 
-      Swal.fire({
-        title:
-          '<i class="fas fa-cookie-bite fa-5x fa-spin" style="color: #C36A2D">',
-        html: "Loading",
-        showConfirmButton: false,
-        allowOutsideClick: false,
-        didOpen: () => {
-          this.$store
-            .dispatch("login", data)
-            .then(response => {
-              const access_token = response.data.access_token;
-              localStorage.setItem("access_token", access_token);
-              this.$router.push("/");
-              Swal.close();
-            })
-            .catch(err => {
-              this.$store.dispatch("loginErr", err.response.data.message);
-              Swal.close();
-            });
-        }
-      });
+      const loading = this.$store
+        .dispatch("login", data)
+        .then(response => {
+          const access_token = response.data.access_token;
+          localStorage.setItem("access_token", access_token);
+          this.$router.push("/");
+          Swal.close();
+        })
+        .catch(err => {
+          this.$store.dispatch("loginErr", err.response.data.message);
+          Swal.close();
+        });
+
+      swalLoading(loading);
     }
   },
   computed: {

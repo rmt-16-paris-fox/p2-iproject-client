@@ -7,7 +7,7 @@
           class="col-8 text-center"
           style="position:absolute; padding-top:39vh; z-index:99"
         >
-          <form v-on:submit.prevent="submitName">
+          <form v-on:submit.prevent="submitFilter">
             <div class="form-group">
               <label
                 for="menu"
@@ -92,12 +92,12 @@
       </div>
     </div>
 
-    <div class="row mx-1" style="padding-top:100px" v-else>
+    <div class="row mx-1" id="cardRecipe" style="padding-top:100px" v-else>
       <!-- Start Filter -->
       <div class="col-3 text-left fixed-top" style="padding-top:100px">
         <div class="card shadow">
-          <div class="card-body">
-            <form v-on:submit.prevent="submitFilter">
+          <form v-on:submit.prevent="submitFilter">
+            <div class="card-body overflow-auto" style="height:60vh">
               <div class="form-group">
                 <h6><strong>NAME</strong></h6>
                 <input
@@ -106,40 +106,152 @@
                   name="name"
                   id="name"
                   autocomplete="off"
-                  placeholder="product name"
+                  placeholder="recipe name"
                   v-model="name"
                 />
               </div>
               <hr />
-              <h6><strong>PRICE</strong></h6>
+              <h6><strong>Calories</strong></h6>
               <div class="input-group input-group-sm mb-2">
                 <div class="input-group-prepend">
-                  <div class="input-group-text">Rp</div>
+                  <div class="input-group-text">Kcal</div>
                 </div>
                 <input
                   type="number"
                   class="form-control"
                   id="inlineFormInputGroup"
-                  placeholder="minimum price"
-                  v-model="minPrice"
+                  placeholder="minimum calories"
+                  v-model="minCal"
                 />
               </div>
               <div class="input-group input-group-sm mb-2">
                 <div class="input-group-prepend">
-                  <div class="input-group-text">Rp</div>
+                  <div class="input-group-text">Kcal</div>
                 </div>
                 <input
                   type="number"
                   class="form-control"
                   id="inlineFormInputGroup"
-                  placeholder="maximum price"
-                  v-model="maxPrice"
+                  placeholder="maximum calories"
+                  v-model="maxCal"
                 />
               </div>
               <hr />
+              <h6><strong>Diet Type</strong></h6>
+              <div class="row">
+                <div class="col">
+                  <div class="custom-control custom-checkbox">
+                    <input
+                      type="checkbox"
+                      class="custom-control-input"
+                      value="balanced"
+                      v-model="checkedDietTypes"
+                      id="1"
+                    />
+                    <label class="custom-control-label" for="1">Balanced</label>
+                  </div>
+                  <div class="custom-control custom-checkbox">
+                    <input
+                      type="checkbox"
+                      class="custom-control-input"
+                      value="high-protein"
+                      v-model="checkedDietTypes"
+                      id="2"
+                    />
+                    <label class="custom-control-label" for="2"
+                      >High Protein</label
+                    >
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="custom-control custom-checkbox">
+                    <input
+                      type="checkbox"
+                      class="custom-control-input"
+                      value="low-carb"
+                      v-model="checkedDietTypes"
+                      id="3"
+                    />
+                    <label class="custom-control-label" for="3"
+                      >Low Carbo</label
+                    >
+                  </div>
+                  <div class="custom-control custom-checkbox">
+                    <input
+                      type="checkbox"
+                      class="custom-control-input"
+                      value="low-fat"
+                      v-model="checkedDietTypes"
+                      id="4"
+                    />
+                    <label class="custom-control-label" for="4">Low Fat</label>
+                  </div>
+                </div>
+              </div>
+              <hr />
+              <h6><strong>Meal Type</strong></h6>
+              <div class="row">
+                <div class="col">
+                  <div class="custom-control custom-checkbox">
+                    <input
+                      type="checkbox"
+                      class="custom-control-input"
+                      value="breakfast"
+                      v-model="checkedMealTypes"
+                      id="5"
+                    />
+                    <label class="custom-control-label" for="5"
+                      >Breakfast</label
+                    >
+                  </div>
+                  <div class="custom-control custom-checkbox">
+                    <input
+                      type="checkbox"
+                      class="custom-control-input"
+                      value="lunch"
+                      v-model="checkedMealTypes"
+                      id="6"
+                    />
+                    <label class="custom-control-label" for="6">Lunch</label>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="custom-control custom-checkbox">
+                    <input
+                      type="checkbox"
+                      class="custom-control-input"
+                      value="dinner"
+                      v-model="checkedMealTypes"
+                      id="7"
+                    />
+                    <label class="custom-control-label" for="7">Dinner</label>
+                  </div>
+                  <div class="custom-control custom-checkbox">
+                    <input
+                      type="checkbox"
+                      class="custom-control-input"
+                      value="snack"
+                      v-model="checkedMealTypes"
+                      id="8"
+                    />
+                    <label class="custom-control-label" for="8">Snack</label>
+                  </div>
+                </div>
+              </div>
+              <hr />
+              <h6><strong>TIME (in minutes)</strong></h6>
+              <input
+                class="form-control form-control-sm mt-0"
+                type="number"
+                autocomplete="off"
+                placeholder="product name"
+                v-model="time"
+              />
+            </div>
+            <div class="card-footer bg-white">
               <button class="btn btn-primary btn-block">Filter</button>
-            </form>
-          </div>
+            </div>
+          </form>
         </div>
       </div>
       <!-- End Filter -->
@@ -165,7 +277,12 @@
               </h5>
               <p class="card-text">
                 <!-- {{ product.description }} -->
-                Recipe Desc
+                {{ recipe.recipe.yield }} Serving <br />
+                {{ getCal(recipe.recipe.calories, recipe.recipe.yield) }} Kcal
+                <br />
+                {{ recipe.recipe.dietLabels }} <br />
+                {{ recipe.recipe.mealType }} <br />
+                {{ recipe.recipe.totalTime }}
               </p>
               <div
                 class="d-flex flex-row flex-wrap justify-content-between align-items-center"
@@ -224,18 +341,15 @@
             <div class="card-footer bg-white border-0">
               <button
                 class="btn btn-success btn-block"
-                v-on:click.prevent="seeDetail"
+                v-on:click.prevent="seeDetail(recipe.recipe.uri)"
               >
-                See Detail {{ idx + 1 }}
+                See Detail
               </button>
             </div>
           </div>
         </div>
         <div class="text-center">
-          <button
-            class="btn btn-outline-primary"
-            v-on:click.prevent="loadMoreRecipe()"
-          >
+          <button class="btn btn-outline-primary" v-on:click="loadMoreRecipe()">
             Load more recipe
           </button>
         </div>
@@ -250,18 +364,20 @@
 
 import Navbar from "../components/Navbar.vue";
 import HFooter from "vue-hacktiv8-footer";
-import { swalSuccess, swalError } from "../apis/sweetAlert";
 import Swal from "sweetalert2";
+import { swalSuccess, swalError, swalLoading } from "../apis/sweetAlert";
 
 export default {
   name: "Home",
   data() {
     return {
-      name: "",
       isSearched: false,
-      minPrice: "",
-      maxPrice: "",
-      size: ""
+      name: "",
+      minCal: "",
+      maxCal: "",
+      checkedDietTypes: [],
+      checkedMealTypes: [],
+      time: ""
     };
   },
   components: {
@@ -269,63 +385,77 @@ export default {
     HFooter
   },
   methods: {
-    submitName() {
-      Swal.fire({
-        title:
-          '<i class="fas fa-cookie-bite fa-5x fa-spin" style="color: #C36A2D">',
-        html: "Loading, please wait ...",
-        showConfirmButton: false,
-        allowOutsideClick: false,
-        didOpen: () => {
-          this.$store
-            .dispatch("submitName", { name: this.name })
-            .then(response => {
-              Swal.close();
-              this.isSearched = true;
-              this.$store.commit("SET_RECIPES", {
-                recipes: response.data.hits
-              });
+    getCal(calories, serving) {
+      const kcal = calories / serving;
+      return kcal.toFixed(0);
+    },
 
-              this.$store.commit("SET_LOAD_MORE", {
-                loadMore: response.data._links.next.href
-              });
-            })
-            .catch(err => {
-              Swal.close();
-              swalError("", err.response.data.message);
-            });
-        }
-      });
+    submitFilter() {
+      const data = {
+        name: this.name,
+        minCal: this.minCal,
+        maxCal: this.maxCal,
+        diet: this.checkedDietTypes,
+        mealType: this.checkedMealTypes,
+        time: this.time
+      };
+
+      const loading = this.$store
+        .dispatch("submitFilter", data)
+        .then(response => {
+          Swal.close();
+          this.isSearched = true;
+          this.$store.commit("SET_RECIPES", {
+            recipes: response.data.hits
+          });
+
+          this.$store.commit("SET_LOAD_MORE", {
+            loadMore: response.data._links.next.href
+          });
+        })
+        .catch(err => {
+          Swal.close();
+          swalError("", err.response.data.message);
+        });
+
+      swalLoading(loading);
+    },
+
+    seeDetail(recipeId) {
+      recipeId = recipeId.split("#")[1];
+      const loading = this.$store
+        .dispatch("getDetailRecipe", { recipeId })
+        .then(response => {
+          Swal.close();
+          console.log(response.data);
+        })
+        .catch(err => {
+          Swal.close();
+          swalError("", err.response.data.message);
+        });
+
+      swalLoading(loading);
     },
 
     loadMoreRecipe() {
-      Swal.fire({
-        title:
-          '<i class="fas fa-cookie-bite fa-5x fa-spin" style="color: #C36A2D">',
-        html: "Loading, please wait ...",
-        showConfirmButton: false,
-        allowOutsideClick: false,
-        didOpen: () => {
-          this.$store
-            .dispatch("loadMoreRecipe", { loadMore: this.loadMore })
-            .then(response => {
-              Swal.close();
-              // console.log(response.data);
-              this.$store.commit("SET_LOAD_MORE", {
-                loadMore: response.data._links.next.href
-              });
+      const loading = this.$store
+        .dispatch("loadMoreRecipe", { loadMore: this.loadMore })
+        .then(response => {
+          Swal.close();
+          this.$store.commit("SET_LOAD_MORE", {
+            loadMore: response.data._links.next.href
+          });
 
-              for (const recipe of response.data.hits) {
-                console.log(recipe);
-                this.$store.commit("PUSH_NEW_RECIPE", { recipe });
-              }
-            })
-            .catch(err => {
-              Swal.close();
-              swalError("", err.response.data.message);
-            });
-        }
-      });
+          for (const recipe of response.data.hits) {
+            this.$store.commit("PUSH_NEW_RECIPE", { recipe });
+          }
+        })
+        .catch(err => {
+          Swal.close();
+          swalError("", err.response.data.message);
+        });
+
+      swalLoading(loading);
     }
   },
   computed: {
@@ -339,7 +469,7 @@ export default {
   },
   created() {
     this.name = "chicken";
-    this.submitName();
+    this.submitFilter();
   }
 };
 </script>
