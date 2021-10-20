@@ -3,6 +3,7 @@
     <div
       class="card text-white card-has-bg click-col"
       :style="{ 'background-image': 'url(' + estate.thumbnail + ')' }"
+      @click.prevent="fetchDetail"
     >
       <img
         class="card-img d-none"
@@ -47,8 +48,13 @@ export default {
       size: "",
     };
   },
+  methods: {
+    fetchDetail() {
+      this.$router.push({ name: "Detail" });
+    },
+  },
+
   created() {
-    console.log(this.estate);
     this.cost = "US$ " + this.estate.price;
     this.size = this.estate.lot_size.size + " sqft";
   },

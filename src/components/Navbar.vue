@@ -24,8 +24,8 @@
               >
             </li>
             <li class="nav-item" v-if="!isLoggedIn">
-              <router-link class="nav-link" :to="{ name: 'Login' }"
-                >Sign In</router-link
+              <router-link class="nav-link" :to="{ name: 'Chat' }"
+                >Chat</router-link
               >
             </li>
             <li class="nav-item" v-if="!isLoggedIn">
@@ -34,8 +34,8 @@
               >
             </li>
             <li class="nav-item">
-              <router-link class="nav-link" :to="{ name: 'Bookmark' }"
-                >Bookmark</router-link
+              <router-link class="nav-link" :to="{ name: 'MsgBox' }"
+                >MsgBox</router-link
               >
             </li>
 

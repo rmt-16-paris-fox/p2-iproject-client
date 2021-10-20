@@ -7,10 +7,14 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     estateData: [],
+    messages: [],
   },
   mutations: {
     ESTATE_DATA(state, payload) {
       state.estateData = payload;
+    },
+    PUSH_MESSAGE(state, payload) {
+      state.messages.push(payload);
     },
   },
   actions: {

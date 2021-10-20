@@ -11,12 +11,14 @@
         </div>
       </div>
     </section>
+    <!-- <chat-icon /> -->
   </div>
 </template>
 
 <script>
 import Cards from "../components/Cards.vue";
 import { mapState, mapActions } from "vuex";
+// import ChatIcon from "../components/ChatIcon.vue";
 
 export default {
   components: { Cards },
