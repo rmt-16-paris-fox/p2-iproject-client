@@ -19,7 +19,7 @@
                 type="text"
                 id="menu"
                 class="form-control form-control-user"
-                placeholder="Type the recipe menu here"
+                placeholder="example: chicken, beef, spaghetti"
                 autocomplete="off"
                 style="color: #000000"
                 v-model="name"
@@ -285,15 +285,18 @@
                   <h5 class="card-title mb-1">
                     <strong>{{ recipe.recipe.label }}</strong>
                   </h5>
-                  <star-rating
-                    :rating="5"
-                    :read-only="true"
-                    :increment="0.01"
-                    :star-size="20"
-                    :inline="true"
-                    :rounded-corners="true"
-                    :show-rating="false"
-                  ></star-rating>
+                  <span v-for="(rate, idx) in allRate" :key="idx">
+                    <star-rating
+                      :rating="Number(rate.avg).toFixed(1)"
+                      :read-only="true"
+                      :increment="0.01"
+                      :star-size="20"
+                      :inline="true"
+                      :rounded-corners="true"
+                      :show-rating="true"
+                      v-if="rate.RecipeId === recipe.recipe.uri.split('#')[1]"
+                    ></star-rating>
+                  </span>
                 </div>
                 <div class="col-2">
                   <a
@@ -304,7 +307,6 @@
                 </div>
               </div>
               <p class="card-text mt-2">
-                <!-- {{ product.description }} -->
                 <i class="fas fa-stopwatch"></i>
                 {{ recipe.recipe.totalTime }} minutes <br />
                 <i class="fas fa-utensils"></i>
@@ -403,9 +405,12 @@ export default {
           this.$store.commit("SET_LOAD_MORE", {
             loadMore: response.data._links.next.href
           });
+
+          this.$store.dispatch("getAllRate");
         })
         .catch(err => {
           Swal.close();
+          // console.log(err);
           swalError("Opps", err.response.data.message);
         });
 
@@ -517,11 +522,15 @@ export default {
 
     loadMore() {
       return this.$store.state.loadMore;
+    },
+
+    allRate() {
+      return this.$store.state.allRate;
     }
-  },
-  created() {
-    this.name = "chicken";
-    this.submitFilter();
   }
+  // created() {
+  //   this.name = "chicken";
+  //   this.submitFilter();
+  // }
 };
 </script>

@@ -266,7 +266,6 @@ export default {
         .dispatch("getDetailRecipe", { recipeId })
         .then(response => {
           Swal.close();
-          // console.log(response.data);
           this.$store.commit("SET_RECIPE", { recipeById: response.data });
           this.getRecipeAvgRate(recipeId);
 
@@ -301,8 +300,6 @@ export default {
         message: this.message
       });
 
-      const cardBody = document.getElementById("card-body");
-      cardBody.scrollTop = cardBody.scrollHeight + 150;
       this.message = "";
     }
   },
@@ -329,6 +326,15 @@ export default {
       return myRate;
     }
   },
+  // watch: {
+  //   messages() {
+  //     this.$nextTick(() => {
+  //       console.log(this.messages[this.messages.length - 1]);
+  //       const cardBody = document.getElementById("card-body");
+  //       cardBody.scrollTop = cardBody.scrollHeight + 150;
+  //     });
+  //   }
+  // },
   mounted() {
     this.socket.on("MESSAGE", data => {
       this.messages.push(data);
@@ -337,6 +343,10 @@ export default {
   created() {
     const recipeId = this.$router.currentRoute.params.id;
     this.getRecipeById(recipeId);
+  },
+  updated() {
+    const cardBody = document.getElementById("card-body");
+    cardBody.scrollTop = cardBody.scrollHeight;
   }
 };
 </script>

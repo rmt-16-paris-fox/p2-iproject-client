@@ -16,7 +16,8 @@ export default new Vuex.Store({
     recipeById: {},
     recipeByIdRate: "",
     recipeByIdCount: "",
-    recipeMyRate: ""
+    recipeMyRate: "",
+    allRate: []
   },
   mutations: {
     SET_LOGINERR(state, payload) {
@@ -70,6 +71,10 @@ export default new Vuex.Store({
 
     SET_RECIPE_MY_RATE(state, payload) {
       state.recipeMyRate = payload.rate;
+    },
+
+    SET_ALL_RATE(state, payload) {
+      state.allRate = payload.allRate;
     }
   },
   actions: {
@@ -252,6 +257,15 @@ export default new Vuex.Store({
       });
 
       return result;
+    },
+
+    async getAllRate(context, payload) {
+      const result = await axios({
+        url: "/recipes/recipeAllRate"
+      });
+
+      const allRate = result.data;
+      context.commit("SET_ALL_RATE", { allRate });
     }
   },
   modules: {}
