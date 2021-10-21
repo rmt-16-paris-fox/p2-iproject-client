@@ -50,7 +50,7 @@
           "
         >
           <h3 class="text-warning">{{ vocabulary.kelas }}</h3>
-          <p>{{ vocabulary.deskripsi }}</p>
+          <p class="text-warning">{{ vocabulary.deskripsi }}</p>
         </div>
       </div>
       <br />
