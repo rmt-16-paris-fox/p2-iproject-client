@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from '../apis/server'
 import { swalError } from '../apis/swal'
+import youtube from '../apis/youtube'
 
 Vue.use(Vuex)
 
@@ -10,7 +11,8 @@ export default new Vuex.Store({
     isLogin: false,
     dataClass: [],
     detailClass: {},
-    myCLass: []
+    myCLass: [],
+    videos: []
   },
   mutations: {
     SET_LOG_IN: function (state, payload) {
@@ -24,6 +26,9 @@ export default new Vuex.Store({
     },
     SET_DATA_MY_CLASS: function (state, payload) {
       state.myCLass = payload
+    },
+    SET_VIDEOS: function (state, payload) {
+      state.videos = payload
     }
   },
   actions: {
@@ -121,6 +126,23 @@ export default new Vuex.Store({
           method: 'post',
           headers: {
             access_token: localStorage.getItem('access_token')
+          }
+        })
+          .then(({ data }) => {
+            resolve(data)
+          })
+          .catch((err) => {
+            reject(err)
+          })
+      })
+    },
+    FetchVideo (context, payload) {
+      return new Promise((resolve, reject) => {
+        youtube({
+          url: '/search',
+          method: 'get',
+          params: {
+            q: payload
           }
         })
           .then(({ data }) => {

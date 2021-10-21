@@ -15,7 +15,7 @@
     <p class="card-text">
       Instructor: {{DataClass.Class.instructor}}
     </p>
-    <a @click.prevent="toDetailPage" class="btn btn-primary">Start</a>
+    <a @click.prevent="toClassPage" class="btn btn-primary">Start</a>
   </div>
 </div>
  </div>
@@ -26,8 +26,8 @@ export default {
   name: 'CardMyClass',
   props: ['DataClass'],
   methods: {
-    toDetailPage () {
-      this.$router.push(`/detail/${this.DataClass.Class.id}`)
+    toClassPage () {
+      this.$router.push(`/classes/${this.DataClass.Class.title.split(' ').join('')}`)
     }
   }
 }

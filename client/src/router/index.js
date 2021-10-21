@@ -5,6 +5,7 @@ import RegisterPage from '../views/RegisterPage.vue'
 import HomePage from '../views/HomePage.vue'
 import DetailPage from '../views/DetailPage.vue'
 import MyClass from '../views/MyClass.vue'
+import ClassPage from '../views/ClassPage.vue'
 
 Vue.use(VueRouter)
 
@@ -47,6 +48,18 @@ const routes = [
     path: '/myclass',
     name: 'MyClass',
     component: MyClass,
+    beforeEnter: (to, from, next) => {
+      if (!localStorage.getItem('access_token')) {
+        next('/login')
+      } else {
+        next()
+      }
+    }
+  },
+  {
+    path: '/classes/:title',
+    name: 'ClassPage',
+    component: ClassPage,
     beforeEnter: (to, from, next) => {
       if (!localStorage.getItem('access_token')) {
         next('/login')
