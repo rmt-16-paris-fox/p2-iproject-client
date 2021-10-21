@@ -17,7 +17,7 @@
         </div>
       </div>
     </div>
-    <div class="row">
+    <div class="row" v-if="!draftAnalyzed.radiantTotalSynergy">
       <div class="col">
         <form @submit.prevent="analyzeHandler">
           <input type="submit" value="Analyze" :class="`btn btn-primary btn-lg ${direDraft.length === 5 && radiantDraft.length === 5  && !isAnalyzing ? '' : 'disabled'}`" />
@@ -33,7 +33,7 @@
     <div v-if="draftAnalyzed.radiantTotalSynergy">
     <div class="row mt-4">
       <div class="col-4"><h3>Radiant Synergy</h3></div>
-      <div class="col-4"><h3>Radiant to Dire Synergy</h3></div>
+      <div class="col-4"><h3>Radiant to Dire Advantage</h3></div>
       <div class="col-4"><h3>Dire Synergy</h3></div>
     </div>
     <div class="row">
