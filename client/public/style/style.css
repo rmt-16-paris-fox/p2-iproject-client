@@ -638,6 +638,7 @@ ul{
 .card-artikel-3{
     max-width: 383px;
     max-height: 481px;
+    overflow-y: hidden !important;
 }
 .btn-artikel{
     width: 30px;
@@ -691,13 +692,18 @@ ul{
 .card-product{
     box-shadow: 0px 4px 32px -8px rgba(0, 0, 0, 0.15);
     border-radius: 20px;
-    max-width: 283px;
+    max-width: 383px;
     overflow-y: hidden !important;
+    overflow-x: hidden !important;
 }
 .partner-name{
     top: 15%;
     left: 50%;
     transform: translate(-50%, -50%);
+    white-space: nowrap; 
+    width: 100px; 
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .card-img-top{
     border-radius: 20px 20px 0px 0px;
@@ -1365,12 +1371,12 @@ input{
     }
 
     .card-product-group{
-        overflow: scroll;
         overflow-y: hidden;
     }
     .card-product{
         max-height: 450px;
         min-width: 283px;
+        overflow-x: hidden;
     }
     .card-product img{
         max-height: 251px;

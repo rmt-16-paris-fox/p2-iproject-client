@@ -4,7 +4,7 @@
     <div class="position-relative b-pink main-top pb-100">
       <MainContentTop></MainContentTop>
     </div>
-    <div class="main-bottom b-white position-relative pt-350 pb-150">
+    <div class="main-bottom b-white position-relative pt-100 pb-150">
       <ClientBanner></ClientBanner>
     </div>
     <MainContentBottom></MainContentBottom>
