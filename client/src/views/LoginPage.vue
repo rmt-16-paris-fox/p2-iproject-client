@@ -61,7 +61,7 @@ export default {
     return {
       email: '',
       password: '',
-      clientId: '58233509814-fpm0lddftjh63stlt5assi1gnd5imo6a.apps.googleusercontent.com'
+      clientId: '58233509814-mguaofe34hpjjha0tca685spftjd7q2b.apps.googleusercontent.com'
     }
   },
   methods: {
