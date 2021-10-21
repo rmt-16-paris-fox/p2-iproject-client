@@ -7,7 +7,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     isLogin: false,
-    messages: []
+    messages: [],
+    users: []
   },
   mutations: {
     SET_IS_LOGIN (state, paylod = false) {
@@ -15,6 +16,9 @@ export default new Vuex.Store({
     },
     PUSH_MESSAGES (state, payload) {
       state.messages.push(payload)
+    },
+    PUSH_USER (state, payload) {
+      state.users.push(payload)
     }
   },
   actions: {
@@ -61,6 +65,7 @@ export default new Vuex.Store({
         })
           .then(({ data }) => {
             context.commit('SET_IS_LOGIN', true)
+            localStorage.setItem('access_token', data.access_token)
             resolve()
           })
           .catch((error) => {
@@ -73,6 +78,7 @@ export default new Vuex.Store({
         axios({
           method: 'GET',
           url: '/todos',
+          params: payload,
           headers: {
             access_token: localStorage.getItem('access_token')
           }
@@ -202,6 +208,23 @@ export default new Vuex.Store({
           data: {
             status: payload.status
           },
+          headers: {
+            access_token: localStorage.getItem('access_token')
+          }
+        })
+          .then(({ data }) => {
+            resolve(data)
+          })
+          .catch((error) => {
+            reject(error.response.data)
+          })
+      })
+    },
+    getUser (context, payload) {
+      return new Promise((resolve, reject) => {
+        axios({
+          method: 'GET',
+          url: '/todos/user',
           headers: {
             access_token: localStorage.getItem('access_token')
           }
