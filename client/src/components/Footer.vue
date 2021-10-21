@@ -37,6 +37,7 @@
           <div class="form-row">
             <div class="form-group col-12 col-lg-6">
               <input
+                v-model="payload.name"
                 type="text"
                 class="form-control"
                 id="inputEmail4"
@@ -45,6 +46,7 @@
             </div>
             <div class="form-group col-12 col-lg-6">
               <input
+                v-model="payload.email"
                 type="Email"
                 class="form-control"
                 id="inputPassword4"
@@ -54,6 +56,7 @@
           </div>
           <div class="form-group">
             <input
+              v-model="payload.perusahaan"
               type="text"
               class="form-control"
               id="inputAddress"
@@ -61,13 +64,17 @@
             />
           </div>
           <div class="form-group">
-            <select id="inputState" class="form-control">
-              <option selected>Topik</option>
-              <option>...</option>
-            </select>
+            <input
+              v-model="payload.topik"
+              type="text"
+              class="form-control"
+              id="inputAddress"
+              placeholder="Topik"
+            />
           </div>
           <div class="form-group">
             <textarea
+              v-model="payload.pesan"
               class="form-control"
               placeholder="Tuliskan pesan"
               id="exampleFormControlTextarea1"
@@ -76,6 +83,7 @@
           </div>
           <div class="btn-submit-group d-flex justify-content-end">
             <button
+              @click.prevent="contact"
               type="submit"
               class="btn btn-submit b-yellow c-brown font-weight-bold"
             >
@@ -92,10 +100,44 @@
 
 <script>
 import FooterBottom from "@/components/FooterBottom.vue";
+import Swal from "sweetalert2";
 export default {
   name: "Footer",
   components: {
     FooterBottom,
+  },
+  data() {
+    return {
+      payload: {
+        name: "",
+        email: "",
+        perusahaan: "",
+        topik: "",
+        pesan: "",
+      },
+    };
+  },
+  methods: {
+    contact() {
+      this.$store
+        .dispatch("contact", this.payload)
+        .then((response) => {
+          Swal.fire({
+            position: "top-center",
+            icon: "success",
+            title: "Login success!",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        })
+        .catch((err) => {
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: err.response.data.message,
+          });
+        });
+    },
   },
 };
 </script>

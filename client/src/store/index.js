@@ -11,7 +11,8 @@ export default new Vuex.Store({
     postCount: {},
     postIg: {},
     celebBirth: {},
-    memeData: {}
+    memeData: {},
+    memeDataDirect: {}
   },
   mutations: {
     SET_FOLLOWERS(state, payload) {
@@ -28,6 +29,9 @@ export default new Vuex.Store({
     },
     SET_MEME(state, payload) {
       state.memeData = payload
+    },
+    SET_MEMEDIRECT(state, payload) {
+      state.memeDataDirect = payload
     }
   },
   actions: {
@@ -110,6 +114,38 @@ export default new Vuex.Store({
         .catch((err) => {
           console.log(err.response.data)
         })
+    },
+    fetchMemeDirect({
+      commit
+    }) {
+      axios({
+          method: 'GET',
+          url: 'https://meme-api.herokuapp.com/gimme/50',
+        })
+        .then(({
+          data
+        }) => {
+          commit('SET_MEMEDIRECT', data)
+        })
+        .catch((err) => {
+          console.log(err.response.data)
+        })
+    },
+    contact(context, payload) {
+      const {
+        name,
+        email,
+        perusahaan,
+        topik,
+        pesan,
+      } = payload
+      return axios.post('/contact', {
+        name,
+        email,
+        perusahaan,
+        topik,
+        pesan
+      })
     }
   },
   modules: {}
