@@ -11,6 +11,7 @@
       @fetchAllPost="fetchAllPost"
     ></PostCard>
     <EditPost v-if="editPage" :postEdit="postEdit" @fetchAllPost="fetchAllPost"></EditPost>
+    <HFooter style="position: sticky;"></HFooter>
   </div>
 </template>
 
@@ -19,6 +20,7 @@ import NavBar from '../components/NavBar.vue'
 import PostCard from '../components/PostCard.vue'
 import AddPostForm from '../components/AddPost.vue'
 import EditPost from '../components/EditPost.vue'
+import HFooter from 'vue-hacktiv8-footer'
 export default {
   name: 'Home',
   data () {
@@ -31,7 +33,8 @@ export default {
     NavBar,
     PostCard,
     AddPostForm,
-    EditPost
+    EditPost,
+    HFooter
   },
   methods: {
     fetchAllPost () {

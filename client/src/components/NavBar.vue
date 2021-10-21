@@ -15,6 +15,7 @@
 
 <script>
 import { swalSuccess } from '../apis/swal'
+
 export default {
   name: 'NavBar',
   methods: {
