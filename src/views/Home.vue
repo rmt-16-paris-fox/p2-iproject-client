@@ -19,7 +19,7 @@
                 type="text"
                 id="menu"
                 class="form-control form-control-user"
-                placeholder="Type the recipe menu here"
+                placeholder="example: chicken, beef, spaghetti"
                 autocomplete="off"
                 style="color: #000000"
                 v-model="name"
@@ -275,84 +275,64 @@
                   :src="recipe.recipe.image"
                   class="card-img-top"
                   alt="unable to load image"
-                  style="height:200px; width:100%"
+                  style="height:200px; width:100%;border-radius: 20px 20px 0px 0px"
                 />
               </a>
             </div>
             <div class="card-body text-left">
-              <h5 class="card-title">
-                <strong>{{ recipe.recipe.label }}</strong>
-              </h5>
-              <p class="card-text">
-                <!-- {{ product.description }} -->
-                {{ recipe.recipe.yield }} Serving <br />
-                {{ getCal(recipe.recipe.calories, recipe.recipe.yield) }} Kcal
-                <br />
-                {{ recipe.recipe.dietLabels }} <br />
-                {{ recipe.recipe.mealType }} <br />
-                {{ recipe.recipe.totalTime }}
-              </p>
-              <div
-                class="d-flex flex-row flex-wrap justify-content-between align-items-center"
-              >
-                <!-- <span class="text-primary font-weight-bolder">{{
-                  product.price
-                }}</span>
-                <span
-                  class="badge badge-pill badge-primary"
-                  v-if="product.Category.name === 'T-Shirt'"
-                  >{{ product.Category.name }}</span
-                >
-                <span
-                  class="badge badge-pill badge-secondary"
-                  v-else-if="product.Category.name === 'Pants'"
-                  >{{ product.Category.name }}</span
-                >
-                <span
-                  class="badge badge-pill badge-success"
-                  v-else-if="product.Category.name === 'Jacket'"
-                  >{{ product.Category.name }}</span
-                >
-                <span
-                  class="badge badge-pill badge-danger"
-                  v-else-if="product.Category.name === 'Outer'"
-                  >{{ product.Category.name }}</span
-                >
-                <span
-                  class="badge badge-pill badge-warning"
-                  v-else-if="product.Category.name === 'Accessories'"
-                  >{{ product.Category.name }}</span
-                >
-                <span class="badge badge-pill badge-info" v-else>{{
-                  product.Category.name
-                }}</span> -->
+              <div class="row">
+                <div class="col-10">
+                  <h5 class="card-title mb-1">
+                    <strong>{{ recipe.recipe.label }}</strong>
+                  </h5>
+                  <span v-for="(rate, idx) in allRate" :key="idx">
+                    <star-rating
+                      :rating="Number(rate.avg).toFixed(1)"
+                      :read-only="true"
+                      :increment="0.01"
+                      :star-size="20"
+                      :inline="true"
+                      :rounded-corners="true"
+                      :show-rating="true"
+                      v-if="rate.RecipeId === recipe.recipe.uri.split('#')[1]"
+                    ></star-rating>
+                  </span>
+                </div>
+                <div class="col-2">
+                  <a
+                    href="#"
+                    v-on:click.prevent="addMyRecipe(recipe.recipe.uri)"
+                    ><i class="far fa-heart text-danger"></i
+                  ></a>
+                </div>
               </div>
-              <!-- <div class="row mt-2" v-if="userdata.role === 'customer'">
-                <div class="col-9">
-                  <button
-                    class="btn btn-success btn-block"
-                    v-on:click.prevent="seeDetail"
+              <p class="card-text mt-2">
+                <i class="fas fa-stopwatch"></i>
+                {{ recipe.recipe.totalTime }} minutes <br />
+                <i class="fas fa-utensils"></i>
+                {{ recipe.recipe.yield }} servings <br />
+                <i class="fas fa-bolt mb-2"></i>
+                {{ getCal(recipe.recipe.calories, recipe.recipe.yield) }}
+                Kcal <br />
+                Diet type:
+                <span v-if="recipe.recipe.dietLabels.length > 0">
+                  <span
+                    class="badge badge-danger mr-1"
+                    v-for="diet in recipe.recipe.dietLabels"
+                    :key="diet"
+                    >{{ diet }}</span
                   >
-                    See Detail
-                  </button>
-                </div>
-                <div class="col-3">
-                  <button
-                    class="btn btn-danger btn-block"
-                    v-on:click.prevent="addBookmark(product.id)"
-                  >
-                    <i class="far fa-heart"></i>
-                  </button>
-                </div>
-              </div> -->
-            </div>
-            <div class="card-footer bg-white border-0">
-              <button
-                class="btn btn-danger btn-block"
-                v-on:click.prevent="addMyRecipe(recipe.recipe.uri)"
-              >
-                Add My Recipes
-              </button>
+                  <br />
+                </span>
+                <span v-else> - <br /> </span>
+                Meal Type:
+                <span
+                  class="font-weight-bolder"
+                  v-for="meal in recipe.recipe.mealType"
+                  :key="meal"
+                  >{{ meal }}</span
+                >
+              </p>
             </div>
           </div>
         </div>
@@ -373,9 +353,9 @@
 
 <script>
 /* eslint-disable */
-
-import Navbar from "../components/Navbar.vue";
+import StarRating from "vue-star-rating";
 import HFooter from "vue-hacktiv8-footer";
+import Navbar from "../components/Navbar.vue";
 import Swal from "sweetalert2";
 import { swalSuccess, swalError, swalLoading } from "../apis/sweetAlert";
 
@@ -394,7 +374,8 @@ export default {
   },
   components: {
     Navbar,
-    HFooter
+    HFooter,
+    StarRating
   },
   methods: {
     getCal(calories, serving) {
@@ -424,9 +405,12 @@ export default {
           this.$store.commit("SET_LOAD_MORE", {
             loadMore: response.data._links.next.href
           });
+
+          this.$store.dispatch("getAllRate");
         })
         .catch(err => {
           Swal.close();
+          // console.log(err);
           swalError("Opps", err.response.data.message);
         });
 
@@ -538,6 +522,10 @@ export default {
 
     loadMore() {
       return this.$store.state.loadMore;
+    },
+
+    allRate() {
+      return this.$store.state.allRate;
     }
   }
   // created() {
