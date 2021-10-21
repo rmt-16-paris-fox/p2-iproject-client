@@ -20,8 +20,14 @@
     <div class="row">
       <div class="col">
         <form @submit.prevent="analyzeHandler">
-          <input type="submit" value="Analyze" class="btn btn-primary btn-lg" />
+          <input type="submit" value="Analyze" :class="`btn btn-primary btn-lg ${direDraft.length === 5 && radiantDraft.length === 5  && !isAnalyzing ? '' : 'disabled'}`" />
         </form>
+      </div>
+    </div>
+    <div class="row mt-3" v-if="isAnalyzing">
+      <div class="col">
+        <div class="spinner-border" role="status">
+        </div>
       </div>
     </div>
     <div v-if="draftAnalyzed.radiantTotalSynergy">
@@ -201,6 +207,11 @@ import { mapState, mapMutations, mapActions } from 'vuex'
 export default {
   name: 'DraftAnalyzer',
   components: { HeroPortrait },
+  data() {
+    return {
+      isAnalyzing: false
+    }
+  },
   computed: {
     ...mapState(['radiantDraft', 'direDraft', 'draftAnalyzed']),
     heroes() {
@@ -242,7 +253,9 @@ export default {
       this.setRemoveRadiantDraft(id);
     },
     async analyzeHandler() {
+      this.isAnalyzing = true;
       await this.analyzeDraft();
+      this.isAnalyzing = false;
     }
   }
 }
