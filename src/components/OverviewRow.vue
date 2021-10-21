@@ -65,6 +65,8 @@
       /
       <span class="dn">{{ data.denies }}</span>
     </td>
+    <td class="tenth-col">{{ (data.player_lane_efficiency * 100).toFixed(2) }}%</td>
+    <td class="tenth-col">{{ (data.last_hit_efficiency * 100).toFixed(2) }}%</td>
     <td class="tenth-col">{{ data.gold_per_min }}</td>
     <td class="eleventh-col">{{ data.xp_per_min }}</td>
     <td class="twelveth-col">{{ data.hero_damage.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") }}</td>
