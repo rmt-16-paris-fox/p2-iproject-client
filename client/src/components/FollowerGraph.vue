@@ -50,7 +50,7 @@
               justify-content-center
               d-flex
             "
-            >17.7M</span
+            >{{ dataFollower.count }}</span
           >
           <p class="f-s-24 fs-500-16 c-darker">Instagram Followers</p>
         </div>
@@ -78,7 +78,7 @@
               justify-content-center
               d-flex
             "
-            >51.925</span
+            >{{ dataPostCount.count }}</span
           >
           <p class="f-s-24 fs-500-16 c-darker">Instagram Post</p>
         </div>
@@ -104,6 +104,18 @@
 <script>
 export default {
   name: "FollowerGraph",
+  computed: {
+    dataFollower() {
+      return this.$store.state.followerIg;
+    },
+    dataPostCount() {
+      return this.$store.state.postCount;
+    },
+  },
+  created() {
+    this.$store.dispatch("fetchFollowers");
+    this.$store.dispatch("fetchPostCount");
+  },
 };
 </script>
 

@@ -23,31 +23,24 @@
           "
         >
           <li class="list-unstyled">
-            <a
-              href="./index.html"
+            <router-link
+              to="/"
               class="text-decoration-none f-s-16 font-weight-bold text-white"
-              >Home</a
+              >Home</router-link
             >
           </li>
           <li class="list-unstyled mt-3 mt-lg-0">
-            <a
-              href="./portfolio.html"
+            <router-link
+              to="/partner"
               class="text-decoration-none f-s-16 font-weight-bold text-white"
-              >Portfolio</a
+              >Colaborative Partner</router-link
             >
           </li>
           <li class="list-unstyled mt-3 mt-lg-0">
-            <a
-              href="./partner.html"
+            <router-link
+              to="/about"
               class="text-decoration-none f-s-16 font-weight-bold text-white"
-              >Colaborative Partner</a
-            >
-          </li>
-          <li class="list-unstyled mt-3 mt-lg-0">
-            <a
-              href="./contact.html"
-              class="text-decoration-none f-s-16 font-weight-bold text-white"
-              >Contact</a
+              >About</router-link
             >
           </li>
         </ul>
@@ -105,12 +98,19 @@
         Copyright &copy 2021 PT. Infia Media Pratama. All Rights Reserved.
       </p>
     </div>
+    <div>
+      <HFooter></HFooter>
+    </div>
   </div>
 </template>
 
 <script>
+import HFooter from "vue-hacktiv8-footer";
 export default {
   name: "FooterBottom",
+  components: {
+    HFooter,
+  },
 };
 </script>
 
