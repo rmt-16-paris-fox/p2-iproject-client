@@ -26,6 +26,7 @@
         </ul>
         <div class="d-grid gap-2">
           <button
+            @click="buyProduct(product.id)"
             class="btn text-light"
             type="button"
             style="background-color: #3c415c"
@@ -54,23 +55,45 @@
 </template>
 
 <script>
+import Swal from 'sweetalert2'
 export default {
   name: 'ProductCard',
   props: ['product'],
   methods: {
-    // editProduct(productId) {
-    //   // this.$emit('editProduct', productId)
-    //   this.$router.push('/editProducts')
-    // },
+    editProduct(id) {
+      this.$store
+        .dispatch('getOneProducts', id)
+        .then(() => {
+          this.$router.push('/editProducts')
+        })
+        .catch((err) => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: err,
+          })
+        })
+    },
     deleteProduct(id) {
       this.$store
         .dispatch('deleteProduct', id)
-        .then(() => {
-          // this.$router.push('/products')
+        .then((data) => {
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: data.message,
+            showConfirmButton: false,
+            timer: 1500,
+          })
           this.$emit('deleteSuccess')
         })
         .catch((err) => {
-          console.log(err.data)
+          console.log(err)
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: err.data.message,
+          })
         })
     },
   },
