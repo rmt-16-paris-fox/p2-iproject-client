@@ -1,7 +1,8 @@
 <template>
   <div>
-    <navbar></navbar>
-    <h1>Detail Page</h1>
+    <navbar
+    pageTitle="Detail Page"
+    ></navbar>
 <div class="card mb-3">
   <div class="flex-container">
   <img :src="details.data.teams.away.logo" width="150" height="150" alt="away team">
