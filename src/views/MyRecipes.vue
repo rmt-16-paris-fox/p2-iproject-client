@@ -1,7 +1,10 @@
 <template>
   <div class="text-left" style=" min-height: 100vh">
     <navbar class="mx-3"></navbar>
-    <div class="row mx-1" style="padding-top:100px; min-height:100vh">
+    <div class="text-center mb-4" style="padding-top:110px">
+      <h2 class="font-weight-bolder">My Recipes</h2>
+    </div>
+    <div class="row mx-1" style="min-height:100vh">
       <div class="col-12 mb-4">
         <div
           class="d-flex flex-row flex-wrap justify-content-center"
@@ -19,86 +22,67 @@
                   :src="recipe.image"
                   class="card-img-top"
                   alt="unable to load image"
-                  style="height:200px; width:100%"
+                  style="height:200px; width:100%;border-radius: 20px 20px 0px 0px"
                 />
               </a>
             </div>
             <div class="card-body text-left">
-              <h5 class="card-title">
-                <strong>{{ recipe.label }}</strong>
-              </h5>
-              <p class="card-text">
-                <!-- {{ product.description }} -->
-                {{ recipe.yield }} Serving <br />
-                {{ getCal(recipe.calories, recipe.yield) }} Kcal
-                <br />
-                {{ recipe.dietLabels }} <br />
-                {{ recipe.mealType }} <br />
-                {{ recipe.totalTime }}
-              </p>
-              <div
-                class="d-flex flex-row flex-wrap justify-content-between align-items-center"
-              >
-                <!-- <span class="text-primary font-weight-bolder">{{
-                  product.price
-                }}</span>
-                <span
-                  class="badge badge-pill badge-primary"
-                  v-if="product.Category.name === 'T-Shirt'"
-                  >{{ product.Category.name }}</span
-                >
-                <span
-                  class="badge badge-pill badge-secondary"
-                  v-else-if="product.Category.name === 'Pants'"
-                  >{{ product.Category.name }}</span
-                >
-                <span
-                  class="badge badge-pill badge-success"
-                  v-else-if="product.Category.name === 'Jacket'"
-                  >{{ product.Category.name }}</span
-                >
-                <span
-                  class="badge badge-pill badge-danger"
-                  v-else-if="product.Category.name === 'Outer'"
-                  >{{ product.Category.name }}</span
-                >
-                <span
-                  class="badge badge-pill badge-warning"
-                  v-else-if="product.Category.name === 'Accessories'"
-                  >{{ product.Category.name }}</span
-                >
-                <span class="badge badge-pill badge-info" v-else>{{
-                  product.Category.name
-                }}</span> -->
+              <div class="row">
+                <div class="col-10">
+                  <h5 class="card-title mb-1">
+                    <strong>{{ recipe.label }}</strong>
+                  </h5>
+                  <star-rating
+                    :rating="5"
+                    :read-only="true"
+                    :increment="0.01"
+                    :star-size="20"
+                    :inline="true"
+                    :rounded-corners="true"
+                    :show-rating="false"
+                  ></star-rating>
+                </div>
+                <div class="col-2">
+                  <a
+                    href="#"
+                    v-on:click.prevent="removeRecipe(recipe.id, recipe.label)"
+                    ><i class="fas fa-trash text-danger"></i
+                  ></a>
+                </div>
               </div>
-              <!-- <div class="row mt-2" v-if="userdata.role === 'customer'">
-                <div class="col-9">
-                  <button
-                    class="btn btn-success btn-block"
-                    v-on:click.prevent="seeDetail"
+              <p class="card-text mt-2">
+                <!-- {{ product.description }} -->
+                <i class="fas fa-stopwatch"></i>
+                {{ recipe.totalTime }} minutes <br />
+                <i class="fas fa-utensils"></i>
+                {{ recipe.yield }} servings <br />
+                <i class="fas fa-bolt mb-2"></i>
+                {{ getCal(recipe.calories, recipe.yield) }}
+                Kcal <br />
+                Diet type:
+                <span v-if="recipe.dietLabels.length > 0">
+                  <span
+                    class="badge badge-danger mr-1"
+                    v-for="diet in recipe.dietLabels"
+                    :key="diet"
+                    >{{ diet }}</span
                   >
-                    See Detail
-                  </button>
-                </div>
-                <div class="col-3">
-                  <button
-                    class="btn btn-danger btn-block"
-                    v-on:click.prevent="addBookmark(product.id)"
-                  >
-                    <i class="far fa-heart"></i>
-                  </button>
-                </div>
-              </div> -->
-            </div>
-            <div class="card-footer bg-white border-0">
-              <button
-                class="btn btn-danger btn-block"
-                v-on:click.prevent="removeRecipe(recipe.id, recipe.label)"
-              >
-                Remove
-              </button>
+                  <br />
+                </span>
+                <span v-else> - <br /> </span>
+                Meal Type:
+                <span
+                  class="font-weight-bolder"
+                  v-for="meal in recipe.mealType"
+                  :key="meal"
+                  >{{ meal }}</span
+                >
+              </p>
             </div>
           </div>
+        </div>
+        <div class="text-center" v-else>
+          You haven't added any recipe yet
         </div>
       </div>
     </div>
@@ -108,8 +92,9 @@
 
 <script>
 /* eslint-disable */
-import Navbar from "../components/Navbar.vue";
+import StarRating from "vue-star-rating";
 import HFooter from "vue-hacktiv8-footer";
+import Navbar from "../components/Navbar.vue";
 import Swal from "sweetalert2";
 import { swalSuccess, swalError, swalLoading } from "../apis/sweetAlert";
 
@@ -117,7 +102,8 @@ export default {
   name: "MyRecipes",
   components: {
     Navbar,
-    HFooter
+    HFooter,
+    StarRating
   },
   methods: {
     getCal(calories, serving) {
@@ -146,19 +132,18 @@ export default {
     },
 
     removeRecipe(recipeId, recipe) {
-      const loading = this.$store
+      this.$store
         .dispatch("deleteMyRecipe", { recipeId })
         .then(response => {
-          Swal.close();
-          swalSuccess("", `${recipe} ${response.data.message}`);
-          this.getMyRecipes();
+          swalSuccess("", `${recipe} ${response.data.message}`).then(result => {
+            if (result.isConfirmed) {
+              this.getMyRecipes();
+            }
+          });
         })
         .catch(err => {
-          Swal.close();
           swalError("", err.response.data.message);
         });
-
-      swalLoading(loading);
     }
   },
   computed: {

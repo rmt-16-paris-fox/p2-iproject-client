@@ -8,7 +8,7 @@ function swalSuccess(title, text) {
     icon: "success"
   };
 
-  Swal.fire(data);
+  return Swal.fire(data);
 }
 
 function swalError(title, text) {
@@ -18,7 +18,7 @@ function swalError(title, text) {
     icon: "error"
   };
 
-  Swal.fire(data);
+  return Swal.fire(data);
 }
 
 function swalLoading(data) {

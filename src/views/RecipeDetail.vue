@@ -212,8 +212,8 @@ export default {
     return {
       message: "",
       messages: [],
-      // socket: io("http://localhost:3000")
-      socket: io("https://our-99recipes-api.herokuapp.com")
+      socket: io("http://localhost:3000")
+      // socket: io("https://our-99recipes-api.herokuapp.com")
     };
   },
   components: {

@@ -103,6 +103,10 @@
           class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
           aria-labelledby="dropdownMenuButton"
         >
+          <router-link class="dropdown-item" to="/profile">
+            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+            Profile
+          </router-link>
           <router-link class="dropdown-item" to="/myrecipes">
             <i class="fas fa-clipboard-list fa-sm fa-fw mr-2 text-gray-400"></i>
             My Recipes
