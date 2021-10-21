@@ -14,7 +14,7 @@ const midTrans = axios.create({
 });
 
 const regionAxios = axios.create({
-  baseURL: 'http://www.emsifa.com/api-wilayah-indonesia'
+  baseURL: 'https://www.emsifa.com/api-wilayah-indonesia'
 })
 
 export { mainAxios, midTrans, regionAxios };
