@@ -1,7 +1,9 @@
 <template>
   <div>
-    <navbar></navbar>
-    <h1>Home Page</h1>
+    <navbar
+    pageTitle="Home Page"
+    ></navbar>
+
     <div class="card">
       <div class="card-body">
         <table class="table table-striped">

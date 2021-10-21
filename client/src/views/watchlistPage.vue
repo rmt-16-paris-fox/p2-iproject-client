@@ -1,7 +1,8 @@
 <template>
   <div>
-    <navbar></navbar>
-    <h1>Watchlist</h1>
+    <navbar
+    pageTitle="Watchlist"
+    ></navbar>
     <div class="card">
       <div class="card-body">
         <table class="table table-striped">
