@@ -703,7 +703,6 @@ ul{
     white-space: nowrap; 
     width: 100px; 
     overflow: hidden;
-    text-overflow: ellipsis;
 }
 .card-img-top{
     border-radius: 20px 20px 0px 0px;
@@ -1374,8 +1373,8 @@ input{
         overflow-y: hidden;
     }
     .card-product{
-        max-height: 450px;
-        min-width: 283px;
+        max-height: 450px !important;
+        min-width: 383px !important;
         overflow-x: hidden;
     }
     .card-product img{

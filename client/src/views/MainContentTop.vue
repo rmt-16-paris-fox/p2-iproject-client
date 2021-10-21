@@ -14,9 +14,9 @@
       "
     >
       <PartnerContent
-        v-for="(celeb, i) in celebBirth.data.Birthdays"
+        v-for="(meme, i) in meme.data.memes"
         :key="i"
-        :celeb="celeb"
+        :meme="meme"
       ></PartnerContent>
     </div>
   </main>
@@ -37,9 +37,13 @@ export default {
     celebBirth() {
       return this.$store.state.celebBirth;
     },
+    meme() {
+      return this.$store.state.memeData;
+    },
   },
   created() {
     this.$store.dispatch("fetchCelebBirthday");
+    this.$store.dispatch("fetchMeme");
   },
 };
 </script>
