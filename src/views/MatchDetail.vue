@@ -3,7 +3,7 @@
     <div class="spinner-border mt-5" role="status" v-if="!isLoaded">
       <span class="sr-only"></span>
     </div>
-    <div id="match-main-header" :class="`match-main-header-bg ${winningTeam === 'Radiant' ? 'radiant' : 'dire'}`">
+    <div id="match-main-header" :class="`match-main-header-bg ${winningTeam === 'Radiant' ? 'radiant-bg' : 'dire-bg'}`">
       <div class="blur">  
         <div id="match-header" class="container" v-if="isLoaded">
           <h1>{{ winningTeam }} Victory</h1>
@@ -145,11 +145,11 @@ export default {
     background-position: center;
   }
 
-  .dire {
+  .dire-bg {
     background-image: url('../assets/dire_header.jpg');
   }
 
-  .radiant {
+  .radiant-bg {
     background-image: url('../assets/radiant_header.jpg');
   }
 
