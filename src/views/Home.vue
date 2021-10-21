@@ -5,6 +5,8 @@
 
     <div class="container">
 
+    <h1>Our Collections</h1><br>
+
     <custom-vue-speech
     v-on:onTranscriptionEnd="onEnd"
     v-bind:isPlay="isPlay"
