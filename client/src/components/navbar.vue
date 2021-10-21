@@ -1,17 +1,15 @@
 <template>
-    <nav class="navbar navbar-expand navbar-light bg-light" style="background-color: #A3A3A3 !important">
-      <div class="container">
-        <div class="row">
-        <div class="navbar-header col-xl-4">
+    <nav class="navbar navbar-expand navbar-light bg-light d-flex justify-content-between" style="background-color: #A3A3A3 !important">
+        <div class="navbar-header">
           <h1 style="justify-content:left;">Sports 8</h1>
         </div>
-        <div class="col-xl-4">
+        <div>
           <h1>{{ pageTitle }}</h1>
         </div>
 
         <!-- <img src="https://webusstatic.yo-star.com/ark_us_web/mobile/img/item_origin.f524ea1a.png" alt="nav-logo" style="height: 40px" /> -->
-        <div class="navbar-right col-xl-4 " style="width: 180vh" >
-          <ul class="nav navbar-nav mx-2 mb-2 " style="justify-content:right;">
+        <div class="navbar-right" >
+          <ul class="nav navbar-nav mx-2 mb-2">
           <li class="nav-item">
             <a class="nav-link text-white" @click.prevent="toHome" aria-current="page" href="#">Home</a>
           </li>
@@ -22,9 +20,6 @@
             <a class="nav-link text-white" @click.prevent="handleSignOut" aria-current="page" href="#">Logout</a>
           </li>
         </ul>
-        </div>
-
-      </div>
         </div>
 
     </nav>
