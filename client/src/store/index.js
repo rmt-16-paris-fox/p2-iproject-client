@@ -46,6 +46,24 @@ export default new Vuex.Store({
           })
       })
     },
+    loginGoogle (context, payload) {
+      return new Promise((resolve, reject) => {
+        axios({
+          url: 'users/login-google',
+          method: 'POST',
+          data: {
+            token: payload
+          }
+        })
+          .then(({ data }) => {
+            context.commit('SET_IS_LOGIN', true)
+            resolve()
+          })
+          .catch((error) => {
+            reject(error.response.data)
+          })
+      })
+    },
     getTodos (context, payload) {
       return new Promise((resolve, reject) => {
         axios({

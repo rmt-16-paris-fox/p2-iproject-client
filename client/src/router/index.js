@@ -13,17 +13,38 @@ const routes = [
   {
     path: '/',
     name: 'Login',
-    component: Login
+    component: Login,
+    beforeEnter: function (to, from, next) {
+      if (localStorage.getItem('access_token')) {
+        next({ path: '/home' })
+      } else {
+        next()
+      }
+    }
   },
   {
     path: '/register',
     name: 'Register',
-    component: Register
+    component: Register,
+    beforeEnter: function (to, from, next) {
+      if (localStorage.getItem('access_token')) {
+        next({ path: '/home' })
+      } else {
+        next()
+      }
+    }
   },
   {
     path: '/home',
     name: 'Home',
-    component: Home
+    component: Home,
+    beforeEnter: function (to, from, next) {
+      if (!localStorage.getItem('access_token')) {
+        next({ path: '/' })
+      } else {
+        next()
+      }
+    }
   },
   {
     path: '/add',

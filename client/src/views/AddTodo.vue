@@ -10,7 +10,7 @@
         <hr>
         <form v-on:submit.prevent="AddTodo">
             <input v-model="title" class="form-control" type="text" placeholder="Title"><br>
-            <input v-model="content" class="form-control" type="text" placeholder="Content"><br>
+            <textarea v-model="content" class="form-control" type="text" placeholder="Content" rows="8"></textarea><br>
             <select name="tag" v-model="tag" class="form-control">
                 <option value="" disabled selected>Select Tag</option>
                 <option value="Bug">Bug</option>

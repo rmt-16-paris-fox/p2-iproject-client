@@ -1,10 +1,13 @@
 <template>
   <div id="app">
     <router-view/>
+    <HFooter class="footer"></HFooter>
   </div>
 </template>
 
 <script>
+import HFooter from 'vue-hacktiv8-footer'
+
 export default {
   name: 'App',
   created () {
@@ -14,6 +17,9 @@ export default {
     } else {
       this.$store.commit('SET_IS_LOGIN', false)
     }
+  },
+  components: {
+    HFooter
   }
 }
 </script>
@@ -38,5 +44,15 @@ export default {
 
 #nav a.router-link-exact-active {
   color: #42b983;
+}
+
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: red;
+  color: white;
+  text-align: center;
 }
 </style>
