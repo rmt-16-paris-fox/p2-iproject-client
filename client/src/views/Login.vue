@@ -22,7 +22,7 @@
                             </button>
                         </form>
                             <hr>
-                            <button class="btn btn-dark" style="width:100%">
+                            <button class="btn btn-dark" style="width:100%" v-google-signin-button="this.clientId">
                                 Login with Google
                             </button>
                         <hr>
@@ -38,12 +38,15 @@
 
 <script>
 import { success, error } from '../apis/alert'
+import GoogleSignInButton from 'vue-google-signin-button-directive'
+
 export default {
   name: 'Login',
   data () {
     return {
       email: '',
-      password: ''
+      password: '',
+      clientId: '63726053264-i1j3vqfdp7d8si6lm222hvosjnf1pqno.apps.googleusercontent.com'
     }
   },
   methods: {
@@ -63,7 +66,24 @@ export default {
         .catch((err) => {
           error(err.message.join(','))
         })
+    },
+    OnGoogleAuthSuccess (idToken) {
+      this.$store.dispatch('loginGoogle', idToken)
+        .then(() => {
+          success('Login Success')
+          localStorage.setItem('access_token', idToken)
+          this.$router.push('/home')
+        })
+        .catch((err) => {
+          error(err.messages.join(','))
+        })
+    },
+    OnGoogleAuthFail (err) {
+      err(err)
     }
+  },
+  directives: {
+    GoogleSignInButton
   }
 }
 </script>

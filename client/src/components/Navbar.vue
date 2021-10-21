@@ -23,7 +23,7 @@
                             <router-link to="/chat" class="nav-link active" aria-current="page">Chat</router-link>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Logout</a>
+                            <a class="nav-link active" aria-current="page" href="#" v-on:click.prevent="logout">Logout</a>
                         </li>
                     </ul>
                 </div>
@@ -33,8 +33,22 @@
 </template>
 
 <script>
+import { success } from '../apis/alert'
 export default {
-  name: 'Navbar'
+  name: 'Navbar',
+  methods: {
+    logout () {
+      localStorage.clear()
+      success('See You Broo 👋')
+      this.$store.commit('SET_IS_LOGIN', false)
+      this.$router.push('/')
+    }
+  },
+  computed: {
+    isLogin () {
+      return this.$store.state.isLogin
+    }
+  }
 }
 </script>
 
