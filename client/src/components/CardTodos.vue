@@ -2,7 +2,7 @@
     <div class="task bg-light shadow p-3 mt-2" v-if="category === todo.status">
         <h5>{{todo.title}}</h5>
         <hr>
-        <p>{{todo.content}}</p>
+        <textarea v-model="todo.content" class="form-control" type="text" rows="4" disabled></textarea><br>
         <!-- STATUS -->
         <h5><span class="badge badge-pill feature" v-if="todo.tag === 'Feature'">{{todo.tag}}</span></h5>
         <h5><span class="badge badge-pill bug" v-if="todo.tag === 'Bug'">{{todo.tag}}</span></h5>

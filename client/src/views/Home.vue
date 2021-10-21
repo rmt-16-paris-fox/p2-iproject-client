@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <Navbar></Navbar>
-
+    <div>{{time}}</div>
     <!-- HOME -->
     <div class="container-fluid mt-5">
         <div class="row">
@@ -36,7 +36,8 @@ export default {
     return {
       categories: ['To do', 'In Progress', 'Done'],
       todos: [],
-      notes: []
+      notes: [],
+      time: ''
     }
   },
   methods: {
@@ -70,9 +71,18 @@ export default {
     CardTodos,
     CardNotes
   },
+  sockets: {
+    connect: function () {
+      console.log('socket connected')
+    }
+  },
   created () {
     this.getTodos()
     this.getNotes()
+    this.$socket.emit('log')
+    this.sockets.subscribe('clientTime', (data) => {
+      this.time = data
+    })
   }
 }
 </script>
