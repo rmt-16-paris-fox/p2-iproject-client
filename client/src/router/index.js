@@ -6,6 +6,7 @@ import Register from '../views/Register.vue'
 import AddTodo from '../views/AddTodo.vue'
 import AddNote from '../views/AddNotes.vue'
 import EditTodo from '../views/EditTodo.vue'
+import ChatRoom from '../views/ChatRoom.vue'
 
 Vue.use(VueRouter)
 
@@ -60,6 +61,11 @@ const routes = [
     path: '/note/add',
     name: 'AddNote',
     component: AddNote
+  },
+  {
+    path: '/chat',
+    name: 'ChatRoom',
+    component: ChatRoom
   }
 ]
 

@@ -6,11 +6,15 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    isLogin: false
+    isLogin: false,
+    messages: []
   },
   mutations: {
     SET_IS_LOGIN (state, paylod = false) {
       state.isLogin = paylod
+    },
+    PUSH_MESSAGES (state, payload) {
+      state.messages.push(payload)
     }
   },
   actions: {

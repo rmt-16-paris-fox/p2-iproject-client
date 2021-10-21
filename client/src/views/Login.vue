@@ -64,7 +64,7 @@ export default {
           this.$router.push('/home')
         })
         .catch((err) => {
-          error(err.message.join(','))
+          error(err.messages.join(','))
         })
     },
     OnGoogleAuthSuccess (idToken) {
@@ -75,7 +75,7 @@ export default {
           this.$router.push('/home')
         })
         .catch((err) => {
-          error(err.messages.join(','))
+          error(err.message.join(','))
         })
     },
     OnGoogleAuthFail (err) {
