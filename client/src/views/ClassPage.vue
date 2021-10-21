@@ -3,17 +3,19 @@
     <Navbar />
         <div class="row">
             <div class="col-8 justify-content-center">
-                <iframe width="420" height="315" class="m-3"
+                <iframe width="400" height="280" class="m-3"
                 v-for="(video, idx) in getVideos" :key="idx"
                 :src="'https://www.youtube.com/embed/' + video">
                 </iframe>
             </div>
         </div>
+      <HFooter />
 </div>
 </template>
 
 <script>
 import Navbar from '../components/Navbar.vue'
+import HFooter from 'vue-hacktiv8-footer'
 
 export default {
   name: 'ClassPage',
@@ -23,7 +25,8 @@ export default {
     }
   },
   components: {
-    Navbar
+    Navbar,
+    HFooter
   },
   methods: {
     getDataClass () {
