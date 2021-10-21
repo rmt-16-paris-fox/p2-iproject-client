@@ -4,18 +4,15 @@
       <div class="row container d-flex justify-content-center">
         <!-- before joined -->
 
-        <v-form ref="form" v-model="valid" lazy-validation v-if="!joined">
+        <v-form ref="form" lazy-validation v-if="!joined">
           <v-text-field
             v-model="name"
             :counter="10"
-            :rules="nameRules"
             label="Name"
             @keyup.enter="join"
             required
           ></v-text-field>
-          <v-btn :disabled="!valid" color="success" class="mr-4" @click="join">
-            Chat!
-          </v-btn>
+          <v-btn color="success" class="mr-4" @click="join"> Chat! </v-btn>
         </v-form>
         <!-- after joined -->
         <div class="col-md-6" v-if="joined">
@@ -97,7 +94,7 @@ export default {
   methods: {
     async join() {
       await localStorage.setItem("name", this.name);
-      this.$socket.emit("loginUser", this.name);
+      // this.$socket.emit("loginUser", this.name);
       this.joined = true;
     },
     sendMessage() {
@@ -109,7 +106,11 @@ export default {
       this.inputMsg = "";
       this.$socket.emit("newMessage", data);
     },
-    deleteName() {
+    async deleteName() {
+      await this.$socket.emit("log", {
+        name: this.name,
+        log: this.$store.state.messages,
+      });
       localStorage.removeItem("name");
       this.joined = false;
     },
@@ -123,6 +124,11 @@ export default {
     sendMessage(data) {
       this.$store.commit("PUSH_MESSAGE", data.message);
     },
+    // logMessage(data) {
+    //   console.log(data);
+
+    //   this.$store.commit("GET_MESSAGE", data);
+    // },
   },
   created() {
     if (localStorage.getItem("name")) {

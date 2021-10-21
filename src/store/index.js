@@ -20,6 +20,9 @@ export default new Vuex.Store({
     CITY_DATA(state, payload) {
       state.stateData = payload;
     },
+    GET_MESSAGE(state, payload) {
+      state.messages = payload;
+    },
   },
   actions: {
     async getEstate({ commit }, { state_code, city }) {
