@@ -3,7 +3,8 @@ import Vuex from 'vuex';
 import axios from 'axios';
 
 const server = axios.create({
-  baseURL: 'https://dota2analyzer-h8.herokuapp.com'
+  // baseURL: 'https://dota2analyzer-h8.herokuapp.com'
+  baseURL: 'http://localhost:3000'
 });
 
 Vue.use(Vuex);
@@ -82,6 +83,7 @@ export default new Vuex.Store({
       try {
         const response = await server({
           url: `/draft/analyzer`,
+          method: 'POST',
           data: {
             radiant: context.state.radiantDraft,
             dire: context.state.direDraft
@@ -95,7 +97,6 @@ export default new Vuex.Store({
     },
     async composeDraft(context) {
       try {
-        console.log(context.state.draftComposerEnemy);
         const response = await server({
           url: '/draft/composer',
           method: 'POST',
