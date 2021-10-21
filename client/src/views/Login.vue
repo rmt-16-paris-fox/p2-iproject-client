@@ -1,0 +1,129 @@
+<template>
+  <div class="main">
+    <section class="sign-in">
+      <div class="container">
+        <div class="signin-content">
+          <div class="signin-image">
+            <figure>
+              <img
+                src="../../public/images/signin-image.jpg"
+                alt="sing up image"
+              />
+            </figure>
+          </div>
+          <div class="signin-form">
+            <h2 class="form-title">Login</h2>
+            <form method="POST" class="register-form" id="login-form" @submit.prevent="login">
+              <div class="form-group">
+                <label for="your_name"
+                  ><i class="zmdi zmdi-account material-icons-name"></i
+                ></label>
+                <input
+                  type="text"
+                  name="email"
+                  placeholder="Email"
+                  v-model="email"
+                />
+              </div>
+              <div class="form-group">
+                <label for="your_pass"><i class="zmdi zmdi-lock"></i></label>
+                <input
+                  type="password"
+                  name="password"
+                  placeholder="Password"
+                  v-model="password"
+                />
+              </div>
+              <div class="form-group form-button">
+                <input
+                  type="submit"
+                  name="signin"
+                  id="signin"
+                  class="form-submit"
+                  value="Log in"
+                />
+              </div>
+            </form>
+            <br>
+         <router-link to="/register">Register</router-link>
+            <div class="social-login">
+              <span class="social-label">Or login with</span>
+              <ul class="socials">
+                <li>
+                  <div v-google-signin-button="clientId" class="g-signin2" data-onsuccess="onSignIn"></div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</template>
+
+<script>
+import GoogleSignInButton from 'vue-google-signin-button-directive'
+import { swalError, swalSuccess } from '../apis/swal'
+// import swalSuccess from '../apis/swal'
+export default {
+  name: 'LoginPage',
+  directives: {
+    GoogleSignInButton
+  },
+  data () {
+    return {
+      email: '',
+      password: '',
+      clientId: '983652955158-sio2k3a2hu8rarfnnf13vfk2ghcekrjq.apps.googleusercontent.com'
+    }
+  },
+  methods: {
+    login () {
+      const payload = {
+        email: this.email,
+        password: this.password
+      }
+      this.$store.dispatch('login', payload)
+        .then((data) => {
+          localStorage.setItem('access_token', data.access_token)
+          this.$store.commit('SET_IS_LOGGED_IN', true)
+          this.$router.push('/')
+          swalSuccess('Login Success')
+        })
+        .catch((err) => {
+          swalError(err.message)
+          console.log(err)
+        })
+    },
+    OnGoogleAuthSuccess (idToken) {
+      this.$store.dispatch('loginGoogle', idToken)
+        .then((data) => {
+          localStorage.setItem('access_token', data.access_token)
+          this.$store.commit('SET_IS_LOGGED_IN', true)
+          this.$router.push('/')
+          swalSuccess('Login Success')
+        })
+        .catch((err) => {
+          swalError('Login Fail')
+          console.log(err)
+        })
+    },
+    OnGoogleAuthFail (error) {
+      console.log(error)
+    }
+  }
+}
+</script>
+
+<style scoped>
+.form-title{
+  color: #797c76;
+}
+.container{
+  background-color: white;
+  border-radius: 15%;
+}
+.main {
+  background-color: #C9D8B6;
+}
+</style>
