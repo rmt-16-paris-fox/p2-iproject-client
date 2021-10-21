@@ -357,7 +357,11 @@
           </div>
         </div>
         <div class="text-center">
-          <button class="btn btn-primary" v-on:click="loadMoreRecipe()">
+          <button
+            class="btn"
+            style="background-color: #C36A2D; color:white"
+            v-on:click="loadMoreRecipe()"
+          >
             Load More Recipe
           </button>
         </div>
@@ -535,10 +539,10 @@ export default {
     loadMore() {
       return this.$store.state.loadMore;
     }
-  },
-  created() {
-    this.name = "chicken";
-    this.submitFilter();
   }
+  // created() {
+  //   this.name = "chicken";
+  //   this.submitFilter();
+  // }
 };
 </script>

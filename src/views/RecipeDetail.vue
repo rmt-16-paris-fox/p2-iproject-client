@@ -5,9 +5,12 @@
       <div class="col-6 offset-1">
         <div class="row">
           <div class="offset-5">
-            <span v-for="meal in recipeById.mealType" :key="meal">{{
-              meal
-            }}</span>
+            <span
+              class="font-weight-bolder"
+              v-for="meal in recipeById.mealType"
+              :key="meal"
+              >{{ meal }}</span
+            >
             <h3 class="font-weight-bolder m-0">
               {{ recipeById.label }}
             </h3>
@@ -22,7 +25,7 @@
             </span>
             <span v-if="recipeCountRate > 0">
               <star-rating
-                :rating="recipeAvgRate"
+                :rating="Number(recipeAvgRate)"
                 :read-only="true"
                 :increment="0.01"
                 :star-size="20"
@@ -75,7 +78,7 @@
                 :rounded-corners="true"
                 :animate="true"
                 :show-rating="false"
-                :rating="recipeMyRate"
+                :rating="Number(recipeMyRate)"
                 @rating-selected="setRating"
               ></star-rating>
               <br />
@@ -119,25 +122,68 @@
           </div>
         </div>
       </div>
-      <div class="col-4 offset-7 fixed-top" style="padding-top: 100px;">
+      <div
+        class="col-4 offset-7 fixed-top"
+        style="padding-top: 100px; z-index:0"
+      >
         <div class="card shadow" style="min-height:70vh">
           <div class="card-header">
-            <h4>Comments</h4>
+            <h4 class="font-weight-bolder">Live Chat</h4>
           </div>
-          <div class="card-body">
-            <p>Helloooo</p>
+          <div
+            class="card-body overflow-auto"
+            style="height:45vh; vertical-align:bottom"
+            id="card-body"
+          >
+            <div class="mb-1" v-for="(message, idx) in messages" :key="idx">
+              <strong
+                :class="
+                  message.user === userdata.name ? 'float-right' : 'float-left'
+                "
+                style="font-size: 11pt"
+                >{{
+                  message.user === userdata.name ? "You" : message.user
+                }}</strong
+              ><br />
+              <div
+                :class="
+                  message.user === userdata.name
+                    ? 'd-flex flex-row-reverse bd-highlight'
+                    : 'd-flex flex-row bd-highlight'
+                "
+              >
+                <div
+                  :class="
+                    message.user === userdata.name
+                      ? 'btn btn-secondary btn-sm'
+                      : 'btn btn-success btn-sm'
+                  "
+                  style="font-size:12pt"
+                >
+                  {{ message.message }}
+                </div>
+              </div>
+            </div>
           </div>
           <div class="card-footer">
-            <form action="">
+            <form v-on:submit.prevent="sendMessage">
               <div class="input-group mb-3">
                 <input
                   type="text"
                   class="form-control"
-                  placeholder="Type anything you want to disquss"
+                  :placeholder="
+                    userdata.name ? 'type anything' : 'you must login first'
+                  "
                   aria-describedby="basic-addon2"
+                  v-model="message"
+                  :disabled="!userdata.name"
                 />
                 <div class="input-group-append">
-                  <button class="btn btn-success">
+                  <button
+                    type="submit"
+                    class="btn btn-success"
+                    :disabled="!userdata.name"
+                  >
                     <i class="fas fa-paper-plane"></i>
                   </button>
                 </div>
@@ -153,6 +199,7 @@
 
 <script>
 /* eslint-disable */
+import io from "socket.io-client";
 import HFooter from "vue-hacktiv8-footer";
 import StarRating from "vue-star-rating";
 import Navbar from "../components/Navbar.vue";
@@ -161,6 +208,14 @@ import { swalSuccess, swalError, swalLoading } from "../apis/sweetAlert";
 
 export default {
   name: "RecipeDetail",
+  data() {
+    return {
+      message: "",
+      messages: [],
+      // socket: io("http://localhost:3000")
+      socket: io("https://our-99recipes-api.herokuapp.com")
+    };
+  },
   components: {
     Navbar,
     HFooter,
@@ -173,8 +228,6 @@ export default {
     },
 
     setRating(rating) {
-      // this.rating = "You have Selected: " + rating + " stars";
-      // alert(this.recipeById.uri);
       const recipeId = this.recipeById.uri.split("#")[1];
       const loading = this.$store
         .dispatch("rateRecipe", {
@@ -216,7 +269,12 @@ export default {
           // console.log(response.data);
           this.$store.commit("SET_RECIPE", { recipeById: response.data });
           this.getRecipeAvgRate(recipeId);
-          this.getRecipeMyRate(recipeId);
+
+          if (localStorage.getItem("access_token")) {
+            this.getRecipeMyRate(recipeId);
+            console.log(this.userdata.name);
+            this.socket.emit("JOIN_ROOM", recipeId, this.userdata.name);
+          }
         })
         .catch(err => {
           Swal.close();
@@ -232,9 +290,26 @@ export default {
 
     getRecipeMyRate(recipeId) {
       this.$store.dispatch("getRecipeMyRate", { recipeId });
+    },
+
+    sendMessage() {
+      const recipeId = this.recipeById.uri.split("#")[1];
+      this.socket.on("connection", socket => {});
+      this.socket.emit("SEND_MESSAGE", recipeId, {
+        username: this.userdata.username,
+        user: this.userdata.name,
+        message: this.message
+      });
+
+      const cardBody = document.getElementById("card-body");
+      cardBody.scrollTop = cardBody.scrollHeight + 150;
+      this.message = "";
     }
   },
   computed: {
+    userdata() {
+      return this.$store.state.userdata;
+    },
     recipeById() {
       return this.$store.state.recipeById;
     },
@@ -253,6 +328,11 @@ export default {
       const myRate = Number(this.$store.state.recipeMyRate);
       return myRate;
     }
+  },
+  mounted() {
+    this.socket.on("MESSAGE", data => {
+      this.messages.push(data);
+    });
   },
   created() {
     const recipeId = this.$router.currentRoute.params.id;

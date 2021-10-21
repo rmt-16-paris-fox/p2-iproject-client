@@ -169,7 +169,6 @@ export default new Vuex.Store({
         }
       });
 
-      console.log(result);
       const rate = result.data.rate;
       context.commit("SET_RECIPE_MY_RATE", { rate });
     },
