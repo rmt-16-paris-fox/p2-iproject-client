@@ -5,7 +5,8 @@ import axios from 'axios';
 // });
 
 const mainAxios = axios.create({
-  baseURL: 'http://localhost:3000'
+  baseURL: 'https://pajak-pemotongan-hewan.herokuapp.com'
+  // baseURL: 'http://localhost:3000'
 });
 
 const midTrans = axios.create({
