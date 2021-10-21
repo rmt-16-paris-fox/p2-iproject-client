@@ -1,9 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Home from '../views/Home.vue';
-import MatchOverview from '../components/MatchOverview.vue';
-import Heatmap from '../components/Heatmap.vue';
-import Vision from '../components/Vision.vue';
 
 Vue.use(VueRouter);
 
@@ -21,17 +18,34 @@ const routes = [
       {
         path: '/matches/:matchId/overview',
         name: 'MatchOverview',
-        component: MatchOverview
+        component: () => import('../components/MatchOverview.vue')
       },
       {
         path: '/matches/:matchId/heatmap',
         name: 'Heatmap',
-        component: Heatmap
+        component: () => import('../components/Heatmap.vue')
       },
       {
         path: '/matches/:matchId/vision',
         name: 'Vision',
-        component: Vision
+        component: () => import('../components/Vision.vue')
+      }
+    ]
+  },
+  {
+    path: '/drafts',
+    name: 'Draft',
+    component: () => import('../views/Draft.vue'),
+    children: [
+      {
+        path: '/drafts/analyzer',
+        name: 'DraftAnalyzer',
+        component: () => import('../components/DraftAnalyzer.vue')
+      },
+      {
+        path: '/drafts/composer',
+        name: 'DraftComposer',
+        component: () => import('../components/DraftComposer.vue')
       }
     ]
   }
