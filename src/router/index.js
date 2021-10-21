@@ -6,6 +6,7 @@ import Review from "@/views/Review.vue";
 import Search from "@/views/Search.vue";
 import Login from "@/views/Login.vue";
 import Register from "@/views/Register.vue";
+import ReviewList from "@/views/ReviewList.vue";
 import Swal from "sweetalert2";
 Vue.use(VueRouter);
 
@@ -32,6 +33,19 @@ const routes = [
     path: "/review",
     name: "Review",
     component: Review,
+    beforeEnter: function (to, from, next) {
+      if (localStorage.getItem("access_token")) {
+        next();
+      } else {
+        next("/");
+        Swal.fire("you must login.");
+      }
+    },
+  },
+  {
+    path: "/reviewlist",
+    name: "ReviewList",
+    component: ReviewList,
     beforeEnter: function (to, from, next) {
       if (localStorage.getItem("access_token")) {
         next();

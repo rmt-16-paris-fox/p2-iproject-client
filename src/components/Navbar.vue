@@ -35,6 +35,12 @@
           <li class="nav-item" v-if="!isLogin">
             <a class="nav-link" @click="about">About</a>
           </li>
+          <li class="nav-item" v-if="isLogin">
+            <a class="nav-link" @click="favourite">Favourites</a>
+          </li>
+          <li class="nav-item" v-if="isLogin">
+            <a class="nav-link" @click="reviewlist">Reviews</a>
+          </li>
         </ul>
         <!-- Left links -->
       </div>
@@ -144,6 +150,9 @@ export default {
     },
     favourite: function () {
       this.$router.push("/favourite");
+    },
+    reviewlist: function () {
+      this.$router.push("/reviewlist");
     },
     toLogin: function () {
       this.$router.push("/login");

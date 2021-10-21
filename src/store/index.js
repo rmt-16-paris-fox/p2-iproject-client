@@ -10,6 +10,8 @@ export default new Vuex.Store({
     isLogin: false,
     foodQuery: [],
     searchQuery: [],
+    favouriteQuery: [],
+    reviewQuery: [],
   },
   mutations: {
     SET_FOOD_QUERY: function (state, payload) {
@@ -20,6 +22,12 @@ export default new Vuex.Store({
     },
     SET_IS_LOGIN: function (state, payload) {
       state.isLogin = payload;
+    },
+    SET_FAVOURITE_FOOD: function (state, payload) {
+      state.favouriteQuery = payload;
+    },
+    SET_REVIEW_FOOD: function (state, payload) {
+      state.reviewQuery = payload;
     },
   },
   actions: {
@@ -41,6 +49,46 @@ export default new Vuex.Store({
         .then(({ data }) => {
           // console.log(data);
           commit("SET_FOOD_QUERY", data);
+        })
+        .catch((err) => {
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: err.response.data.message || "something wrong",
+          });
+        });
+    },
+    fetchFavourites: function ({ commit }) {
+      axios({
+        method: "GET",
+        url: "/favourite",
+        headers: {
+          access_token: localStorage.getItem("access_token"),
+        },
+      })
+        .then(({ data }) => {
+          console.log(data);
+          commit("SET_FAVOURITE_FOOD", data);
+        })
+        .catch((err) => {
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: err.response.data.message || "something wrong",
+          });
+        });
+    },
+    fetchReviews: function ({ commit }) {
+      axios({
+        method: "GET",
+        url: "/review",
+        headers: {
+          access_token: localStorage.getItem("access_token"),
+        },
+      })
+        .then(({ data }) => {
+          console.log(data);
+          commit("SET_REVIEW_FOOD", data);
         })
         .catch((err) => {
           Swal.fire({
