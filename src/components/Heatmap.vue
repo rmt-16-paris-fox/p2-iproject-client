@@ -50,12 +50,16 @@ export default {
               value: this.matchData.players[this.heroSelector].lane_pos[x][y]
             }
     
-            dataPoints.push(dataPoint)
+            dataPoints.push(dataPoint);
           }
         }
       }
 
-      this.heatmapInstance.setData({data: dataPoints});
+      this.heatmapInstance.setData({
+        max: 29,
+        min: 1,
+        data: dataPoints 
+        });
     }
   },
   computed: {
