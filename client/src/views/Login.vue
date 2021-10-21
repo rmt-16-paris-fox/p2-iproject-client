@@ -90,7 +90,12 @@ export default {
           this.$router.push('/products')
         })
         .catch((err) => {
-          console.log(err.data.data.name)
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: err.data.name,
+          })
+          console.log(err.data.name)
         })
     },
     OnGoogleAuthSuccess(idToken) {

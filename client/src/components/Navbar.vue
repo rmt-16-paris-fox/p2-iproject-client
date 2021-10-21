@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
-      <img src="../img/logo-cashier2.png" alt="" class="ms-3" />
+      <img @click="home" src="../img/logo-cashier2.png" alt="" class="ms-3" />
       <button
         class="navbar-toggler"
         type="button"
@@ -26,11 +26,11 @@
         <ul class="navbar-nav">
           <li class="nav-item">
             <a
-              @click.prevent=""
+              @click.prevent="listProduct"
               class="nav-link active"
               aria-current="page"
               href="#"
-              >Home</a
+              >List Product</a
             >
           </li>
           <li class="nav-item dropdown">
@@ -46,7 +46,7 @@
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
               <li>
-                <a @click="transactionPage" class="dropdown-item" href="#"
+                <a @click="addTransactionPage" class="dropdown-item" href="#"
                   >Add Transaction</a
                 >
               </li>
@@ -77,44 +77,10 @@
                   >Add Product</a
                 >
               </li>
-              <li>
-                <a @click="productEditPage" class="dropdown-item" href="#"
-                  >Edit Product</a
-                >
-              </li>
             </ul>
           </li>
-          <li class="nav-item dropdown">
-            <a
-              class="nav-link dropdown-toggle"
-              href="#"
-              id="navbarDropdownMenuLink"
-              role="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              Category
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <li><a class="dropdown-item" href="#">Add Category</a></li>
-              <li><a class="dropdown-item" href="#">Edit Category</a></li>
-            </ul>
-          </li>
-          <li class="nav-item dropdown">
-            <a
-              class="nav-link dropdown-toggle"
-              href="#"
-              id="navbarDropdownMenuLink"
-              role="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              Brand
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <li><a class="dropdown-item" href="#">Add Brand</a></li>
-              <li><a class="dropdown-item" href="#">Edit Brand</a></li>
-            </ul>
+          <li v-if="login" class="nav-item">
+            <a @click.prevent="logIn" class="nav-link" href="#">Sign in</a>
           </li>
           <li v-if="!login" class="nav-item">
             <a @click.prevent="logOut" class="nav-link" href="#">Sign Out</a>
@@ -129,14 +95,22 @@
 export default {
   name: 'Navbar',
   methods: {
+    home() {
+      this.$router.push('/')
+    },
+
     getTransaction() {
       this.$store.dispatch('getTransaction')
     },
     listProduct() {
       this.$router.push('/products')
     },
+    logIn() {
+      this.$router.push('/login')
+    },
     logOut() {
       localStorage.clear()
+      this.$store.commit('SET_IS_LOGIN', false)
       this.$router.push('/login')
     },
     productCreatePage() {
@@ -145,8 +119,8 @@ export default {
     productEditPage() {
       this.$router.push('/editProducts')
     },
-    transactionPage() {
-      this.$router.push('/transaction')
+    addTransactionPage() {
+      this.$router.push({ name: 'AddTransaction' })
     },
   },
   computed: {

@@ -7,10 +7,14 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     isLogin: false,
+    products: '',
   },
   mutations: {
     SET_IS_LOGIN: function (state, payload = false) {
       state.isLogin = payload
+    },
+    SET_PRODUCTS: function (state, payload = '') {
+      state.products = payload
     },
   },
   actions: {
@@ -87,11 +91,29 @@ export default new Vuex.Store({
           },
         })
           .then(({ data }) => {
-            console.log(data.rows)
+            // console.log(data.rows)
             resolve(data.rows)
           })
           .catch((err) => {
             reject(err.response.data)
+          })
+      })
+    },
+    getOneProducts({ commit }, payload) {
+      return new Promise((resolve, reject) => {
+        axios({
+          url: `/products/${payload}`,
+          method: 'GET',
+          headers: {
+            access_token: localStorage.getItem('access_token'),
+          },
+        })
+          .then(({ data }) => {
+            commit('SET_PRODUCTS', data)
+            resolve(data)
+          })
+          .catch((err) => {
+            reject(err)
           })
       })
     },
@@ -123,6 +145,31 @@ export default new Vuex.Store({
           })
       })
     },
+    editProduct(_, payload) {
+      return new Promise((resolve, reject) => {
+        let form = new FormData()
+        form.append('name', payload.name)
+        form.append('price', payload.price)
+        form.append('imageUrl', payload.imageUrl)
+        form.append('stock', payload.stock)
+        form.append('categoryId', payload.categoryId)
+        form.append('brandId', payload.brandId)
+        axios({
+          url: `/products/${payload.id}`,
+          method: 'PUT',
+          data: form,
+          headers: {
+            access_token: localStorage.getItem('access_token'),
+          },
+        })
+          .then(({ data }) => {
+            resolve(data)
+          })
+          .catch((err) => {
+            reject(err.response)
+          })
+      })
+    },
     deleteProduct(_, payload) {
       return new Promise((resolve, reject) => {
         axios({
@@ -137,7 +184,7 @@ export default new Vuex.Store({
             resolve(data)
           })
           .catch((err) => {
-            console.log(err)
+            // console.log(err)
             reject(err.response)
           })
       })
@@ -179,7 +226,7 @@ export default new Vuex.Store({
           },
         })
           .then(({ data }) => {
-            console.log(data)
+            // console.log(data)
             resolve(data)
           })
           .catch((err) => {

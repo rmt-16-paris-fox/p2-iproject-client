@@ -27,7 +27,13 @@
           <label class="form-label text-light">Category</label>
           <select class="form-select" aria-label="Default select example">
             <option selected>Open this select menu</option>
-            <option value="1">One</option>
+            <option
+              v-for="listCategorie in listCategories"
+              :key="listCategorie.id"
+              :value="listCategorie.id"
+            >
+              {{ listCategorie.name }}
+            </option>
           </select>
         </div>
         <input type="hidden" />
@@ -46,6 +52,21 @@
 <script>
 export default {
   name: 'AddTransaction',
+  data() {
+    return {
+      listCategories: [],
+    }
+  },
+  created() {
+    this.$store
+      .dispatch('getCategory')
+      .then((data) => {
+        this.listCategories = data
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  },
 }
 </script>
 

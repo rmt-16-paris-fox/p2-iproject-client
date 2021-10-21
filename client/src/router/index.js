@@ -79,16 +79,16 @@ const routes = [
     },
   },
   {
-    path: '/transaction',
-    name: 'Transaction',
-    component: Transaction,
-    // beforeEnter: (to, from, next) => {
-    //   if (!localStorage.getItem('access_token')) {
-    //     next('/login')
-    //   } else {
-    //     next()
-    //   }
-    // },
+    path: '/addTransaction',
+    name: 'AddTransaction',
+    component: AddTransaction,
+    beforeEnter: (to, from, next) => {
+      if (!localStorage.getItem('access_token')) {
+        next('/login')
+      } else {
+        next()
+      }
+    },
   },
 ]
 

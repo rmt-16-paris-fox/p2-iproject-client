@@ -66,10 +66,18 @@
         <input type="hidden" />
         <button
           style="background-color: #b4a5a5"
-          class="btn mt-3"
+          class="btn mt-3 mx-2"
           type="submit"
         >
           Submit
+        </button>
+        <button
+          @click="back"
+          style="background-color: #b4a5a5"
+          class="btn mt-3 mx-2"
+          type="submit"
+        >
+          Back
         </button>
       </form>
     </div>
@@ -120,6 +128,9 @@ export default {
         .catch((err) => {
           console.log(err)
         })
+    },
+    back() {
+      this.$router.push('/products')
     },
   },
   created() {

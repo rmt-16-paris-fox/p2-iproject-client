@@ -47,7 +47,7 @@
                 />
               </div>
               <div class="col-6">
-                <h4 style="font-weight: bold">Mengapa pilih cashier?</h4>
+                <h4 style="font-weight: bold">Mengapa pilih cashier ?</h4>
                 <div class="row mt-3">
                   <div class="col-6">
                     <div class="card" style="width: 15rem; border-radius: 15px">

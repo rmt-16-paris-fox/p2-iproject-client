@@ -71,12 +71,21 @@
         >
           Submit
         </button>
+        <button
+          @click="back"
+          style="background-color: #b4a5a5"
+          class="btn mt-3 mx-2"
+          type="submit"
+        >
+          Back
+        </button>
       </form>
     </div>
   </div>
 </template>
 
 <script>
+import Swal from 'sweetalert2'
 export default {
   name: 'EditProduct',
   data() {
@@ -87,7 +96,74 @@ export default {
       stock: '',
       categoryId: '',
       brandId: '',
+      listCategories: [],
+      listBrands: [],
     }
+  },
+  methods: {
+    back() {
+      this.$router.push('/products')
+    },
+    submitEditProduct() {
+      const payload = {
+        id: this.$store.state.products.id,
+        name: this.name,
+        price: this.price,
+        imageUrl: this.imageUrl,
+        stock: this.stock,
+        categoryId: this.categoryId,
+        brandId: this.brandId,
+      }
+      this.$store
+        .dispatch('editProduct', payload)
+        .then(() => {
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Success Edit Product',
+            showConfirmButton: false,
+            timer: 1500,
+          })
+          this.$router.push('/products')
+        })
+        .catch((err) => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: err.data.message,
+          })
+        })
+    },
+  },
+  computed: {
+    product() {
+      return this.$store.state.products
+    },
+  },
+  created() {
+    this.$store
+      .dispatch('getCategory')
+      .then((data) => {
+        this.listCategories = data
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+
+    this.$store
+      .dispatch('getBrand')
+      .then((data) => {
+        this.listBrands = data
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+    this.name = this.$store.state.products.name
+    this.price = this.$store.state.products.price
+    this.imageUrl = this.$store.state.products.imageUrl
+    this.stock = this.$store.state.products.stock
+    this.categoryId = this.$store.state.products.categoryId
+    this.brandId = this.$store.state.products.brandId
   },
 }
 </script>
