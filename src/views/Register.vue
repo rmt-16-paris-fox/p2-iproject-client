@@ -160,7 +160,7 @@
               <option
                 v-for="regencies in regenciesData"
                 :key="regencies.id"
-                :value="regencies.id"
+                :value="regencies.name"
               >
                 {{ regencies.name }}
               </option>
@@ -212,6 +212,8 @@ export default {
         name: this.fullName,
         email: this.email,
         password: this.password,
+        provinsi: this.province,
+        kabupaten: this.regencies,
       });
     },
     selectedProvince(event) {
