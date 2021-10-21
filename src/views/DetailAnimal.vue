@@ -45,7 +45,7 @@
           <p class="leading-relaxed text-base">
             Rp{{ Number(detailAnimal.tax).toLocaleString("id-ID") }} / ekor
           </p>
-          <div class="relative">
+          <div class="relative mb-4">
             <label for="qty">Jumlah: </label>
             <select
               id="qty"
@@ -64,6 +64,7 @@
                 text-base
                 pl-3
                 pr-3
+                bg-white
               "
             >
               <option value="1">1</option>
@@ -72,6 +73,28 @@
               <option value="4">4</option>
               <option value="5">5</option>
             </select>
+          </div>
+          <div class="relative mb-4">
+            <label for="total">Total: </label>
+            <span
+              id="total"
+              name="total"
+              class="
+                rounded
+                border
+                appearance-none
+                border-gray-300
+                py-1
+                focus:outline-none
+                focus:ring-2
+                focus:ring-indigo-200
+                focus:border-indigo-500
+                text-base
+                pl-3
+                pr-3
+              "
+            >{{ total }}
+            </span>
           </div>
           <button
             @click="pay"
@@ -109,6 +132,7 @@ export default {
   data() {
     return {
       jumlahYangDibayar: 0,
+      total: 0,
       aaName:
         this.$route.params.name.charAt(0).toUpperCase() +
         this.$route.params.name.slice(1),
@@ -117,6 +141,7 @@ export default {
   methods: {
     jumlah(event) {
       this.jumlahYangDibayar = event.target.value;
+      this.total = Number(this.$store.state.detailAnimal.tax) * this.jumlahYangDibayar
     },
     pay() {
       this.$store.dispatch("payment");
@@ -130,7 +155,6 @@ export default {
   created() {
     this.$store.dispatch("fetchData");
     this.$store.dispatch("fetchAnimalByName", this.$route.params.name);
-    console.log(this.aaName);
   },
 };
 </script>
