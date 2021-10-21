@@ -71,7 +71,6 @@ export default {
       this.$store.dispatch('loginGoogle', idToken)
         .then(() => {
           success('Login Success')
-          localStorage.setItem('access_token', idToken)
           this.$router.push('/home')
         })
         .catch((err) => {

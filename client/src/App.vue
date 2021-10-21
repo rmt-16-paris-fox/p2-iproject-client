@@ -51,8 +51,8 @@ export default {
   left: 0;
   bottom: 0;
   width: 100%;
-  background-color: red;
-  color: white;
+  height: 70px;
+  background-color: #102027;
   text-align: center;
 }
 </style>

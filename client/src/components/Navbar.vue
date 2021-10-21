@@ -53,4 +53,10 @@ export default {
 </script>
 
 <style>
+.navbar{
+  position: fixed;
+  top: 10;
+  width: 100%;
+  height: 60px;
+}
 </style>
