@@ -244,9 +244,6 @@ export default {
     async analyzeHandler() {
       await this.analyzeDraft();
     }
-  },
-  mounted() {
-    console.log(heroes)
   }
 }
 </script>

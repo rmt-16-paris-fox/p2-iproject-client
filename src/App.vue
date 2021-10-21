@@ -9,27 +9,29 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Home</a>
+              <router-link class="nav-link" to="/">Home</router-link>
             </li>
             <li class="nav-item">
-              <router-link class="nav-link" to="/matches">Match</router-link>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Draft</a>
+              <router-link class="nav-link" :to="{ name: 'DraftAnalyzer' }">Draft</router-link>
             </li>
           </ul>
         </div>
       </div>
     </nav>
-    <router-view/>
+    <router-view style="margin-bottom: 80px; min-height: 100vh;"/>
+    <HFooter></HFooter>
   </div>
 </template>
 
 <script>
+import HFooter from 'vue-hacktiv8-footer'
 // ! https://steamcdn-a.akamaihd.net/ cdn steam untuk assets
 
 export default {
-  
+  name: 'App',
+  components: {
+    HFooter
+  }
 }
 </script>
 

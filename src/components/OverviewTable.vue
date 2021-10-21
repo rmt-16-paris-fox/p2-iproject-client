@@ -38,6 +38,8 @@
               /
               <span class="dn">DN</span>
             </th>
+            <th class="tenth-col">Lane Eff.</th>
+            <th class="tenth-col">LH Eff.</th>
             <th class="tenth-col">GPM</th>
             <th class="eleventh-col">XPM</th>
             <th class="twelveth-col">Hero Damage</th>
