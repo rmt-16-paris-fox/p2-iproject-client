@@ -1,25 +1,29 @@
 <template>
-  <div id="match-detail" class="container">
+  <div id="match-detail">
     <div class="spinner-border mt-5" role="status" v-if="!isLoaded">
       <span class="sr-only"></span>
     </div>
-    <div id="match-header"  v-if="isLoaded">
-      <h1>{{ winningTeam }} Victory</h1>
+    <div id="match-main-header" :class="`match-main-header-bg ${winningTeam === 'Radiant' ? 'radiant' : 'dire'}`">
+      <div class="blur">  
+        <div id="match-header" class="container" v-if="isLoaded">
+          <h1>{{ winningTeam }} Victory</h1>
+        </div>
+        <div id="match-nav" class="container" v-if="isLoaded">
+          <ul id="match-nav-ul" class="container" >
+            <router-link :to="{ name: 'MatchOverview' }" class="match-nav-li" active-class="active">
+              Overview
+            </router-link>
+            <router-link :to="{ name: 'Heatmap' }" class="match-nav-li" active-class="active">
+              Heatmap
+            </router-link>
+            <router-link :to="{ name: 'Vision' }" class="match-nav-li" active-class="active">
+              Vision
+            </router-link>
+          </ul>
+        </div>
+      </div>
     </div>
-    <div id="match-nav" v-if="isLoaded">
-      <ul id="match-nav-ul">
-        <router-link :to="{ name: 'MatchOverview' }" class="match-nav-li" active-class="active">
-          Overview
-        </router-link>
-        <router-link :to="{ name: 'Heatmap' }" class="match-nav-li" active-class="active">
-          Heatmap
-        </router-link>
-        <router-link :to="{ name: 'Vision' }" class="match-nav-li" active-class="active">
-          Vision
-        </router-link>
-      </ul>
-    </div>
-    <div v-if="isLoaded">
+    <div v-if="isLoaded" class="container" >
       <div class="box" v-if="isLoaded">
         <BoxIdentifier title="ID" :content="matchData.match_id" />
         <BoxIdentifier title="Lobby Type" :content="lobbyType" />
@@ -28,7 +32,9 @@
         <BoxIdentifier title="Duration" :content="duration" />
         <BoxIdentifier title="Date" :content="date" />
       </div>
-      <router-view />
+      <div class="container">
+        <router-view />
+      </div>
     </div>
   </div>
 </template>
@@ -134,6 +140,24 @@ export default {
     text-align: left;
   }
 
+  .match-main-header-bg {
+    background-size: cover;
+    background-position: center;
+  }
+
+  .dire {
+    background-image: url('../assets/dire_header.jpg');
+  }
+
+  .radiant {
+    background-image: url('../assets/radiant_header.jpg');
+  }
+
+  .blur {
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(6px);
+  }
+
   #match-header {
     height: 150px;
     display: flex;
@@ -142,8 +166,6 @@ export default {
 
   #match-nav {
     text-align: left;
-    margin: 0;
-    padding: 0;
   }
 
   #match-nav-ul {
