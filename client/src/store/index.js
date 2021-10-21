@@ -95,7 +95,7 @@ export default new Vuex.Store({
           console.log(err.response.data)
         })
     },
-    memeGenerator({
+    fetchMeme({
       commit
     }) {
       axios({
