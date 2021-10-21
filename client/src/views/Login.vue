@@ -110,8 +110,15 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .form-title{
-  color: royalblue;
+  color: #797c76;
+}
+.container{
+  background-color: white;
+  border-radius: 15%;
+}
+.main {
+  background-color: #C9D8B6;
 }
 </style>

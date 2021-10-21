@@ -46,9 +46,19 @@ export default {
     },
     toEdit (data) {
       this.postEdit = data
+    },
+    fetchUserData () {
+      this.$store.dispatch('getUserData')
+        .then((data) => {
+          localStorage.setItem('fakeName', data.fakeName)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
     }
   },
   created () {
+    this.fetchUserData()
     this.fetchAllPost()
   },
   computed: {

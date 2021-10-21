@@ -4,8 +4,8 @@
       <div class="container">
         <div class="signup-content">
           <div class="signup-form">
-            <h2 class="form-title">Sign up</h2>
             <form method="POST" class="register-form" id="register-form" @submit.prevent="register">
+            <h2 class="form-title">Sign up</h2>
               <div class="form-group">
                 <label for="name"
                   ><i class="zmdi zmdi-account material-icons-name"></i
@@ -112,5 +112,15 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+.container{
+  background-color: white;
+  border-radius: 15%;
+}
+.form-title{
+  color: #858a7f;
+}
+.main {
+  background-color: #C9D8B6;
+}
 </style>

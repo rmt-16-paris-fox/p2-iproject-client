@@ -47,7 +47,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 .name {
   margin-left: 10px;
   margin-top: 10px;

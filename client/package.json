@@ -11,11 +11,11 @@
     "axios": "^0.23.0",
     "core-js": "^3.6.5",
     "vue": "^2.6.11",
-
+    "vue-chat-scroll": "^2.0.0-alpha.4",
     "vue-google-signin-button-directive": "^1.0.3",
-
     "vue-hacktiv8-footer": "0.0.9",
     "vue-router": "^3.2.0",
+    "vue-socket.io": "^3.0.10",
     "vuex": "^3.4.0"
   },
   "devDependencies": {

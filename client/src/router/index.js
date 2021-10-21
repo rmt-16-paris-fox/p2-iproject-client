@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import LoginPage from '../views/Login.vue'
 import RegisterPage from '../views/Register.vue'
+import ChatRoom from '../views/ChatRoom.vue'
 Vue.use(VueRouter)
 
 const routes = [
@@ -39,6 +40,18 @@ const routes = [
         next('/')
       } else {
         next()
+      }
+    }
+  },
+  {
+    path: '/chat',
+    name: 'ChatRoom',
+    component: ChatRoom,
+    beforeEnter: (to, from, next) => {
+      if (localStorage.getItem('access_token')) {
+        next()
+      } else {
+        next('login')
       }
     }
   }

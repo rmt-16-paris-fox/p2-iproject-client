@@ -7,7 +7,8 @@ export default new Vuex.Store({
   state: {
     isLoggedIn: false,
     editPage: false,
-    postToEdit: ''
+    postToEdit: '',
+    messages: []
   },
   mutations: {
     SET_IS_LOGGED_IN (state, payload) {
@@ -18,6 +19,9 @@ export default new Vuex.Store({
     },
     SET_POST_DATA (state, payload) {
       state.postToEdit = payload
+    },
+    PUSH_MESSAGES (state, payload) {
+      state.messages.push(payload)
     }
   },
   actions: {
@@ -179,7 +183,6 @@ export default new Vuex.Store({
             reject(err.response.data)
           })
       })
-
     },
     loginGoogle (_, payload) {
       return new Promise((resolve, reject) => {
@@ -195,7 +198,6 @@ export default new Vuex.Store({
             reject(err.response.data)
           })
       })
-
     }
   },
   modules: {

@@ -1,23 +1,26 @@
 <template>
   <div>
     <div id="overlay">
-      <form class="panel_edit" @submit.prevent="editPost(postEdit)">
-      <h2 id="edit-title">EDIT POST</h2>
-      <button @click="close" type="button" class="btn-close btn-close-white" aria-label="Close"></button>
-      <img :src="imageUrl" width="200" alt="" class="imageEdit">
-        <textarea
-          name="user_activity"
-          placeholder="Share what you've been up to..."
-          class="form-control"
-          v-model="content"
-        ></textarea>
-        <div class="actions">
-          <div class="btn-group">
-            <input type="file" @change="file($event)" />
+      <div class="editpost">
+      <div class="messageSender">
+          <img :src="imageUrl" width="200" alt="" class="imageEdit">
+          <div class="messageSender__top">
+            <form @submit.prevent="editPost(postEdit)">
+              <input v-model="content" class="messageSender__input" placeholder="What's on your mind?" type="text" />
+              <button  @click="close" class="btn button-primary" >CANCEL</button>
+              <button class="btn button-primary" >SUBMIT</button>
+            </form>
           </div>
-          <button class="btn btn-secondary">Post</button>
+
+          <div class="messageSender__bottom">
+            <div class="file-upload">
+                <label for="image">Upload image</label>
+                <img src="https://i.stack.imgur.com/dy62M.png" />
+                <input type="file" name="image" @change="file($event)"/>
+                </div>
+          </div>
         </div>
-      </form>
+    </div>
     </div>
   </div>
 </template>
@@ -85,17 +88,87 @@ export default {
   justify-items: center;
   color: white;
 }
-.panel_edit {
-  width: 600px;
-  margin: auto;
-  margin-top: 100px;
-}
+
 h2 {
 color: white;
 }
 
 .imageEdit {
   display: block;
+  margin: auto;
+  margin-top: 10px;
+}
+.messageSender {
+  display: flex;
+  margin-top: 30px;
+  flex-direction: column;
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 0px 5px 7px -7px rgba(0, 0, 0, 0.75);
+  width: 100%;
 }
 
+.messageSender__top {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #eff2f5;
+  padding: 15px;
+}
+
+.messageSender__top form {
+  flex: 1;
+  display: flex;
+}
+
+.messageSender__top form input {
+  flex: 1;
+  outline-width: 0;
+  border: none;
+  padding: 15px 20px;
+  margin: 0 10px;
+  border-radius: 999px;
+  background-color: #eff2f5;
+}
+
+.messageSender__option h3 {
+  font-size: medium;
+  margin-left: 10px;
+}
+
+.editpost{
+  width: 600px;
+  margin: auto;
+  margin-top: 100px;
+}
+
+.file-upload{
+  height:30px;
+  width:30px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  left: 350px;
+  border:1px solid #f0c0d0;
+  border-radius:100px;
+  overflow:hidden;
+  position:relative;
+}
+.file-upload input{
+  position:absolute;
+  height:400px;
+  width:400px;
+  left:-200px;
+  top:-200px;
+  background:transparent;
+  opacity:0;
+  -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+  filter: alpha(opacity=0)
+}
+.file-upload img{
+  position: absolute;
+  left: -15px;
+  bottom: -15px;
+  height:30px;
+  width:30px;
+  margin:15px;
+}
 </style>

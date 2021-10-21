@@ -2,10 +2,11 @@
   <nav class="navbar navbar-default">
     <div class="container-fluid">
       <div class="navbar-header">
-        <h3 style="color: White;">ChatNonymous</h3>
+        <h3 style="color: White;"><router-link to="/">ChatNonymous</router-link></h3>
       </div>
       <ul class="nav ">
         <li><router-link class="router-link-active" to="/" style="text-decoration: none;">Home</router-link></li>
+        <li><router-link to="/chat">Chat!</router-link></li>
         <li><a href="" @click.prevent="logout">Logout</a></li>
       </ul>
     </div>
@@ -31,5 +32,9 @@ export default {
   top : 0;
   z-index: 10000;
   background-color: #2F5D62;
+}
+ul li a {
+  font-size: 18px;
+  color: white;
 }
 </style>
