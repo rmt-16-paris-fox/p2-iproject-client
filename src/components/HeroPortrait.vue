@@ -1,8 +1,8 @@
 <template>
   <div :class="`hero-container ${isSelected ? 'selected' : ''}`" :style="`background-image: url('${heroImage}')`">
     <div class="team-container">
-      <div @click.stop="radiantHandler" class="radiant d-flex justify-content-center align-items-center">A</div>
-      <div @click.stop="direHandler" class="dire d-flex justify-content-center align-items-center">B</div>
+      <div @click.stop="radiantHandler" class="radiant-portrait d-flex justify-content-center align-items-center">A</div>
+      <div @click.stop="direHandler" class="dire-portrait d-flex justify-content-center align-items-center">B</div>
     </div>
   </div>
 </template>
@@ -83,7 +83,7 @@ export default {
     display: inline-block;
   }
 
-  .radiant, .dire {
+  .radiant-portrait, .dire-portrait {
     display: inline-block;
     position: absolute;
     top: 0;
@@ -93,21 +93,21 @@ export default {
     border-radius: 6px 0 0 6px;
   }
 
-  .dire {
+  .dire-portrait {
     border-radius: 0 6px 6px 0;
   }
 
-  .radiant:hover {
+  .radiant-portrait:hover {
     background: rgb(89,173,100);
     background: linear-gradient(90deg, rgba(89,173,100,0) 0%, rgba(89,173,100,0.8) 70%, rgba(89,173,100,0.8) 100%);
   }
 
-  .dire:hover {
+  .dire-portrait:hover {
     background: rgb(86, 23, 10);
     background: linear-gradient(90deg, rgba(86, 23, 10,0.8) 0%, rgba(86, 23, 10,0.8) 30%, rgba(86, 23, 10,0) 100%);
   }
 
-  .dire {
+  .dire-portrait {
     left: 50%;
   }
 </style>
