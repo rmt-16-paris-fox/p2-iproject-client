@@ -29,7 +29,7 @@ export default new Vuex.Store({
       try {
         let result = await axios({
           method: "GET",
-          url: "http://localhost:3000/estate",
+          url: "https://i-project-colin.herokuapp.com/estate",
           params: {
             state_code,
             city,
@@ -44,7 +44,7 @@ export default new Vuex.Store({
       try {
         let result = await axios({
           method: "GET",
-          url: "http://localhost:3000/city",
+          url: "https://i-project-colin.herokuapp.com/city",
           params: {
             state_code: payload,
           },
