@@ -3,11 +3,11 @@
     <div class="container px-5 py-24 mx-auto flex flex-wrap items-center">
       <div class="lg:w-3/5 md:w-1/2 md:pr-16 lg:pr-0 pr-0">
         <h1 class="title-font font-medium text-3xl text-gray-900">
-          Selamat Datang di Situs Pemabyaran Pajak Pemotongan Hewan
+          Selamat Datang di Situs Pembayaran Pajak Pemotongan Hewan
         </h1>
         <p class="leading-relaxed mt-4">
           Semua pajak yang Anda bayarkan melalui situs ini akan otomatis
-          terbaayarkan ke Pemerintah Daerah.
+          terbayarkan ke Pemerintah Daerah.
         </p>
       </div>
       <div
