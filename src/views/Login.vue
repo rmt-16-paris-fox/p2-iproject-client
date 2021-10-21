@@ -6,7 +6,9 @@
         class="login-section"
       >
           <div id="container" class="container">
-            <div class="row login-register-container">
+            <div class="row login-register-container"
+            data-aos="fade-up" data-aos-duration="600"
+            >
               <div class="col-xl-5 col-lg-6 col-md-8 col-sm-10 mx-auto text-center form p-4">
                 <form action=""
                 class="login-form form-control form-inline justify-content-center card shadow"
