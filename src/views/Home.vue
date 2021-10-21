@@ -1,18 +1,25 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+    <form @submit.prevent="findMatchHandler">
+      <input type="text" v-model="matchId">
+      <input type="submit" value="Find">
+    </form>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
 
 export default {
   name: 'Home',
-  components: {
-    HelloWorld
+  data() {
+    return {
+      matchId: ''
+    }
+  },
+  methods: {
+    findMatchHandler() {
+      this.$router.push({ name: 'MatchOverview', params: { matchId: this.matchId }});
+    }
   }
 }
 </script>
