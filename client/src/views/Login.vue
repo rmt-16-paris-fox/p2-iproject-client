@@ -63,7 +63,8 @@
 
 <script>
 import GoogleSignInButton from 'vue-google-signin-button-directive'
-
+import { swalError, swalSuccess } from '../apis/swal'
+// import swalSuccess from '../apis/swal'
 export default {
   name: 'LoginPage',
   directives: {
@@ -87,8 +88,10 @@ export default {
           localStorage.setItem('access_token', data.access_token)
           this.$store.commit('SET_IS_LOGGED_IN', true)
           this.$router.push('/')
+          swalSuccess('Login Success')
         })
         .catch((err) => {
+          swalError(err.message)
           console.log(err)
         })
     },
@@ -98,8 +101,10 @@ export default {
           localStorage.setItem('access_token', data.access_token)
           this.$store.commit('SET_IS_LOGGED_IN', true)
           this.$router.push('/')
+          swalSuccess('Login Success')
         })
         .catch((err) => {
+          swalError('Login Fail')
           console.log(err)
         })
     },

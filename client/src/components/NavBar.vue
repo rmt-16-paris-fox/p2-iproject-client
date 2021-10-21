@@ -14,6 +14,7 @@
 </template>
 
 <script>
+import { swalSuccess } from '../apis/swal'
 export default {
   name: 'NavBar',
   methods: {
@@ -21,6 +22,7 @@ export default {
       localStorage.clear()
       this.$router.push('/login')
       this.$store.commit('SET_IS_LOGGED_IN', false)
+      swalSuccess('Logged Out')
     }
   }
 }

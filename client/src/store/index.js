@@ -116,7 +116,7 @@ export default new Vuex.Store({
           data: form
         })
           .then(({ data }) => {
-            resolve()
+            resolve(data)
           })
           .catch((err) => {
             reject(err.response.data)
@@ -132,7 +132,7 @@ export default new Vuex.Store({
           data: { comment: payload.comment }
         })
           .then(({ data }) => {
-            resolve()
+            resolve(data)
           })
           .catch((err) => {
             reject(err.response.data)

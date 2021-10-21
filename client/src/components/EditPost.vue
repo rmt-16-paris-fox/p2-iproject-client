@@ -26,6 +26,7 @@
 </template>
 
 <script>
+import { swalError, swalSuccess } from '../apis/swal'
 export default {
   name: 'EditPost',
   props: ['postEdit'],
@@ -52,8 +53,10 @@ export default {
         .then((data) => {
           this.$emit('fetchAllPost', true)
           this.$store.commit('SET_EDIT_PAGE', false)
+          swalSuccess(data.message)
         })
         .catch((err) => {
+          swalError(err.message)
           console.log(err)
         })
     }

@@ -20,6 +20,7 @@
 </template>
 
 <script>
+import { swalError, swalSuccess } from '../apis/swal'
 export default {
   name: 'AddPostForm',
   data () {
@@ -41,9 +42,10 @@ export default {
         .then((data) => {
           this.$emit('fetchPost', true)
           this.content = ''
+          swalSuccess(data.message)
         })
         .catch((err) => {
-          console.log(err)
+          swalError(err.message)
         })
     }
   }

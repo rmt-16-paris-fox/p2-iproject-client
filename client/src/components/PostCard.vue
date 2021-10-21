@@ -47,6 +47,7 @@
 </template>
 
 <script>
+import { swalError, swalSuccess } from '../apis/swal'
 import Comment from '../components/Comment.vue'
 export default {
   name: 'PostCard',
@@ -77,8 +78,11 @@ export default {
         .then((data) => {
           this.$emit('fetchAllPost')
           this.comment = ''
+          swalSuccess(data.message)
+          console.log(data)
         })
         .catch((err) => {
+          swalError(err.message)
           console.log(err)
         })
     },
@@ -95,9 +99,11 @@ export default {
       this.$store.dispatch('deletePost', id)
         .then((data) => {
           this.$emit('fetchAllPost')
+          swalSuccess(data.message)
         })
         .catch((err) => {
           console.log(err)
+          swalError(err.message)
         })
     }
   },

@@ -79,6 +79,7 @@
 </template>
 
 <script>
+import { swalError, swalSuccess } from '../apis/swal'
 export default {
   name: 'RegisterPage',
   data () {
@@ -101,11 +102,11 @@ export default {
       }
       this.$store.dispatch('register', payload)
         .then((data) => {
-          console.log(data)
+          swalSuccess(data.message)
           this.$router.push('/login')
         })
         .catch((err) => {
-          console.log(err)
+          swalError(err.message)
         })
     }
   }

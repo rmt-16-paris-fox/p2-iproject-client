@@ -2,8 +2,9 @@
     <div>
     <NavBar></NavBar>
   <div class="container mt-5 chat-room">
-    <div class="card">
-      <div class="card-body">
+    <h2 class="chat"><center>CHAT ROOMS</center> </h2>
+    <div class="card chat-body">
+      <div class="card-body body-room">
         <div id="message-list" style="height: 40vh; overflow-y: auto">
           <div class="card" v-for="(message, i) in messages" :key="i">
             <div class="card-body">
@@ -70,7 +71,16 @@ export default {
 .chat-room{
   width: 600px;
 }
+.chat-body {
+    box-shadow: 2px 2px black;
+}
+.body-room{
+  background-color: cadetblue;
+}
 #form-message{
   margin-left: 20%;
+}
+.chat {
+  text-shadow: 2px 2px black;
 }
 </style>

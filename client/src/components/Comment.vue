@@ -12,6 +12,7 @@
 </template>
 
 <script>
+import { swalError, swalSuccess } from '../apis/swal'
 export default {
   name: 'Comment',
   props: ['comment'],
@@ -25,8 +26,10 @@ export default {
       this.$store.dispatch('deleteComment', id)
         .then((data) => {
           this.$emit('fetchAllPost')
+          swalSuccess(data.message)
         })
         .catch((err) => {
+          swalError(err.message)
           console.log(err)
         })
     },
