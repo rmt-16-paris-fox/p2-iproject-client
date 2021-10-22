@@ -3,7 +3,8 @@
     <Navbar />
     <section id="projects">
       <div class="container">
-        <form v-if="!voice" class="d-flex form">
+        <!-- search form -->
+        <form v-if="!voice" @submit.prevent="submitSearch" class="d-flex form">
           <input
             v-model="title"
             class="form-control me-1"
@@ -25,23 +26,21 @@
             placeholder="Platform"
             aria-label="Search"
           />
-          <i @click.prevent="showVoice" class="bi bi-mic fs-4 me-2"></i>
-          <button
-            @click.prevent="submitSearch"
-            class="btn btn-primary me-1"
-            type="submit"
-          >
+          <i
+            @click.prevent="showVoice"
+            class="bi bi-mic-mute fs-4 me-2 border-dark"
+          ></i>
+          <button class="btn btn-primary me-1">
             Filter
           </button>
-          <button
-            @click="submitClear"
-            class="btn btn-primary me-5"
-            type="submit"
-          >
+          <button @click="submitClear" class="btn btn-primary me-5">
             Reset
           </button>
         </form>
-        <div v-if="voice" class="d-flex mb-2 mt-2 voice">
+        <!-- end of search form -->
+
+        <!-- Search by Voice -->
+        <div v-if="voice" class="d-flex voice">
           <input
             v-model="text"
             class="form-control me-1"
@@ -49,14 +48,23 @@
             placeholder="Search by Voice ..."
             aria-label="Search"
           />
-          <i @click.prevent="showFilter" class="bi bi-mic-fill fs-4 me-4"></i>
+          <i
+            @click.prevent="showFilter"
+            class="bi bi-mic fs-4 me-4 border-dark"
+          ></i>
+          <button @click="submitClear" class="btn btn-primary me-5">
+            Reset
+          </button>
           <div class="d-flex sm md4 text-center">
             <Search :text.sync="text" @speechend="speechEnd"> </Search>
           </div>
-          <div class="d-flex text-center mt-4">
+          <!-- <div class="d-flex text-center mt-4">
             {{ sentences }}
-          </div>
+          </div> -->
         </div>
+        <!-- End of Search by Voice -->
+
+        <!-- Pagination -->
         <b-pagination
           class="pagination"
           v-model="pageNumber"
@@ -65,6 +73,9 @@
           aria-controls="getGamesData"
           align="center"
         ></b-pagination>
+        <!-- End of Pagination -->
+
+        <!-- Games Database + Card -->
         <div class="row text-center mb-3">
           <div class="col">
             <h2>Free-to-Play Games Database App</h2>
@@ -88,29 +99,26 @@
 // @ is an alias to /src
 import Navbar from "@/components/Navbar.vue";
 import GamesCard from "@/components/GamesCard.vue";
-// import SearchByVoice from "../views/SearchByVoice.vue";
 import Search from "../components/Search.vue";
 import HFooter from "vue-hacktiv8-footer";
 export default {
   name: "HomePage",
   data() {
     return {
-      pageNumber: 2,
-      pageLimit: 10,
+      pageNumber: 1,
+      pageLimit: 9,
       title: "",
       genre: "",
       platform: "",
       text: "",
       sentences: null,
-      voice: false,
-      pagination: false
+      voice: false
     };
   },
   components: {
     Navbar,
     HFooter,
     GamesCard,
-    // SearchByVoice
     Search
   },
   methods: {
@@ -121,12 +129,13 @@ export default {
       this.voice = false;
     },
     speechEnd({ sentences, text }) {
-      console.log("text", text);
-      console.log("sentences", sentences);
+      // console.log("text", text);
+      // console.log("sentences", sentences);
       this.sentences = sentences;
+      this.title = this.sentences;
+      this.submitSearch();
     },
     submitSearch() {
-      this.pagination = true;
       const payload = {
         pageNumber: this.pageNumber,
         pageLimit: this.pageLimit,
@@ -137,22 +146,19 @@ export default {
       this.$store
         .dispatch("fetchGames", payload)
         .then(({ data }) => {
-          if (this.$router.path !== "/") {
-            this.$router.push({ name: "Home" }).catch(() => {});
-          }
-          this.$store.commit("SET_PAGINATION", data);
+          this.$store.commit("SET_GAMESDATA", data);
         })
         .catch(err => {
           console.log(err.response.data);
         });
     },
     submitClear() {
-      this.pageNumber = "";
-      this.pageLimit = "";
+      this.pageNumber = 1;
+      this.pageLimit = 9;
       this.title = "";
-      this.content = "";
-      this.category = "";
-      this.submitSearch();
+      this.genre = "";
+      this.platform = "";
+      // this.submitSearch();
     }
   },
   created() {
@@ -166,7 +172,6 @@ export default {
     this.$store
       .dispatch("fetchGames", payload)
       .then(({ data }) => {
-        console.log(data);
         this.$store.commit("SET_GAMESDATA", data);
       })
       .catch(err => {
@@ -178,15 +183,11 @@ export default {
       return this.$store.state.isLogin;
     },
     gamesData() {
-      console.log(this.$store.state.gamesData);
       return this.$store.state.gamesData;
     },
     rows() {
       return this.$store.state.gamesData.rows;
     }
-    // paginationData() {
-    //   return this.$store.state.gamesData;
-    // }
   },
   watch: {
     pageNumber(val) {
@@ -200,7 +201,6 @@ export default {
       this.$store
         .dispatch("fetchGames", payload)
         .then(({ data }) => {
-          // console.log(data);
           this.$store.commit("SET_GAMESDATA", data);
         })
         .catch(err => {

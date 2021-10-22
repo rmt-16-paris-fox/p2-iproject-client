@@ -7,12 +7,10 @@
         <p class="card-text w-100 p-1" style="height: 75px">
           {{ games.short_description }}
         </p>
-        <router-link
-          :to="{ name: 'DetailPage', params: { id: games.id } }"
-          class="btn btn-primary"
-          >Detail Page</router-link
-        >
-        <i class="bi bi-bookmark fs-2"></i>
+        <router-link :to="{ name: 'DetailPage', params: { id: games.id } }"
+          ><i class="bi bi-info-circle fs-4"></i
+        ></router-link>
+        <i v-if="isLogin" class="bi bi-heart fs-4"></i>
       </div>
     </div>
   </div>
@@ -21,8 +19,14 @@
 <script>
 export default {
   name: "GamesCard",
-  props: ["games"]
-};
+  props: ["games"],
+  computed: {
+    isLogin() {
+      return this.$store.state.isLogin;
+    },
+  }
+    
+}
 </script>
 
 <style></style>
