@@ -12,7 +12,7 @@ import vuetify from "./plugins/vuetify";
 
 Vue.config.productionTip = false;
 
-const socket = io("http://localhost:3000/");
+const socket = io("https://i-project-colin.herokuapp.com/");
 
 Vue.use(VueSocketIOExt, socket, { store });
 
