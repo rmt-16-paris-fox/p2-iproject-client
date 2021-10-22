@@ -78,7 +78,7 @@ export default new Vuex.Store({
             password,
           },
         })
-          .then(({ data }) => {
+          .then(() => {
             resolve()
           })
           .catch((err) => {
@@ -157,7 +157,7 @@ export default new Vuex.Store({
           },
           data: form,
         })
-          .then(({ data }) => {
+          .then(() => {
             resolve()
           })
           .catch((err) => {
