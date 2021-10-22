@@ -14,10 +14,11 @@
       "
     >
       <PartnerContent
-        v-for="(meme, i) in meme.data.memes"
+        v-for="(meme, i) in memeDirect.memes"
         :key="i"
         :meme="meme"
       ></PartnerContent>
+      <span>{{ meme }}</span>
     </div>
   </main>
 </template>
@@ -37,13 +38,12 @@ export default {
     celebBirth() {
       return this.$store.state.celebBirth;
     },
-    meme() {
-      return this.$store.state.memeData;
+    memeDirect() {
+      return this.$store.state.memeDataDirect;
     },
   },
   created() {
-    this.$store.dispatch("fetchCelebBirthday");
-    this.$store.dispatch("fetchMeme");
+    this.$store.dispatch("fetchMemeDirect");
   },
 };
 </script>
