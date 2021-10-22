@@ -9,6 +9,7 @@ export default new Vuex.Store({
     estateData: [],
     messages: [],
     stateData: [],
+    admin: [],
   },
   mutations: {
     ESTATE_DATA(state, payload) {
@@ -22,6 +23,9 @@ export default new Vuex.Store({
     },
     GET_MESSAGE(state, payload) {
       state.messages = payload;
+    },
+    ADMIN_DATA(state, payload) {
+      state.admin = payload;
     },
   },
   actions: {

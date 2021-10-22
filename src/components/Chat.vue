@@ -131,6 +131,9 @@ export default {
     sendMessage(data) {
       this.$store.commit("PUSH_MESSAGE", data.message);
     },
+    sendDataAdmin(data) {
+      this.$store.commit("ADMIN_DATA", data);
+    },
     // logMessage(data) {
     //   console.log(data);
 
