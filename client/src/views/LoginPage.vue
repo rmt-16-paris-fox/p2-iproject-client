@@ -61,22 +61,20 @@ export default {
     return {
       email: '',
       password: '',
-      clientId: '58233509814-mguaofe34hpjjha0tca685spftjd7q2b.apps.googleusercontent.com'
+      clientId: '58233509814-9demhfo0ukuauq0a2lst1qr7270oupu7.apps.googleusercontent.com'
     }
   },
   methods: {
     OnGoogleAuthSuccess (idToken) {
       this.$store.dispatch('LoginGoogle', idToken)
         .then((data) => {
-          console.log(data)
           localStorage.setItem('access_token', data.access_token)
           swalSuccess('Success Login')
           this.$store.commit('SET_LOG_IN', true)
           this.$router.push('/')
         })
         .catch((err) => {
-          console.log(err)
-          swalSuccess(err)
+          swalError(err)
         })
     },
     OnGoogleAuthFail (error) {

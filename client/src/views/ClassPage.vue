@@ -2,12 +2,12 @@
   <div class="container-fluid">
     <Navbar />
         <div class="row">
-            <div class="col-8 justify-content-center">
-                <iframe width="400" height="280" class="m-3"
-                v-for="(video, idx) in getVideos" :key="idx"
-                :src="'https://www.youtube.com/embed/' + video">
-                </iframe>
-            </div>
+          <div class="col-8 justify-content-center">
+          <iframe width="400" height="280" class="m-3"
+          v-for="(video, idx) in getVideos" :key="idx"
+          :src="'https://www.youtube.com/embed/' + video">
+          </iframe>
+          </div>
         </div>
       <HFooter />
 </div>
@@ -32,7 +32,7 @@ export default {
     getDataClass () {
       this.$store.dispatch('FetchVideo', this.$route.params.title)
         .then((data) => {
-          const linkVideo = data.items.map(e => {
+          const linkVideo = data.map(e => {
             if (e.id.kind === 'youtube#video') {
               return e.id.videoId
             }

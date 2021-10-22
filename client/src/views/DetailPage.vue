@@ -22,6 +22,8 @@
                   <h6 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">{{ detailClass.instructor }}</h6>
                   <h3 class="fw-normal mb-1 pb-1" style="letter-spacing: 1px;">Description</h3>
                   <h6 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">{{ detailClass.description }}</h6>
+                  <h3 class="fw-normal mb-1 pb-1" style="letter-spacing: 1px;">Price</h3>
+                  <h6 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">{{ formatPrice }}</h6>
                   <router-link to="/" class="btn btn-primary">Back To Home</router-link>
               </div>
             </div>
@@ -55,6 +57,12 @@ export default {
   computed: {
     detailClass () {
       return this.$store.state.detailClass
+    },
+    formatPrice () {
+      return Intl.NumberFormat('id-ID', {
+        style: 'currency',
+        currency: 'IDR'
+      }).format(this.detailClass.price)
     }
   }
 }

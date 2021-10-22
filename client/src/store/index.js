@@ -2,7 +2,6 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from '../apis/server'
 import { swalError } from '../apis/swal'
-import youtube from '../apis/youtube'
 
 Vue.use(Vuex)
 
@@ -12,7 +11,8 @@ export default new Vuex.Store({
     dataClass: [],
     detailClass: {},
     myCLass: [],
-    videos: []
+    videos: [],
+    successPayment: false
   },
   mutations: {
     SET_LOG_IN: function (state, payload) {
@@ -29,6 +29,9 @@ export default new Vuex.Store({
     },
     SET_VIDEOS: function (state, payload) {
       state.videos = payload
+    },
+    SET_SUCCESS_PAYMENT: function (state, payload) {
+      state.successPayment = payload
     }
   },
   actions: {
@@ -44,7 +47,7 @@ export default new Vuex.Store({
             resolve()
           })
           .catch((err) => {
-            reject(err)
+            reject(err.response.data.message)
           })
       })
     },
@@ -54,6 +57,20 @@ export default new Vuex.Store({
           url: '/register',
           method: 'post',
           data: { email, password, name }
+        })
+          .then(() => {
+            resolve()
+          })
+          .catch((err) => {
+            reject(err.response.data.message)
+          })
+      })
+    },
+    VerifyAccount (context, payload) {
+      return new Promise((resolve, reject) => {
+        axios({
+          url: `/verification/${payload}`,
+          method: 'patch'
         })
           .then(() => {
             resolve()
@@ -74,8 +91,6 @@ export default new Vuex.Store({
             resolve(data)
           })
           .catch((err) => {
-            console.log(err)
-            console.log(err.response.data.message)
             reject(err.response.data.message)
           })
       })
@@ -83,7 +98,8 @@ export default new Vuex.Store({
     FetchData (context, payload) {
       axios({
         url: '/class',
-        method: 'get'
+        method: 'get',
+        params: payload
       })
         .then(({ data }) => {
           context.commit('SET_DATA_CLASS', data)
@@ -119,6 +135,23 @@ export default new Vuex.Store({
           swalError(err.response.data.message)
         })
     },
+    Payment (context, payload) {
+      return new Promise((resolve, reject) => {
+        axios({
+          url: '/payment',
+          method: 'get',
+          headers: {
+            access_token: localStorage.getItem('access_token')
+          }
+        })
+          .then(({ data }) => {
+            resolve(data)
+          })
+          .catch((err) => {
+            reject(err)
+          })
+      })
+    },
     AddClass (context, payload) {
       return new Promise((resolve, reject) => {
         axios({
@@ -138,12 +171,9 @@ export default new Vuex.Store({
     },
     FetchVideo (context, payload) {
       return new Promise((resolve, reject) => {
-        youtube({
-          url: '/search',
-          method: 'get',
-          params: {
-            q: payload
-          }
+        axios({
+          url: `/getVideos/${payload}`,
+          method: 'get'
         })
           .then(({ data }) => {
             resolve(data)

@@ -86,7 +86,7 @@ export default {
       }
       this.$store.dispatch('Register', data)
         .then(() => {
-          swalSuccess('Success register, please login')
+          swalSuccess('Success register, please check your email to verify your accout.')
           this.$router.push('/login')
         })
         .catch((err) => {
