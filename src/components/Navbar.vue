@@ -31,71 +31,32 @@
           </li>
         </ul>
       </div>
-      <div class="d-flex justify-content-end">
-        <!-- <form class="d-flex">
-              <input
-                class="form-control me-1"
-                type="search"
-                placeholder="Title"
-                aria-label="Search"
-              />
-              <input
-                class="form-control me-1"
-                type="search"
-                placeholder="Category"
-                aria-label="Search"
-              />
-              <input
-                class="form-control me-1"
-                type="search"
-                placeholder="Platform"
-                aria-label="Search"
-              />
-              <input
-                v-if="isLogin"
-                class="form-control me-2"
-                type="search"
-                placeholder="Title"
-                aria-label="Search"
-              />
-              <i class="bi bi-mic fs-4 me-2"></i>
-              <i class="bi bi-mic-fill fs-4 me-4"></i>
-              <button
-                @click.prevent="submitSearch"
-                class="btn btn-primary me-1"
-                type="submit"
-              >
-                Filter
-              </button>
-              <button
-                @clickprevent="submitClear"
-                class="btn btn-primary me-5"
-                type="submit"
-              >
-                Reset
-              </button>
-            </form> -->
-        <router-link to="login"
-          ><button
-            v-if="!isLogin"
-            class="btn btn-primary rounded me-1"
-            type="submit"
-          >
-            Login
-          </button></router-link
+      <div class="d-inline justify-content-end">
+        <button 
+          @click="loginButton"
+          v-if="!isLogin"
+          class="btn btn-primary rounded me-0"
+          type="submit"
         >
-        <button @click="logoutButton"
+          Login
+        </button>
+        >
+        <button
+          @click="logoutButton"
           v-if="isLogin"
-          class="btn btn-primary rounded me-1 d-flex"
+          class="btn btn-primary rounded me-0"
           type="submit"
         >
           Logout
         </button>
-        <router-link to="register" v-if="!isLogin"
-          ><button class="btn btn-primary rounded me-1" type="submit">
-            Register
-          </button></router-link
+        ><button
+          @click="registerButton"
+          v-if="!isLogin"
+          class="btn btn-primary rounded me-0"
+          type="submit"
         >
+          Register
+        </button>
       </div>
     </div>
   </nav>
@@ -104,51 +65,18 @@
 <script>
 export default {
   name: "Navbar",
-  data() {
-    return {
-      // pageNumber: '',
-      // pageLimit: '',
-      title: "",
-      content: "",
-      category: "",
-      select: true
-    };
-  },
   methods: {
+    loginButton() {
+      this.$router.push({ name: "LoginPage" }).catch(() => {});
+    },
     logoutButton() {
       localStorage.clear();
       this.$store.commit("SET_ISLOGIN", false);
       this.$router.push({ name: "HomePage" }).catch(() => {});
+    },
+    registerButton() {
+      this.$router.push({ name: "RegisterPage" }).catch(() => {});
     }
-    // submitSearch() {
-    //   const payload = {
-    //     pageNumber: this.pageNumber,
-    //     pageLimit: this.pageLimit,
-    //     title: this.title,
-    //     content: this.content,
-    //     categoryId: this.category
-    //   };
-    //   this.$store
-    //     .dispatch("filteredGames", payload)
-    //     .then(({ data }) => {
-    //       if (this.$router.path !== "/") {
-    //         this.$router.push({ name: "Home" }).catch(() => {});
-    //       }
-    //       this.$store.commit("SET_NEWSDATA", data);
-    //     })
-    //     .catch(err => {
-    //       console.log(err.response.data);
-    //     });
-    // },
-    // submitClear() {
-    //   this.pageNumber = "";
-    //   this.pageLimit = "";
-    //   this.title = "";
-    //   this.content = "";
-    //   this.category = "";
-    //   this.select = true;
-    //   this.submitSearch();
-    // }
   },
   computed: {
     isLogin() {

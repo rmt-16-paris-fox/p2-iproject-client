@@ -2,25 +2,15 @@
   <div class="card">
     <div class="card-text">
       <div class="row wrap justify-content-evenly">
-        <div class="d-flex sm text-center">
-          <p v-if="error" class="grey text">{{ error }}</p>
-          <p v-if="sentences.length > 0">
-            <!-- <span v-for="(sentence, i) in sentences" :key="i"
-              >{{ sentence }}.
-            </span> -->
-            <span>{{ runtimeTranscription }}</span>
-          </p>
-        </div>
-        <div class="d-flex sm text-center">
-          <i
+        <div class="form-control me-1">
+          <div
             @click.stop="
               toggle ? endSpeechRecognition() : startSpeechRecognition()
             "
-            :color="!toggle ? 'grey' : speaking ? 'red' : 'red darken-3'"
-            :class="{ 'bi fs-4 me-2': toggle }"
+            :class="{ '': toggle }"
           >
-            <i>{{ toggle ? "stop" : "start" }}</i>
-          </i>
+            {{ toggle ? "stop" : "start" }}
+          </div>
         </div>
       </div>
     </div>
@@ -65,6 +55,7 @@ export default {
         sentences: this.sentences,
         text: this.sentences.join(". ")
       });
+      
     },
     startSpeechRecognition() {
       if (!recognition) {

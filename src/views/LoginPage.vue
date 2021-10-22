@@ -81,7 +81,7 @@ export default {
       email_login: "",
       password_login: "",
       clientId:
-        "339096367900-prt1bprc9gbq8gh9lt4b1e9ibjqlc65d.apps.googleusercontent.com"
+        "133236021969-3vaoga3mkq0np8ug75efoel34k140ufq.apps.googleusercontent.com"
     };
   },
   methods: {
@@ -95,7 +95,6 @@ export default {
         .then(({ data }) => {
           localStorage.setItem("access_token", data.access_token);
           this.$router.push("/");
-          // this.$store.dispatch("fetchUser");
           this.$store.commit("SET_ISLOGIN", true);
         })
         .catch(err => {
@@ -108,8 +107,6 @@ export default {
         .then(({ data }) => {
           localStorage.setItem("access_token", data.access_token);
           this.$router.push("/");
-          this.$store.dispatch("fetchGames");
-          // this.$store.dispatch("fetchUser");
           this.$store.commit("SET_ISLOGIN", true);
         })
         .catch(err => {
