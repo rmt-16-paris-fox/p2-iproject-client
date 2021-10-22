@@ -15,10 +15,14 @@
           <v-btn color="success" class="mr-4" @click="join"> Chat! </v-btn>
         </v-form>
         <!-- after joined -->
+        <div class="col-md-4">for admin</div>
         <div class="col-md-6" v-if="joined">
           <div class="card card-bordered">
             <div class="card-header">
-              <h4 class="card-title"><strong>Chat</strong></h4>
+              <h4 class="card-title">
+                <strong>Chat</strong> -
+                {{ $socket.connected ? "Connected" : "Disconnected" }}
+              </h4>
               <a
                 class="btn btn-xs btn-secondary"
                 href="#"
@@ -94,7 +98,7 @@ export default {
   methods: {
     async join() {
       await localStorage.setItem("name", this.name);
-      // this.$socket.emit("loginUser", this.name);
+      this.$socket.client.emit("loginUser", this.name);
       this.joined = true;
     },
     sendMessage() {
@@ -104,10 +108,10 @@ export default {
       };
       // this.$store.commit("PUSH_MESSAGE", data);
       this.inputMsg = "";
-      this.$socket.emit("newMessage", data);
+      this.$socket.client.emit("newMessage", data);
     },
     async deleteName() {
-      await this.$socket.emit("log", {
+      await this.$socket.client.emit("log", {
         name: this.name,
         log: this.$store.state.messages,
       });
@@ -121,6 +125,9 @@ export default {
     },
   },
   sockets: {
+    connect() {
+      console.log("socket connected");
+    },
     sendMessage(data) {
       this.$store.commit("PUSH_MESSAGE", data.message);
     },

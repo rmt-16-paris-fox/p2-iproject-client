@@ -2,7 +2,8 @@ import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
-import VueSocketIO from "vue-socket.io";
+import VueSocketIOExt from "vue-socket.io-extended";
+import { io } from "socket.io-client";
 
 import "bootstrap";
 import "bootstrap/dist/css/bootstrap.css";
@@ -11,17 +12,9 @@ import vuetify from "./plugins/vuetify";
 
 Vue.config.productionTip = false;
 
-Vue.use(
-  new VueSocketIO({
-    debug: true,
-    connection: "http://localhost:3000/",
-    // vuex: {
-    //   store,
-    //   actionPrefix: "SOCKET_ACTION",
-    //   mutationPrefix: "SOCKET_MUTATION",
-    // },
-  })
-);
+const socket = io("http://localhost:3000/");
+
+Vue.use(VueSocketIOExt, socket, { store });
 
 new Vue({
   router,

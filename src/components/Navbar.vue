@@ -8,31 +8,21 @@
         v-model="select"
         :loading="loading"
         :items="city"
+        item-text="city"
+        item-value="state_code"
         :search-input.sync="search"
         cache-items
         class="mx-4"
         flat
         hide-no-data
         hide-details
-        label="What city are you from?"
+        label="Look for your dream house here..."
         solo-inverted
         @keyup="searchAutocomplete"
-        @keyup.enter="findEstate"
-        @click="findEstate"
+        @keypress="findEstate"
+        @click.prevent="findEstate"
       ></v-autocomplete>
-      <v-autocomplete
-        v-model="selectState"
-        :loading="loadingState"
-        :items="itemsState"
-        :search-input.sync="searchState"
-        cache-items
-        class="mx-1"
-        flat
-        hide-no-data
-        hide-details
-        label="State?"
-        solo-inverted
-      ></v-autocomplete>
+
       <v-btn color="primary" elevation="5" rounded @click.prevent="toCust"
         >Cust Support</v-btn
       >
@@ -50,70 +40,11 @@ export default {
   },
   data() {
     return {
-      loadingState: false,
-      itemsState: [
-        "AK",
-        "AL",
-        "AR",
-        "AS",
-        "AZ",
-        "CA",
-        "CO",
-        "CT",
-        "DC",
-        "DE",
-        "FL",
-        "GA",
-        "GU",
-        "HI",
-        "IA",
-        "ID",
-        "IL",
-        "IN",
-        "KS",
-        "KY",
-        "LA",
-        "MA",
-        "MD",
-        "ME",
-        "MI",
-        "MN",
-        "MO",
-        "MS",
-        "MT",
-        "NC",
-        "ND",
-        "NE",
-        "NH",
-        "NJ",
-        "NM",
-        "NV",
-        "NY",
-        "OH",
-        "OK",
-        "OR",
-        "PA",
-        "PR",
-        "RI",
-        "SC",
-        "SD",
-        "TN",
-        "TX",
-        "UT",
-        "VA",
-        "VI",
-        "VT",
-        "WA",
-        "WI",
-        "WV",
-        "WY",
-      ],
-      searchState: null,
-      selectState: null,
       loading: false,
       items: [],
       search: null,
       select: null,
+      state: null,
       city: [],
     };
   },
@@ -145,8 +76,18 @@ export default {
       this.city = this.stateData;
     },
     async findEstate() {
-      await this.getEstate({ city: this.search, state_code: this.searchState });
+      await this.getEstate({
+        city: this.search,
+        state_code: this.select,
+      });
     },
+  },
+  created() {
+    if (this.search === null) {
+      this.search = "new york";
+      this.select = "NY";
+      this.findEstate();
+    }
   },
 };
 </script>
