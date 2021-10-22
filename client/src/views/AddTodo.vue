@@ -4,7 +4,7 @@
     <Navbar></Navbar>
 
     <!-- FORM -->
-    <div class="container-fluid p-lg-5">
+    <div class="container-fluid p-lg-5" style="margin-top:100px">
       <div class="card p-lg-5 form-add">
         <h5>Add Todo</h5>
         <hr>
