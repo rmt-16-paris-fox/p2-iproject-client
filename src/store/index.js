@@ -9,8 +9,7 @@ export default new Vuex.Store({
   state: {
     isLogin: false,
     gamesData: [],
-    gamesDetail: [],
-    paginationData: []
+    gamesDetail: []
   },
   mutations: {
     SET_ISLOGIN(state, payload) {
@@ -21,9 +20,6 @@ export default new Vuex.Store({
     },
     SET_GAMESDATA(state, payload) {
       state.gamesData = payload;
-    },
-    SET_PAGINATION(state, payload) {
-      state.paginationData = payload;
     },
     SET_GAMESDETAIL(state, payload) {
       state.gamesDetail = payload;
@@ -51,7 +47,15 @@ export default new Vuex.Store({
         data: { idToken }
       });
     },
-    // fetchGames(context) {
+    submitYoutube(context, payload) {
+      console.log(payload)
+      return axios({
+        method: "GET",
+        url: `/games/youtube/${payload}`,
+      });
+      
+    },
+    // fetchGamesApi(context) {
     //   return freeToGame({
     //     method: "GET",
     //     url: "/apis",
@@ -61,13 +65,12 @@ export default new Vuex.Store({
     //         "x-rapidapi-key": "51a2719ae4msh8b33cad0050133fp1df56ajsn308e081b9a18",
     // },
     fetchGames(context, payload) {
-      console.log(payload)
       return axios({
         method: "GET",
         url: `/games/paginations?pageNumber=${payload.pageNumber}&pageLimit=${payload.pageLimit}&title=${payload.title}&genre=${payload.genre}&platform=${payload.platform}`
       });
     },
-    fetchGamesDetail(context, id) {//from API database
+    fetchGamesDetail(context, id) { //from API database
       return freeToGame({
         method: "GET",
 				url: "https://free-to-play-games-database.p.rapidapi.com/api/game",
