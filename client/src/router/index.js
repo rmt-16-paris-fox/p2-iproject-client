@@ -6,6 +6,7 @@ import HomePage from '../views/HomePage.vue'
 import DetailPage from '../views/DetailPage.vue'
 import MyClass from '../views/MyClass.vue'
 import ClassPage from '../views/ClassPage.vue'
+import VerifyAccount from '../views/VerifyAccount.vue'
 
 Vue.use(VueRouter)
 
@@ -38,6 +39,11 @@ const routes = [
     path: '/',
     name: 'HomePage',
     component: HomePage
+  },
+  {
+    path: '/verification/:verifyCode',
+    name: 'VerifyAccount',
+    component: VerifyAccount
   },
   {
     path: '/detail/:id',

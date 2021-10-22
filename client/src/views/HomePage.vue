@@ -81,15 +81,34 @@
   </button>
 </div>
 <h2 class="pt-5">Our Classes</h2>
+
+<h5 class="mt-5">Filter</h5>
+<form @submit.prevent="fetchData" class="d-flex mb-5">
+  <input v-model="title" class="form-control mx-2" type="text" placeholder="Search class by title" />
+  <select @change="changeCategory" v-model="category" class="form-select me-3">
+  <option value="" selected disabled>Select class by Category</option>
+  <option value="Back End">Back End</option>
+  <option value="Front End">Front End</option>
+</select>
+  <button type="submit" class="btn btn-primary me-2">Search</button>
+  <button @click.prevent="clearFilter" type="button" class="btn btn-danger me-2">Cancel</button>
+</form>
         <!-- Section-->
-        <section>
-            <div class="container px-4 px-lg-5 mt-5">
-                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-                  <CardClass v-for="DataClass in allClass" :key="DataClass.id" :DataClass="DataClass"/>
-              </div>
-          </div>
-        </section>
-      <HFooter />
+  <section>
+      <div class="container px-4 px-lg-5 mt-5">
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+            <CardClass v-for="DataClass in allClass.rows" :key="DataClass.id" :DataClass="DataClass"/>
+        </div>
+   <nav style="margin-start: 540px;" aria-label="Page navigation example">
+    <ul class="pagination">
+    <li class="page-item" v-if="this.currentPage > 1"><a class="page-link" @click.prevent="minusPage">Previous</a></li>
+    <li class="page-item"><a class="page-link" @click.prevent>{{ currentPage }}</a></li>
+    <li class="page-item" v-if="this.currentPage < this.totalPage"><a class="page-link" @click.prevent="plusPage">Next</a></li>
+    </ul>
+  </nav>
+    </div>
+  </section>
+      <HFooter class="mt-5"/>
   </div>
 </template>
 
@@ -100,14 +119,43 @@ import HFooter from 'vue-hacktiv8-footer'
 
 export default {
   name: 'HomePage',
+  data () {
+    return {
+      currentPage: 1,
+      title: '',
+      category: '',
+      totalPage: 5
+    }
+  },
   components: {
     Navbar,
     CardClass,
     HFooter
   },
   methods: {
+    clearFilter () {
+      this.category = ''
+      this.title = ''
+      this.fetchData()
+    },
     fetchData () {
-      this.$store.dispatch('FetchData')
+      const payload = {
+        title: this.title,
+        category: this.category,
+        page: this.currentPage
+      }
+      this.$store.dispatch('FetchData', payload)
+    },
+    changeCategory (event) {
+      this.category = event.target.value
+    },
+    plusPage () {
+      this.currentPage += 1
+      this.fetchData()
+    },
+    minusPage () {
+      this.currentPage -= 1
+      this.fetchData()
     }
   },
   created () {
