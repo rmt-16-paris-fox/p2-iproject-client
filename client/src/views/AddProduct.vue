@@ -131,7 +131,6 @@ export default {
             title: 'Oops...',
             text: err.data.message,
           })
-          console.log(err)
         })
     },
     back() {

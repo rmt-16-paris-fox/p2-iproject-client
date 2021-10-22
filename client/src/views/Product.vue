@@ -90,7 +90,6 @@ export default {
         .then((data) => {
           this.products = data
           this.lengthData = data.length
-          console.log(data.length)
         })
         .catch((err) => {
           console.log(err)

@@ -102,6 +102,7 @@ export default {
         .dispatch('loginGoogle', idToken)
         .then((data) => {
           localStorage.setItem('access_token', data.access_token)
+          this.$router.push('/products')
           Swal.fire({
             position: 'center',
             icon: 'success',
@@ -109,7 +110,6 @@ export default {
             showConfirmButton: false,
             timer: 1500,
           })
-          this.$router.push('/products')
         })
         .catch((err) => {
           console.log(err)
