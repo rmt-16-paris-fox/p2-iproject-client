@@ -126,6 +126,11 @@ export default {
           this.$router.push('/products')
         })
         .catch((err) => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: err.data.message,
+          })
           console.log(err)
         })
     },

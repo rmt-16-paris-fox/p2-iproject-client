@@ -46,13 +46,8 @@
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
               <li>
-                <a @click="addTransactionPage" class="dropdown-item" href="#"
-                  >Add Transaction</a
-                >
-              </li>
-              <li>
                 <a
-                  @click.prevent="getTransaction"
+                  @click.prevent="goToTransaction"
                   class="dropdown-item"
                   href="#"
                   >Show List Transaction</a
@@ -79,10 +74,10 @@
               </li>
             </ul>
           </li>
-          <li v-if="login" class="nav-item">
+          <li v-if="!isLogin" class="nav-item">
             <a @click.prevent="logIn" class="nav-link" href="#">Sign in</a>
           </li>
-          <li v-if="!login" class="nav-item">
+          <li v-if="isLogin" class="nav-item">
             <a @click.prevent="logOut" class="nav-link" href="#">Sign Out</a>
           </li>
         </ul>
@@ -94,13 +89,17 @@
 <script>
 export default {
   name: 'Navbar',
+  data() {
+    return {
+      userId: '',
+    }
+  },
   methods: {
     home() {
       this.$router.push('/')
     },
-
-    getTransaction() {
-      this.$store.dispatch('getTransaction')
+    goToTransaction() {
+      this.$router.push('/listTransaction')
     },
     listProduct() {
       this.$router.push('/products')
@@ -119,12 +118,9 @@ export default {
     productEditPage() {
       this.$router.push('/editProducts')
     },
-    addTransactionPage() {
-      this.$router.push({ name: 'AddTransaction' })
-    },
   },
   computed: {
-    login() {
+    isLogin() {
       return this.$store.state.isLogin
     },
   },
