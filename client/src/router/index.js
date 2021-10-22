@@ -5,7 +5,7 @@ import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
 import Products from '../views/Product.vue'
-import Transaction from '../views/Transaction.vue'
+import ListTransaction from '../views/Transaction.vue'
 import AddTransaction from '../views/AddTransaction.vue'
 import AddProduct from '../views/AddProduct.vue'
 import EditProduct from '../views/EditProduct.vue'
@@ -82,6 +82,18 @@ const routes = [
     path: '/addTransaction',
     name: 'AddTransaction',
     component: AddTransaction,
+    beforeEnter: (to, from, next) => {
+      if (!localStorage.getItem('access_token')) {
+        next('/login')
+      } else {
+        next()
+      }
+    },
+  },
+  {
+    path: '/listTransaction',
+    name: 'ListTransaction',
+    component: ListTransaction,
     beforeEnter: (to, from, next) => {
       if (!localStorage.getItem('access_token')) {
         next('/login')

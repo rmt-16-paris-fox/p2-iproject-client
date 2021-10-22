@@ -1,5 +1,5 @@
 <template>
-  <div class="container" style="height: 80vh">
+  <div class="container" style="height: 86vh">
     <h1 class="mt-4">Edit Product</h1>
     <br />
     <div class="row justify-content-center">
@@ -9,7 +9,7 @@
         style="
           background-color: #3c415c;
           border-radius: 20px;
-          height: 700px;
+          height: 650px;
           box-shadow: 8px 19px 57px -8px rgba(0, 0, 0, 0.59);
         "
       >

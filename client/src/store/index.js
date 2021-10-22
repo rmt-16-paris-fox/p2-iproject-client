@@ -8,13 +8,21 @@ export default new Vuex.Store({
   state: {
     isLogin: false,
     products: '',
+    userId: '',
+    transaction: [],
   },
   mutations: {
-    SET_IS_LOGIN: function (state, payload = false) {
+    SET_IS_LOGIN: function (state, payload) {
       state.isLogin = payload
     },
     SET_PRODUCTS: function (state, payload = '') {
       state.products = payload
+    },
+    SET_USER_ID: function (state, payload) {
+      state.userId = payload
+    },
+    SET_IS_TRANSACTION: function (state, payload = []) {
+      state.transaction = payload
     },
   },
   actions: {
@@ -30,9 +38,9 @@ export default new Vuex.Store({
           },
         })
           .then(({ data }) => {
-            console.log(data)
             localStorage.setItem('access_token', data.access_token)
             commit('SET_IS_LOGIN', true)
+            commit('SET_USER_ID', data.id)
             resolve()
           })
           .catch((err) => {
@@ -41,7 +49,7 @@ export default new Vuex.Store({
           })
       })
     },
-    loginGoogle(_, payload) {
+    loginGoogle({ commit }, payload) {
       return new Promise((resolve, reject) => {
         axios({
           url: '/users/login-google',
@@ -51,10 +59,11 @@ export default new Vuex.Store({
           },
         })
           .then(({ data }) => {
+            commit('SET_IS_LOGIN', true)
             resolve(data)
           })
           .catch((err) => {
-            reject(err.response.data)
+            reject(err.response)
           })
       })
     },
@@ -81,10 +90,12 @@ export default new Vuex.Store({
           })
       })
     },
-    fetchProduct() {
+    fetchProduct(_, payload) {
       return new Promise((resolve, reject) => {
+        const page = payload.page ? payload.page : 1
+        const name = payload.name ? payload.name : ''
         axios({
-          url: '/products',
+          url: `/products?page=${page}&name=${name}`,
           method: 'GET',
           headers: {
             access_token: localStorage.getItem('access_token'),
@@ -92,6 +103,23 @@ export default new Vuex.Store({
         })
           .then(({ data }) => {
             // console.log(data.rows)
+            resolve(data.rows)
+          })
+          .catch((err) => {
+            reject(err.response.data)
+          })
+      })
+    },
+    fetchAllProducts() {
+      return new Promise((resolve, reject) => {
+        axios({
+          url: `/products`,
+          method: 'GET',
+          headers: {
+            access_token: localStorage.getItem('access_token'),
+          },
+        })
+          .then(({ data }) => {
             resolve(data.rows)
           })
           .catch((err) => {
@@ -113,12 +141,11 @@ export default new Vuex.Store({
             resolve(data)
           })
           .catch((err) => {
-            reject(err)
+            reject(err.response)
           })
       })
     },
     addProduct(_, payload) {
-      console.log(payload)
       return new Promise((resolve, reject) => {
         let form = new FormData()
         form.append('name', payload.name)
@@ -140,7 +167,7 @@ export default new Vuex.Store({
             resolve()
           })
           .catch((err) => {
-            console.log(err)
+            // console.log(err.resp)
             reject(err.response)
           })
       })
@@ -189,13 +216,49 @@ export default new Vuex.Store({
           })
       })
     },
-    getTransaction(_, payload) {
-      console.log(payload)
-      // return new Promise((resolve, reject) => {
-      //   axios({
-      //     url: `/transactions/${payload}`,
-      //   })
-      // })
+    addTransaction(_, payload) {
+      return new Promise((resolve, reject) => {
+        const { userId, productId, totalAmount, totalQuantity } = payload
+        axios({
+          url: `/transactions/${productId}`,
+          method: 'POST',
+          headers: {
+            access_token: localStorage.getItem('access_token'),
+          },
+          data: {
+            userId,
+            productId,
+            totalAmount,
+            totalQuantity,
+          },
+        })
+          .then(({ data }) => {
+            resolve(data)
+          })
+          .catch((err) => {
+            console.log(err)
+            reject(err.response)
+          })
+      })
+    },
+    getTransaction({ commit }) {
+      return new Promise((resolve, reject) => {
+        axios({
+          url: `/transactions`,
+          method: 'GET',
+          headers: {
+            access_token: localStorage.getItem('access_token'),
+          },
+        })
+          .then(({ data }) => {
+            commit('SET_IS_TRANSACTION', data.rows)
+            resolve(data.rows)
+          })
+          .catch9((err) => {
+            console.log(err)
+            reject(err.response)
+          })
+      })
     },
     getCategory() {
       return new Promise((resolve, reject) => {

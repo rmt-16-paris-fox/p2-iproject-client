@@ -32,15 +32,15 @@
             />
           </div>
           <p style="color: #b4a5a5">Or login with google</p>
-          <button
-            v-google-signin-button="clientId"
-            class="google-signin-button"
-          >
-            Continue with Google
-          </button>
-          <br />
-          <br />
           <div class="d-grid gap-2">
+            <button
+              @click.prevent="OnGoogleAuthSuccess"
+              v-google-signin-button="clientId"
+              class="google-signin-button text-light"
+              style="background-color: #151515"
+            >
+              Continue with Google
+            </button>
             <button
               class="btn text-light"
               type="submit"
@@ -67,8 +67,7 @@ export default {
     return {
       email: '',
       password: '',
-      clientId: `674965215344 -
-        mqa5huf2en9sd1uv4lsg7nelq2fvqcfp.apps.googleusercontent.com`,
+      clientId: `674965215344-mqa5huf2en9sd1uv4lsg7nelq2fvqcfp.apps.googleusercontent.com`,
     }
   },
   methods: {
@@ -93,9 +92,8 @@ export default {
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
-            text: err.data.name,
+            text: err.data.message,
           })
-          console.log(err.data.name)
         })
     },
     OnGoogleAuthSuccess(idToken) {
@@ -104,10 +102,17 @@ export default {
         .dispatch('loginGoogle', idToken)
         .then((data) => {
           localStorage.setItem('access_token', data.access_token)
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Hi! Welcome to Cashier App',
+            showConfirmButton: false,
+            timer: 1500,
+          })
           this.$router.push('/products')
         })
         .catch((err) => {
-          console.log(err.message)
+          console.log(err)
         })
     },
     OnGoogleAuthFail(error) {
@@ -117,9 +122,4 @@ export default {
 }
 </script>
 
-<style>
-.btn-google {
-  color: white !important;
-  background-color: #ea4335;
-}
-</style>
+<style></style>

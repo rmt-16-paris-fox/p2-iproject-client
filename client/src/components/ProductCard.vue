@@ -1,18 +1,18 @@
 <template>
   <div class="col-2 mx-4">
-    <div class="card mb-3">
+    <div class="card mb-3" style="height: 670px">
       <img
         :src="product.imageUrl"
-        class="card-img-top"
-        alt=""
+        class="card-img"
+        alt="Previous"
         height="180px"
         width="120px"
       />
-      <div class="card-body">
-        <h5 class="card-title">{{ product.name }}</h5>
+      <div class="card-body" style="height: 400px">
+        <h6 class="card-title">{{ product.name }}</h6>
         <ul class="list-group list-group-flush">
           <li class="list-group-item" style="text-align: left">
-            Price : {{ product.price }}
+            Price : {{ formatePrice }}
           </li>
           <li class="list-group-item" style="text-align: left">
             Stock : {{ product.stock }}
@@ -60,6 +60,21 @@ export default {
   name: 'ProductCard',
   props: ['product'],
   methods: {
+    buyProduct(id) {
+      this.$store
+        .dispatch('getOneProducts', id)
+        .then(() => {
+          this.$router.push('/addTransaction')
+        })
+        .catch((err) => {
+          console.log(err)
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: err.data.message,
+          })
+        })
+    },
     editProduct(id) {
       this.$store
         .dispatch('getOneProducts', id)
@@ -70,7 +85,7 @@ export default {
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
-            text: err,
+            text: err.data.message,
           })
         })
     },
@@ -88,13 +103,20 @@ export default {
           this.$emit('deleteSuccess')
         })
         .catch((err) => {
-          console.log(err)
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
             text: err.data.message,
           })
         })
+    },
+  },
+  computed: {
+    formatePrice() {
+      return Intl.NumberFormat('id-ID', {
+        style: 'currency',
+        currency: 'IDR',
+      }).format(this.product.price)
     },
   },
 }

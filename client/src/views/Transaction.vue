@@ -1,12 +1,6 @@
 <template>
-  <div class="container">
-    <div class="row">
-      <div class="col-2 my-2">
-        <button type="button" class="btn btn-primary float-start">
-          Add Transaction
-        </button>
-      </div>
-    </div>
+  <div class="container mt-5">
+    <h1 class="mb-5">History Transaction</h1>
     <table class="table">
       <thead class="table-dark">
         <tr>
@@ -32,7 +26,23 @@
 
 <script>
 export default {
-  name: 'Transaction',
+  name: 'ListTransaction',
+  data() {
+    return {
+      listTransaction: [],
+    }
+  },
+  created() {
+    this.$store
+      .dispatch('getTransaction')
+      .then(() => {
+        this.listTransaction = this.$store.state.transaction
+        console.log(this.listTransaction)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  },
 }
 </script>
 
