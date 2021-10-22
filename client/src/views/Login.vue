@@ -78,7 +78,8 @@ export default {
         })
     },
     OnGoogleAuthFail (err) {
-      error(err.message.join(','))
+      console.log(err)
+      error(err.message)
     }
   },
   directives: {
