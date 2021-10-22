@@ -67,7 +67,6 @@ export default {
           this.$router.push('/addTransaction')
         })
         .catch((err) => {
-          console.log(err)
           Swal.fire({
             icon: 'error',
             title: 'Oops...',

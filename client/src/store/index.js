@@ -44,7 +44,6 @@ export default new Vuex.Store({
             resolve()
           })
           .catch((err) => {
-            console.log(err)
             reject(err.response)
           })
       })
@@ -69,7 +68,6 @@ export default new Vuex.Store({
     },
     register(_, payload) {
       const { username, email, password } = payload
-      console.log(payload)
       return new Promise((resolve, reject) => {
         axios({
           url: '/users/register',
@@ -81,11 +79,9 @@ export default new Vuex.Store({
           },
         })
           .then(({ data }) => {
-            console.log(data)
             resolve()
           })
           .catch((err) => {
-            console.log(err)
             reject(err.response.data)
           })
       })
@@ -102,7 +98,6 @@ export default new Vuex.Store({
           },
         })
           .then(({ data }) => {
-            // console.log(data.rows)
             resolve(data.rows)
           })
           .catch((err) => {
@@ -163,11 +158,9 @@ export default new Vuex.Store({
           data: form,
         })
           .then(({ data }) => {
-            console.log(data)
             resolve()
           })
           .catch((err) => {
-            // console.log(err.resp)
             reject(err.response)
           })
       })
@@ -207,11 +200,9 @@ export default new Vuex.Store({
           },
         })
           .then(({ data }) => {
-            console.log(data)
             resolve(data)
           })
           .catch((err) => {
-            // console.log(err)
             reject(err.response)
           })
       })
@@ -236,7 +227,6 @@ export default new Vuex.Store({
             resolve(data)
           })
           .catch((err) => {
-            console.log(err)
             reject(err.response)
           })
       })
@@ -255,7 +245,6 @@ export default new Vuex.Store({
             resolve(data.rows)
           })
           .catch9((err) => {
-            console.log(err)
             reject(err.response)
           })
       })
@@ -270,11 +259,9 @@ export default new Vuex.Store({
           },
         })
           .then(({ data }) => {
-            // console.log(data, 'ini category')
             resolve(data)
           })
           .catch((err) => {
-            // console.log(err.response)
             reject(err.response)
           })
       })
@@ -289,7 +276,6 @@ export default new Vuex.Store({
           },
         })
           .then(({ data }) => {
-            // console.log(data)
             resolve(data)
           })
           .catch((err) => {
