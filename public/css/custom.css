@@ -1,0 +1,42 @@
+.bg-header {
+    background-color: rgb(34, 32, 32);
+}
+
+body {
+    background-image: url("https://cdn.pixabay.com/photo/2020/03/15/17/22/mask-4934337_960_720.jpg");
+    background-blend-mode: luminosity;
+    background-size: 100%;
+}
+
+
+.content {
+    max-width: 650px;
+    margin-top: 60px;
+    margin-left: 290px;
+    padding-right: 30px;
+    padding-left: 30px;
+}
+
+.info a {
+    color: rgb(255, 187, 0);
+    text-decoration: none;
+    transition: 0.3s;
+    transition-property: color;
+}
+
+.info a:hover:not(.active) {
+    color: grey;
+}
+
+#nav {
+    padding: 30px;
+}
+
+#nav a {
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+#nav a.router-link-exact-active {
+    color: #42b983;
+}
