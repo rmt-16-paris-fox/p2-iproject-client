@@ -32,8 +32,8 @@ export default {
           } else {
             this.$store.commit('SET_IS_ADMIN', false)
           }
-          this.$router.push('/profile')
-          alertSuccess('Welcome to Health Supply!')
+          this.$router.push('/order')
+          alertSuccess('Welcome!')
         }).catch((err) => {
           alertError(err.message)
         })

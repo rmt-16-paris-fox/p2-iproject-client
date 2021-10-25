@@ -2,15 +2,15 @@
   <div>
     <NavBar></NavBar>
     <router-view/>
-    <!-- <Footer></Footer> -->
-    <HFooter></HFooter>
+    <Footer></Footer>
+    <!-- <HFooter></HFooter> -->
   </div>
 </template>
 
 <script>
 import NavBar from '@/components/NavBar.vue'
-// import Footer from '@/components/Footer.vue'
-import HFooter from 'vue-hacktiv8-footer'
+import Footer from '@/components/Footer.vue'
+// import HFooter from 'vue-hacktiv8-footer'
 import { alertError } from './apis/swal'
 
 export default {
@@ -36,8 +36,8 @@ export default {
   },
   components: {
     NavBar,
-    // Footer,
-    HFooter
+    Footer
+    // HFooter
   }
 }
 </script>

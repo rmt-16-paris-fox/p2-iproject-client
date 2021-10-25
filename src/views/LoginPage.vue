@@ -47,7 +47,7 @@ export default {
             this.$store.commit('SET_IS_ADMIN', false)
           }
           this.$store.commit('SET_IS_LOGGED_IN', true)
-          this.$router.push('/profile')
+          this.$router.push('/order')
           alertSuccess('Welcome!')
         }).catch((err) => {
           alertError(err.message)
