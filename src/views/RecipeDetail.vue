@@ -155,10 +155,10 @@
                 <div
                   :class="
                     message.user === userdata.name
-                      ? 'btn btn-secondary btn-sm'
-                      : 'btn btn-success btn-sm'
+                      ? 'btn btn-secondary btn-sm text-left'
+                      : 'btn btn-success btn-sm text-left'
                   "
-                  style="font-size:12pt"
+                  style="font-size:12pt; max-width:100%"
                 >
                   {{ message.message }}
                 </div>
@@ -212,7 +212,7 @@ export default {
     return {
       message: "",
       messages: [],
-      socket: io("http://localhost:3000")
+      socket: io("http://localhost:4000")
       // socket: io("https://our-99recipes-api.herokuapp.com")
     };
   },
