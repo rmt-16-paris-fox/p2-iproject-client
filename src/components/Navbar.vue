@@ -4,7 +4,7 @@
     style="border-radius: 20px;"
   >
     <router-link class="navbar-brand" to="/">
-      <h4 class="font-weight-bolder text-gray-900">
+      <h4 class="font-weight-bolder text-gray-900 m-0">
         <i class="fas fa-cookie-bite" style="color: #C36A2D"></i>99Recipes
       </h4>
     </router-link>
